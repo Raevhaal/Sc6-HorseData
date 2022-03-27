@@ -6,22 +6,77 @@
         CSV: https://docs.google.com/spreadsheets/d/1R3I_LXfqhvFjlHTuj-wSWwwqYmlUf299a3VY9pVyGEw/export?exportFormat=csv
 */
 
+//Globals
+const FrameDataCSV = "https://docs.google.com/spreadsheets/d/1R3I_LXfqhvFjlHTuj-wSWwwqYmlUf299a3VY9pVyGEw/export?exportFormat=tsv";
+var Fheaders = ["Character", "Move category", "Move Name", "Stance", "Command", "Hit level", "Impact", "Damage", "Block", "Hit", "Counter Hit", "Guard Burst", "Notes", ""];
+var Fdata;
 
 
-const FrameDataCSV = "https://docs.google.com/spreadsheets/d/1R3I_LXfqhvFjlHTuj-wSWwwqYmlUf299a3VY9pVyGEw/export?exportFormat=csv"
+function initFrameData(){
+    Papa.parse(FrameDataCSV, {
+        download: true,
+        header: true,
+        delimiter: "\t",
+        transformHeader: function(header,index){
+            //Applies headers from Fheaders
+            return Fheaders[index];
+        },
+        //Might not be needed
+        beforeFirstChunk: (chunk) => {
+            //Removes the header of the csv file
+            chunk = chunk.split("*CSV LINE MARKER*,,,,,,,,,,,,,\r\n")[1]
+            return chunk;
+        },
+        complete: (results) => {
+            results.data.splice(0,3);
+            Fdata = results.data;
+            createTable(Fdata);
+        }
+    });
 
-Papa.parse(FrameDataCSV, {
-    download: true,
-    header: true,
-    complete: (results) => {
-        const data = results.data;
-        console.log(data);
-    }
-});
+}
 
-
-// $(document).ready(function() {
-//     console.log("test");
+function createTable(data){
+    var startHeader = '<thead>';
+    var endHeader = '</tr></thead><tbody>';
+    var endTable = '</tbody></table>'
     
-// });
+    //Headers
+    var table = startHeader;
+    Fheaders.forEach(header => table += `<th scope="col">${header}</th>`);
+    table += endHeader
+
+    data.forEach(function (row, index){
+        if(index > 1000){
+            return false; //break
+        } else {
+            table += `<tr>
+            <td scope="col">${row[Fheaders[0]]}</td>
+            <td scope="col">${row[Fheaders[1]]}</td>
+            <td scope="col">${row[Fheaders[2]]}</td>
+            <td scope="col">${row[Fheaders[3]]}</td>
+            <td scope="col">${row[Fheaders[4]]}</td>
+            <td scope="col">${row[Fheaders[5]]}</td>
+            <td scope="col">${row[Fheaders[6]]}</td>
+            <td scope="col">${row[Fheaders[7]]}</td>
+            <td scope="col">${row[Fheaders[8]]}</td>
+            <td scope="col">${row[Fheaders[9]]}</td>
+            <td scope="col">${row[Fheaders[10]]}</td>
+            <td scope="col">${row[Fheaders[11]]}</td>
+            <td scope="col">${row[Fheaders[12]]}</td>
+            <td scope="col">${row[Fheaders[13]]}</td>
+            </tr>`
+        }
+    });
+    
+    
+
+    $('#fdata').html(table);
+    $('#fdata').DataTable();
+    //console.log("Finished");
+}
+
+$(document).ready(function() {
+    initFrameData();
+});
     
