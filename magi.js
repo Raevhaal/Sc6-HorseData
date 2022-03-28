@@ -10,6 +10,7 @@
 const FrameDataCSV = "https://docs.google.com/spreadsheets/d/1R3I_LXfqhvFjlHTuj-wSWwwqYmlUf299a3VY9pVyGEw/export?exportFormat=tsv";
 const Fheaders = ["Character", "Move category", "Move Name", "Stance", "Command", "Hit level", "Impact", "Damage", "Block", "Hit", "Counter Hit", "Guard Burst", "Notes"];
 var Fdata;
+var Dtable;
 
 
 function initFrameData(){
@@ -37,6 +38,7 @@ function initFrameData(){
 }
 
 function createTable(data){
+    console.log("before");
     var startHeader = '<thead>';
     var endHeader = '</tr></thead><tbody>';
     var endTable = '</tbody></table>'
@@ -67,25 +69,44 @@ function createTable(data){
             </tr>`
         }
     });
-    
-    
 
+    //End table
+    table = table + endTable;
+
+    //Start table
     $('#fdata').html(table);
-    $('#fdata').DataTable({
-        dom: '<"row mx-md-n5"<"col-6">l<"col-6 float-right">B>rt<"row mx-md-n5"<"col-6"i><"col-6 float-right"p>>',
+
+    var vDom = `
+                <"row mx-md-n5"
+                    <"col-6"
+                        l
+                    >
+                    <"col-6 float-right"B>
+                    
+                >
+                rt
+                <"row mx-md-n5"
+                    <"col-6"i>
+                    <"col-6 float-right"p>
+                >
+    `
+    
+    Dtable = $('#fdata').DataTable({
+        dom: vDom,
         buttons: [
-            'colvis', 'csv', 'excel'
+            'colvis',
+            'csv',
+            'excel',
+            'searchBuilder'
         ],
 
+        bProcessing: true,
         orderCellsTop: true,
         responsive: true,
         fixedHeader: true,
 
-        scrollX: true,
-        scrollY: 800,
-        scroller: {
-            loadingIndicator: true
-        },
+        scrollX: false,
+        scrollY: false,
 
         searchBuilder: {
             columns: [3,4,5]
@@ -100,7 +121,6 @@ function createTable(data){
         ],
 
     });
-    //console.log("Finished");
 }
 
 $(document).ready(function() {
