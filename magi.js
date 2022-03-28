@@ -8,7 +8,7 @@
 
 //Globals
 const FrameDataCSV = "https://docs.google.com/spreadsheets/d/1R3I_LXfqhvFjlHTuj-wSWwwqYmlUf299a3VY9pVyGEw/export?exportFormat=tsv";
-var Fheaders = ["Character", "Move category", "Move Name", "Stance", "Command", "Hit level", "Impact", "Damage", "Block", "Hit", "Counter Hit", "Guard Burst", "Notes", ""];
+const Fheaders = ["Character", "Move category", "Move Name", "Stance", "Command", "Hit level", "Impact", "Damage", "Block", "Hit", "Counter Hit", "Guard Burst", "Notes"];
 var Fdata;
 
 
@@ -47,7 +47,7 @@ function createTable(data){
     table += endHeader
 
     data.forEach(function (row, index){
-        if(index > 1000){
+        if(index > 1000000){
             return false; //break
         } else {
             table += `<tr>
@@ -64,7 +64,6 @@ function createTable(data){
             <td scope="col">${row[Fheaders[10]]}</td>
             <td scope="col">${row[Fheaders[11]]}</td>
             <td scope="col">${row[Fheaders[12]]}</td>
-            <td scope="col">${row[Fheaders[13]]}</td>
             </tr>`
         }
     });
@@ -72,7 +71,35 @@ function createTable(data){
     
 
     $('#fdata').html(table);
-    $('#fdata').DataTable();
+    $('#fdata').DataTable({
+        dom: '<"row mx-md-n5"<"col-6">l<"col-6 float-right">B>rt<"row mx-md-n5"<"col-6"i><"col-6 float-right"p>>',
+        buttons: [
+            'colvis', 'csv', 'excel'
+        ],
+
+        orderCellsTop: true,
+        responsive: true,
+        fixedHeader: true,
+
+        scrollX: true,
+        scrollY: 800,
+        scroller: {
+            loadingIndicator: true
+        },
+
+        searchBuilder: {
+            columns: [3,4,5]
+        },  
+
+        colReorder: true,
+        columnDefs: [
+            {targets: 0, visible: true},//Character
+            {targets: 1, visible: false},//Move category
+            {targets: 2, visible: false},//Move Name
+            {targets: 12, visible: true},//Notes
+        ],
+
+    });
     //console.log("Finished");
 }
 
