@@ -10,25 +10,13 @@
 const FrameDataCSV = "https://docs.google.com/spreadsheets/d/1R3I_LXfqhvFjlHTuj-wSWwwqYmlUf299a3VY9pVyGEw/export?exportFormat=tsv";
 
 var Fdata;
+
+//Datatable refrenece
 var Dtable;
 
 
 function downloadFrameData(){
     const CSVHeaders = ["Character", "Move category", "Move Name", "Stance", "Command", "Hit level", "Impact", "Damage", "Block", "Hit", "Counter Hit", "Guard Burst", "Notes"];
-
-    toastr.options = {
-        "closeButton": true,
-        "newestOnTop": false,
-        "positionClass": "toast-top-left",
-        "preventDuplicates": false,
-        "onclick": null,
-        "timeOut": "5000",
-        "extendedTimeOut": "1000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-    }
     toastr.warning("Getting framedata...");
 
     Papa.parse(FrameDataCSV, {
@@ -82,17 +70,15 @@ function createTable(data){
     });
 
     var vDom = `
-                <"row mx-md-n5"
-                    <"col-6"
-                        l
-                    >
-                    <"col-6 float-right"B>
+                <"row mx-0"
+                    <"col-6"l>
+                    <"col-6 px-0 float-right"B>
                     
                 >
                 rt
-                <"row mx-md-n5"
+                <"row fixed-bottom mx-0 bg-light"
                     <"col-6"i>
-                    <"col-6 float-right"p>
+                    <"col-6 px-0 float-right"p>
                 >
     `;
     
@@ -127,6 +113,9 @@ function createTable(data){
         responsive: true,
         fixedHeader: true,
 
+        pageLength: 10,
+        lengthMenu: [[10, 15, 20, 30, 40, 50, -1], [10, 15, 20, 30, 40, 50, "All"]],
+
         scrollX: false,
         scrollY: false,
 
@@ -145,12 +134,40 @@ function createTable(data){
 
     });
 }
-var Test;
+
+
+function refreshFrameData(){
+    if(Dtable !== undefined){
+        Dtable.destroy();
+        $("#fdata").html("");
+    }
+    downloadFrameData();
+}
+
+
 $(document).ready(function() {
+    //Options for toastr
+    toastr.options = {
+        "closeButton": true,
+        "newestOnTop": false,
+        "positionClass": "toast-middle-left",
+        "preventDuplicates": false,
+        "onclick": null,
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
+
     //Buttons
-    $("#btnRefreshFramedata").on("click", function(){
-        downloadFrameData();
+    $("#btnRefreshFramedata").on("click", refreshFrameData);
+
+    $("#btnCredits").on("click", function(){
+        $("#creditModal").modal("show");
     });
+
 
     //
     if (localStorage.hasOwnProperty("Fdata")) {
