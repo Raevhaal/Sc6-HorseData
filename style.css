@@ -1,3 +1,13 @@
 div.dt-buttons{
     float: right!important;
 }
+
+
+.container-sm #fdata{
+    padding-bottom: 30px !important;
+}
+
+table.display td {
+    padding: 3px 10px;
+    white-space:nowrap;
+    }
