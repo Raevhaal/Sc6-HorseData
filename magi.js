@@ -13,7 +13,7 @@ var Fdata;
 var Dtable;
 
 
-function initFrameData(){
+function downloadFrameData(){
     const CSVHeaders = ["Character", "Move category", "Move Name", "Stance", "Command", "Hit level", "Impact", "Damage", "Block", "Hit", "Counter Hit", "Guard Burst", "Notes"];
 
     toastr.options = {
@@ -147,10 +147,16 @@ function createTable(data){
 }
 var Test;
 $(document).ready(function() {
+    //Buttons
+    $("#btnRefreshFramedata").on("click", function(){
+        downloadFrameData();
+    });
+
+    //
     if (localStorage.hasOwnProperty("Fdata")) {
         createTable(JSON.parse(localStorage.Fdata));
     } else {
-        initFrameData();
+        downloadFrameData();
     }
       
     
