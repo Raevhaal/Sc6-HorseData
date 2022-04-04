@@ -19,104 +19,237 @@ var Dtable;
 var CharacterFilter = "";
 var UrlFilter = "";
 
+
 //Icons
+var Icons = {
+    //Notes
+    ":TH:": '<img width="40" height="20" src="icons/TH.png" value = "TH"></img>',
+    ":BA:": '<img width="40" height="20" src="icons/BA.png" value = "BA"></img>',
+    ":GI:": '<img width="40" height="20" src="icons/GI.png" value = "GI"></img>',
+    ":SS:": '<img width="40" height="20" src="icons/SS.png" value = "SS"></img>',
+    ":UA:": '<img width="40" height="20" src="icons/UA.png" value = "UA"></img>',
+    ":LH:": '<img width="40" height="20" src="icons/LH.png" value = "LH"></img>',
+    ":RE:": '<img width="40" height="20" src="icons/RE.png" value = "RE"></img>',
+    ":GC:": '<img width="40" height="20" src="icons/GC.png" value = "GC"></img>',
+    ":AT:": '<img width="40" height="20" src="icons/AT.png" value = "AT"></img>',
+    ":CE:": '<img width="40" height="20" src="icons/CE.png" value = "CE"></img>',
+    ":SC:": '<img width="40" height="20" src="icons/SC.png" value = "SC"></img>',
+    //":TS:": '<img width="40" height="20" src="icons/TS.png" value = "TS"></img>',
+
+    //Slide combo buttons
+    ":a::A:": '<img width="28" height="20" src="icons/A_A.png" value = "aA"></img>',
+    ":a::B:": '<img width="28" height="20" src="icons/A_B.png" value = "aB"></img>',
+    ":a::K:": '<img width="28" height="20" src="icons/A_K.png" value = "aK"></img>',
+    ":a::G:": '<img width="28" height="20" src="icons/A_G.png" value = "aG"></img>',
+    ":b::A:": '<img width="28" height="20" src="icons/B_A.png" value = "bA"></img>',
+    ":b::B:": '<img width="28" height="20" src="icons/B_B.png" value = "bB"></img>',
+    ":b::K:": '<img width="28" height="20" src="icons/B_K.png" value = "bK"></img>',
+    ":b::G:": '<img width="28" height="20" src="icons/B_G.png" value = "bG"></img>',
+    ":k::A:": '<img width="28" height="20" src="icons/K_A.png" value = "kA"></img>',
+    ":k::B:": '<img width="28" height="20" src="icons/K_B.png" value = "kB"></img>',
+    ":k::K:": '<img width="28" height="20" src="icons/K_K.png" value = "kK"></img>',
+    ":k::G:": '<img width="28" height="20" src="icons/K_G.png" value = "kG"></img>',
+    ":g::A:": '<img width="28" height="20" src="icons/G_A.png" value = "gA"></img>',
+    ":g::B:": '<img width="28" height="20" src="icons/G_B.png" value = "gB"></img>',
+    ":g::K:": '<img width="28" height="20" src="icons/G_K.png" value = "gK"></img>',
+    ":g::G:": '<img width="28" height="20" src="icons/G_G.png" value = "gG"></img>',
+    
+    //Directions
+    ":9:": '<img width="20" height="20" src="icons/9.png" value = "9"></img>',
+    ":8:": '<img width="20" height="20" src="icons/8.png" value = "8"></img>',
+    ":7:": '<img width="20" height="20" src="icons/7.png" value = "7"></img>',
+    ":6:": '<img width="20" height="20" src="icons/6.png" value = "6"></img>',
+    ":5:": '<img width="20" height="20" src="icons/5.png" value = "5"></img>',
+    ":4:": '<img width="20" height="20" src="icons/4.png" value = "4"></img>',
+    ":3:": '<img width="20" height="20" src="icons/3.png" value = "3"></img>',
+    ":2:": '<img width="20" height="20" src="icons/2.png" value = "2"></img>',
+    ":1:": '<img width="20" height="20" src="icons/1.png" value = "1"></img>',
+
+    //Directions held
+    ":(9):": '<img width="20" height="20" src="icons/9_.png" value = "(9)"></img>',
+    ":(8):": '<img width="20" height="20" src="icons/8_.png" value = "(8)"></img>',
+    ":(7):": '<img width="20" height="20" src="icons/7_.png" value = "(7)"></img>',
+    ":(6):": '<img width="20" height="20" src="icons/6_.png" value = "(6)"></img>',
+    ":(4):": '<img width="20" height="20" src="icons/4_.png" value = "(4)"></img>',
+    ":(3):": '<img width="20" height="20" src="icons/3_.png" value = "(3)"></img>',
+    ":(2):": '<img width="20" height="20" src="icons/2_.png" value = "(2)"></img>',
+    ":(1):": '<img width="20" height="20" src="icons/1_.png" value = "(1)"></img>',
+
+    //Held buttons
+    ":(G):": '<img width="20" height="20" src="icons/G_.png" value = "(G)"></img>',
+    ":(A):": '<img width="20" height="20" src="icons/A_.png" value = "(A)"></img>',
+    ":(B):": '<img width="20" height="20" src="icons/B_.png" value = "(B)"></img>',
+    ":(K):": '<img width="20" height="20" src="icons/K_.png" value = "(K)"></img>',
+
+    //Buttons
+    ":G:": '<img width="20" height="20" src="icons/G.png" value = "G"></img>',
+    ":A:": '<img width="20" height="20" src="icons/A.png" value = "A"></img>',
+    ":B:": '<img width="20" height="20" src="icons/B.png" value = "B"></img>',
+    ":K:": '<img width="20" height="20" src="icons/K.png" value = "K"></img>',
+
+    //Slide buttons
+    ":g:": '<img width="20" height="20" src="icons/gs.png" value = "g"></img>',
+    ":a:": '<img width="20" height="20" src="icons/As.png" value = "a"></img>',
+    ":b:": '<img width="20" height="20" src="icons/Bs.png" value = "b"></img>',
+    ":k:": '<img width="20" height="20" src="icons/Ks.png" value = "k"></img>',
+
+    //Held combo buttons
+    ":(A)+(K):": '<img width="46" height="20" src="icons/AK_.png" value = "(A)+(K)"></img>',
+    ":(A)+(B):": '<img width="46" height="20" src="icons/AB_.png" value = "(A)+(B)"></img>',
+    ":(K)+(G):": '<img width="46" height="20" src="icons/KG_.png" value = "(K)+(H)"></img>',
+    ":(B)+(K):": '<img width="46" height="20" src="icons/BK_.png" value = "(B+K)"></img>',
+    ":(A)+(G):": '<img width="46" height="20" src= "icons/AG_.png" value = "(A)+(G)"></img>',
+    ":(B)+(G):": '<img width="46" height="20" src="icons/BG_.png" value = "(B+G)"></img>',
+
+    //Combo buttons
+    ":A+K:": '<img width="46" height="20" src="icons/AK.png" value = "A+K"></img>',
+    ":A+B:": '<img width="46" height="20" src="icons/AB.png" value = "A+B"></img>',
+    ":K+G:": '<img width="46" height="20" src="icons/KG.png" value = "K+G"></img>',
+    ":A+G:": '<img width="46" height="20" src="icons/AG.png" value = "A+G"></img>',
+    ":B+K:": '<img width="46" height="20" src="icons/BK.png" value = "B+K"></img>',
+    ":B+G:": '<img width="46" height="20" src="icons/BG.png" value = "B+G"></img>',
+
+    ":A+B+K:": '<img width="72" height="20" src= "icons/ABK.png" value = "A+B+K"></img>',
+    ":(A)+(B)+(K):": '<img width="72" height="20" src="icons/ABK_.png" value = "(A+B+K)"></img>',
+
+    //Height
+    ":H:": '<img width="20" height="20" src="icons/H.png" value = "H"></img>',
+    ":M:": '<img width="20" height="20" src="icons/M.png" value = "M"></img>',
+    ":L:": '<img width="20" height="20" src="icons/L.png" value = "L"></img>',
+    ":SH:": '<img width="40" height="20" src="icons/SH.png" value = "SH"></img>',
+    ":SM:": '<img width="40" height="20" src="icons/SM.png" value = "SM"></img>',
+    ":SL:": '<img width="40" height="20" src="icons/SL.png" value = "SL"></img>',
+
+    //Misc
+    ":a+b:": '<img width="46" height="20" src="icons/AB.png" value = "a+b"></img>',
+}
+
 var CommandIcons = [
     //Slide inputs
-    [":a::A:", '<img width="28" height="20" src="icons/A_A.png" value = "aA"></img>'],
-    [":a::B:", '<img width="28" height="20" src="icons/A_B.png" value = "aB"></img>'],
-    [":a::K:", '<img width="28" height="20" src="icons/A_K.png" value = "aK"></img>'],
-    [":a::G:", '<img width="28" height="20" src="icons/A_G.png" value = "aG"></img>'],
-    
-    [":b::A:", '<img width="28" height="20" src="icons/B_A.png" value = "bA"></img>'],
-    [":b::B:", '<img width="28" height="20" src="icons/B_B.png" value = "bB"></img>'],
-    [":b::K:", '<img width="28" height="20" src="icons/B_K.png" value = "bK"></img>'],
-    [":b::G:", '<img width="28" height="20" src="icons/B_G.png" value = "bG"></img>'],
-    
-    [":k::A:", '<img width="28" height="20" src="icons/K_A.png" value = "kA"></img>'],
-    [":k::B:", '<img width="28" height="20" src="icons/K_B.png" value = "kB"></img>'],
-    [":k::K:", '<img width="28" height="20" src="icons/K_K.png" value = "kK"></img>'],
-    [":k::G:", '<img width="28" height="20" src="icons/K_G.png" value = "kG"></img>'],
-    
-    [":g::A:", '<img width="28" height="20" src="icons/G_A.png" value = "gA"></img>'],
-    [":g::B:", '<img width="28" height="20" src="icons/G_B.png" value = "gB"></img>'],
-    [":g::K:", '<img width="28" height="20" src="icons/G_K.png" value = "gK"></img>'],
-    [":g::G:", '<img width="28" height="20" src="icons/G_G.png" value = "gG"></img>'],
+    [":a::A:", Icons[":a::A:"]],
+    [":a::B:", Icons[":a::B:"]],
+    [":a::K:", Icons[":a::K:"]],
+    [":a::G:", Icons[":a::G:"]],
+    [":b::A:", Icons[":b::A:"]],
+    [":b::B:", Icons[":b::B:"]],
+    [":b::K:", Icons[":b::K:"]],
+    [":b::G:", Icons[":b::G:"]],
+    [":k::A:", Icons[":k::A:"]],
+    [":k::B:", Icons[":k::B:"]],
+    [":k::K:", Icons[":k::K:"]],
+    [":k::G:", Icons[":k::G:"]],
+    [":g::A:", Icons[":g::A:"]],
+    [":g::B:", Icons[":g::B:"]],
+    [":g::K:", Icons[":g::K:"]],
+    [":g::G:", Icons[":g::G:"]],
 
     //B6B missing
 
     //Directions
-    [":9:", '<img width="20" height="20" src="icons/9.png" value = "9"></img>'],
-    [":8:", '<img width="20" height="20" src="icons/8.png" value = "8"></img>'],
-    [":7:", '<img width="20" height="20" src="icons/7.png" value = "7"></img>'],
-    [":6:", '<img width="20" height="20" src="icons/6.png" value = "6"></img>'],
-    [":5:", '<img width="20" height="20" src="icons/5.png" value = "5"></img>'],
-    [":4:", '<img width="20" height="20" src="icons/4.png" value = "4"></img>'],
-    [":3:", '<img width="20" height="20" src="icons/3.png" value = "3"></img>'],
-    [":2:", '<img width="20" height="20" src="icons/2.png" value = "2"></img>'],
-    [":1:", '<img width="20" height="20" src="icons/1.png" value = "1"></img>'],
+    [":9:", Icons[":9:"]],
+    [":8:", Icons[":8:"]],
+    [":7:", Icons[":7:"]],
+    [":6:", Icons[":6:"]],
+    [":5:", Icons[":5:"]],
+    [":4:", Icons[":4:"]],
+    [":3:", Icons[":3:"]],
+    [":2:", Icons[":2:"]],
+    [":1:", Icons[":1:"]],
  
-    [":(9):", '<img width="20" height="20" src="icons/9_.png" value = "(9)"></img>'],
-    [":(8):", '<img width="20" height="20" src="icons/8_.png" value = "(8)"></img>'],
-    [":(7):", '<img width="20" height="20" src="icons/7_.png" value = "(7)"></img>'],
-    [":(6):", '<img width="20" height="20" src="icons/6_.png" value = "(6)"></img>'],
-    [":(4):", '<img width="20" height="20" src="icons/4_.png" value = "(4)"></img>'],
-    [":(3):", '<img width="20" height="20" src="icons/3_.png" value = "(3)"></img>'],
-    [":(2):", '<img width="20" height="20" src="icons/2_.png" value = "(2)"></img>'],
-    [":(1):", '<img width="20" height="20" src="icons/1_.png" value = "(1)"></img>'],
+    [":(9):", Icons[":(9):"]],
+    [":(8):", Icons[":(8):"]],
+    [":(7):", Icons[":(7):"]],
+    [":(6):", Icons[":(6):"]],
+    [":(4):", Icons[":(4):"]],
+    [":(3):", Icons[":(3):"]],
+    [":(2):", Icons[":(2):"]],
+    [":(1):", Icons[":(1):"]],
 
     //Buttons
-    [":(G):", '<img width="20" height="20" src="icons/G_.png" value = "(G)"></img>'],
-    [":G:", '<img width="20" height="20" src="icons/G.png" value = "G"></img>'],
+    [":(G):", Icons[":(G):"]],
+    [":(A):", Icons[":(A):"]],
+    [":(B):", Icons[":(B):"]],
+    [":(K):", Icons[":(K):"]],
 
-    [":(A):", '<img width="20" height="20" src="icons/A_.png" value = "(A)"></img>'],
-    [":A:", '<img width="20" height="20" src="icons/A.png" value = "A"></img>'],
+    [":G:", Icons[":G:"]],
+    [":A:", Icons[":A:"]],
+    [":B:", Icons[":B:"]],
+    [":K:", Icons[":K:"]],
 
-    [":(B):", '<img width="20" height="20" src="icons/B_.png" value = "(B)"></img>'],
-    [":B:", '<img width="20" height="20" src="icons/B.png" value = "B"></img>'],
+    [":A+K:", Icons[":A+K:"]],
+    [":A+B:", Icons[":A+B:"]],
+    [":K+G:", Icons[":K+G:"]],
+    [":A+G:", Icons[":A+G:"]],
+    [":B+K:", Icons[":B+K:"]],
+    [":B+G:", Icons[":B+G:"]],
 
-    [":(K):", '<img width="20" height="20" src="icons/K_.png" value = "(K)"></img>'],
-    [":K:", '<img width="20" height="20" src="icons/K.png" value = "K"></img>'],
-
-    [":A+K:", '<img width="46" height="20" src="icons/AK.png" value = "A+K"></img>'],
-    [":(A)+(K):", '<img width="46" height="20" src="icons/AK_.png" value = "(A)+(K)"></img>'],
-
-    [":A+B:", '<img width="46" height="20" src="icons/AB.png" value = "A+B"></img>'],
-    [":a+b:", '<img width="46" height="20" src="icons/AB.png" value = "a+b"></img>'],
-    [":(A)+(B):", '<img width="46" height="20" src="icons/AB_.png" value = "(A)+(B)"></img>'],
-
-    [":K+G:", '<img width="46" height="20" src="icons/KG.png" value = "K+G"></img>'],
-    [":(K)+(G):", '<img width="46" height="20" src="icons/KG_.png" value = "(K)+(H)"></img>'],
-
-    [":A+G:", '<img width="46" height="20" src="icons/AG.png" value = "A+G"></img>'],
-    [":(A)+(G):", '<img width="46" height="20" src= "icons/AG_.png" value = "(A)+(G)"></img>'],
-
-    [":B+K:", '<img width="46" height="20" src="icons/BK.png" value = "B+K"></img>'],
-    [":b+k:", '<img width="46" height="20" src="icons/BK.png" value = "B+K"></img>'],
-    [":(B+K):", '<img width="46" height="20" src="icons/BK_.png" value = "(B+K)"></img>'],
-    [":(B)+(K):", '<img width="46" height="20" src="icons/BK_.png" value = "(B+K)"></img>'],
-
-    [":B+G:", '<img width="46" height="20" src="icons/BG.png" value = "B+G"></img>'],
-    [":(B)+(G):", '<img width="46" height="20" src="icons/BG_.png" value = "(B+G)"></img>'],
     
-    [":A+B+K:", '<img width="72" height="20" src= "icons/ABK.png" value = "A+B+K"></img>'],
-    [":(A)+(B)+(K):", '<img width="72" height="20" src="icons/ABK_.png" value = "(A+B+K)"></img>'],
+    [":(A)+(K):", Icons[":(A)+(K):"]],
+    [":(A)+(B):", Icons[":(A)+(B):"]],
+    [":(K)+(G):", Icons[":(K)+(G):"]],
+    [":(B)+(K):", Icons[":(B)+(K):"]],
+    [":(A)+(G):", Icons[":(A)+(G):"]],
+    [":(B)+(G):", Icons[":(B)+(G):"]],
 
-    [":g:", '<img width="20" height="20" src="icons/gs.png" value = "g"></img>'],
-    [":a:", '<img width="20" height="20" src="icons/As.png" value = "a"></img>'],
-    [":b:", '<img width="20" height="20" src="icons/Bs.png" value = "b"></img>'],
-    [":k:", '<img width="20" height="20" src="icons/Ks.png" value = "k"></img>'],
+    [":A+B+K:", Icons[":A+B+K:"]],
+    [":(A)+(B)+(K):", Icons[":(A)+(B)+(K):"]],
+    
+    [":g:", Icons[":g:"]],
+    [":a:", Icons[":a:"]],
+    [":b:", Icons[":b:"]],
+    [":k:", Icons[":k:"]],
 
-    //["\_", '<img width="72" height="20" src="icons/underscore.png" value = "underscore"></img>'],
-
+    //Misc
+    [":(B+K):", '<img width="46" height="20" src="icons/BK_.png" value = "(B+K)"></img>'],
+    [":a+b:", '<img width="46" height="20" src="icons/AB.png" value = "a+b"></img>'],
+    [":b+k:", '<img width="46" height="20" src="icons/BK.png" value = "B+K"></img>'],
 ];
-var HeightIcons = [
-    [":H:", '<img width="20" height="20" src="icons/H.png" value = "H"></img>'],
-    [":M:", '<img width="20" height="20" src="icons/M.png" value = "M"></img>'],
-    [":L:", '<img width="20" height="20" src="icons/L.png" value = "L"></img>'],
 
-    [":SH:", '<img width="40" height="20" src="icons/SH.png" value = "SH"></img>'],
-    [":SM:", '<img width="40" height="20" src="icons/SM.png" value = "SM"></img>'],
-    [":SL:", '<img width="40" height="20" src="icons/SL.png" value = "SL"></img>'],
+var HeightIcons = [
+    [":H:", Icons[":H:"]],
+    [":M:", Icons[":M:"]],
+    [":L:", Icons[":L:"]],
+    [":SH:", Icons[":SH:"]],
+    [":SM:", Icons[":SM:"]],
+    [":SL:", Icons[":SL:"]],
+];
+
+var NotesIcons = [
+    //Unique notes icons
+    [":TH:", Icons[":TH:"]],
+    [":BA:", Icons[":BA:"]],
+    [":GI:", Icons[":GI:"]],
+    [":SS:", Icons[":SS:"]],
+    [":UA:", Icons[":UA:"]],
+    [":LH:", Icons[":LH:"]],
+    [":RE:", Icons[":RE:"]],
+    [":GC:", Icons[":GC:"]],
+    [":AT:", Icons[":AT:"]],
+    //[":TS:", Icons[":TS:"]],
+    [":CE:", Icons[":CE:"]],
+    [":SC:", Icons[":SC:"]],
+
+
+    //Directions
+    [":9:", Icons[":9:"]],
+    [":8:", Icons[":8:"]],
+    [":7:", Icons[":7:"]],
+    [":6:", Icons[":6:"]],
+    [":5:", Icons[":5:"]],
+    [":4:", Icons[":4:"]],
+    [":3:", Icons[":3:"]],
+    [":2:", Icons[":2:"]],
+    [":1:", Icons[":1:"]],
+
+    //Height icons
+    [":H:", Icons[":H:"]],
+    [":M:", Icons[":M:"]],
+    [":L:", Icons[":L:"]],
+
+    [":SH:", Icons[":SH:"]],
+    [":SM:", Icons[":SM:"]],
+    [":SL:", Icons[":SL:"]],
+
 ];
 
 function downloadFrameData(){
@@ -146,24 +279,30 @@ function downloadFrameData(){
 }
 
 function createTable(data){
-    const Fheaders = ["Character", "Move category", "Move Name", "Stance", "Command", "Hit level", "Impact", "Damage", "Block", "Hit", "Counter Hit", "Guard Burst", "Notes"];
+    const Fheaders = ["Character", "Move category", "Move Name", "Stance", "Command", "Hit level", "Impact", "Damage", "Sum(Damage)", "Block", "Hit", "Counter Hit", "Guard Burst", "Notes"];
 
     var vData = [];
     data.forEach(function (row, index){
+
+        sumDamage = row[Fheaders[7]].split(",").map(Number).reduce((partialSum, a) => partialSum + a, 0);
+        //sumDamage = "0";
+        //console.log(row[Fheaders[7]])
+
         vData.push([
-            row[Fheaders[0]],
-            row[Fheaders[1]],
-            row[Fheaders[2]],
-            row[Fheaders[3]],
-            row[Fheaders[4]],
-            row[Fheaders[5]],
-            row[Fheaders[6]],
-            row[Fheaders[7]],
-            row[Fheaders[8]],
-            row[Fheaders[9]],
-            row[Fheaders[10]],
-            row[Fheaders[11]],
-            row[Fheaders[12]],
+            row[Fheaders[0]],//"Character"
+            row[Fheaders[1]],//"Move category"
+            row[Fheaders[2]],//"Move Name"
+            row[Fheaders[3]],//"Stance"
+            row[Fheaders[4]],//"Command"
+            row[Fheaders[5]],//"Hit level"
+            row[Fheaders[6]],//"Impact",
+            row[Fheaders[7]],//"Damage",
+            sumDamage,       //"Sum(Damage)"
+            row[Fheaders[9]],//"Block",
+            row[Fheaders[10]],//"Hit",
+            row[Fheaders[11]],//"Counter Hit"
+            row[Fheaders[12]],//"Guard Burst"
+            row[Fheaders[13]],//"Notes"
         ]);
     });
 
@@ -183,22 +322,24 @@ function createTable(data){
     Dtable = $('#fdata').DataTable({
         data: vData,
         columns: [
-            { title: Fheaders[0] },
-            { title: Fheaders[1] },
-            { title: Fheaders[2] },
-            { title: Fheaders[3] },
-            { title: Fheaders[4] },
-            { title: Fheaders[5] },
-            { title: Fheaders[6] },
-            { title: Fheaders[7] },
-            { title: Fheaders[8] },
-            { title: Fheaders[9] },
-            { title: Fheaders[10] },
-            { title: Fheaders[11] },
-            { title: Fheaders[12] },
+            { title: Fheaders[0] },//"Character"
+            { title: Fheaders[1] },//"Move category"
+            { title: Fheaders[2] },//"Move Name"
+            { title: Fheaders[3] },//"Stance"
+            { title: Fheaders[4] },//"Command"
+            { title: Fheaders[5] },//"Hit level"
+            { title: Fheaders[6] },//"Impact",
+            { title: Fheaders[7] },//"Damage",
+            { title: Fheaders[8] },//"Sum(Damage)"
+            { title: Fheaders[9] },//"Block",
+            { title: Fheaders[10] },//"Hit",
+            { title: Fheaders[11] },//"Counter Hit"
+            { title: Fheaders[12] },//"Guard Burst"
+            { title: Fheaders[13] },//"Notes"
         ],
 
         dom: vDom,
+        
         buttons: [
             'colvis',
             'csv',
@@ -226,6 +367,7 @@ function createTable(data){
             {targets: 0, visible: true},//Character
             {targets: 1, visible: false},//Move category
             {targets: 2, visible: false},//Move Name
+            {targets: 3, visible: false},//Stance
             {
                 targets: 4, 
                 visible: true,
@@ -248,8 +390,18 @@ function createTable(data){
                     return value;
                 }
             },//Input
-            {targets: 7, type: 'numeric-comma'},//Damage
-            {targets: 12, visible: true},//Notes
+            {targets: 7, visible: false},//Damage
+            {targets: 7, type: 'numeric-comma'},//Sum damage
+            {targets: 13, 
+                visible: true,
+                render: function(data, type, row){
+                    value = data;
+                    for (let index = 0; index < NotesIcons.length; index++) {
+                        value = value.replaceAll(NotesIcons[index][0], NotesIcons[index][1])
+                    }
+                    return value;
+                }
+            },//Notes
         ],
 
         searchBuilder: {
