@@ -367,7 +367,7 @@ function createTable(data){
             {targets: 0, visible: true},//Character
             {targets: 1, visible: false},//Move category
             {targets: 2, visible: false},//Move Name
-            {targets: 3, visible: false},//Stance
+            {targets: 3, visible: true},//Stance
             {
                 targets: 4, 
                 visible: true,
