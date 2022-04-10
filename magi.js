@@ -23,105 +23,105 @@ var UrlFilter = "";
 //Icons
 var Icons = {
     //Notes
-    ":TH:": '<img width="40" height="20" src="icons/TH.png" value = "TH"></img>',
-    ":BA:": '<img width="40" height="20" src="icons/BA.png" value = "BA"></img>',
-    ":GI:": '<img width="40" height="20" src="icons/GI.png" value = "GI"></img>',
-    ":SS:": '<img width="40" height="20" src="icons/SS.png" value = "SS"></img>',
-    ":UA:": '<img width="40" height="20" src="icons/UA.png" value = "UA"></img>',
-    ":LH:": '<img width="40" height="20" src="icons/LH.png" value = "LH"></img>',
-    ":RE:": '<img width="40" height="20" src="icons/RE.png" value = "RE"></img>',
-    ":GC:": '<img width="40" height="20" src="icons/GC.png" value = "GC"></img>',
-    ":AT:": '<img width="40" height="20" src="icons/AT.png" value = "AT"></img>',
-    ":CE:": '<img width="40" height="20" src="icons/CE.png" value = "CE"></img>',
-    ":SC:": '<img width="40" height="20" src="icons/SC.png" value = "SC"></img>',
-    //":TS:": '<img width="40" height="20" src="icons/TS.png" value = "TS"></img>',
+    ":TH:": '<img width="40" height="20" src="Icons/TH.png" value = "TH"></img>',
+    ":BA:": '<img width="40" height="20" src="Icons/BA.png" value = "BA"></img>',
+    ":GI:": '<img width="40" height="20" src="Icons/GI.png" value = "GI"></img>',
+    ":SS:": '<img width="40" height="20" src="Icons/SS.png" value = "SS"></img>',
+    ":UA:": '<img width="40" height="20" src="Icons/UA.png" value = "UA"></img>',
+    ":LH:": '<img width="40" height="20" src="Icons/LH.png" value = "LH"></img>',
+    ":RE:": '<img width="40" height="20" src="Icons/RE.png" value = "RE"></img>',
+    ":GC:": '<img width="40" height="20" src="Icons/GC.png" value = "GC"></img>',
+    ":AT:": '<img width="40" height="20" src="Icons/AT.png" value = "AT"></img>',
+    ":CE:": '<img width="40" height="20" src="Icons/CE.png" value = "CE"></img>',
+    ":SC:": '<img width="40" height="20" src="Icons/SC.png" value = "SC"></img>',
+    //":TS:": '<img width="40" height="20" src="Icons/TS.png" value = "TS"></img>',
 
     //Slide combo buttons
-    ":a::A:": '<img width="28" height="20" src="icons/A_A.png" value = "aA"></img>',
-    ":a::B:": '<img width="28" height="20" src="icons/A_B.png" value = "aB"></img>',
-    ":a::K:": '<img width="28" height="20" src="icons/A_K.png" value = "aK"></img>',
-    ":a::G:": '<img width="28" height="20" src="icons/A_G.png" value = "aG"></img>',
-    ":b::A:": '<img width="28" height="20" src="icons/B_A.png" value = "bA"></img>',
-    ":b::B:": '<img width="28" height="20" src="icons/B_B.png" value = "bB"></img>',
-    ":b::K:": '<img width="28" height="20" src="icons/B_K.png" value = "bK"></img>',
-    ":b::G:": '<img width="28" height="20" src="icons/B_G.png" value = "bG"></img>',
-    ":k::A:": '<img width="28" height="20" src="icons/K_A.png" value = "kA"></img>',
-    ":k::B:": '<img width="28" height="20" src="icons/K_B.png" value = "kB"></img>',
-    ":k::K:": '<img width="28" height="20" src="icons/K_K.png" value = "kK"></img>',
-    ":k::G:": '<img width="28" height="20" src="icons/K_G.png" value = "kG"></img>',
-    ":g::A:": '<img width="28" height="20" src="icons/G_A.png" value = "gA"></img>',
-    ":g::B:": '<img width="28" height="20" src="icons/G_B.png" value = "gB"></img>',
-    ":g::K:": '<img width="28" height="20" src="icons/G_K.png" value = "gK"></img>',
-    ":g::G:": '<img width="28" height="20" src="icons/G_G.png" value = "gG"></img>',
+    ":a::A:": '<img width="28" height="20" src="Icons/A_A.png" value = "aA"></img>',
+    ":a::B:": '<img width="28" height="20" src="Icons/A_B.png" value = "aB"></img>',
+    ":a::K:": '<img width="28" height="20" src="Icons/A_K.png" value = "aK"></img>',
+    ":a::G:": '<img width="28" height="20" src="Icons/A_G.png" value = "aG"></img>',
+    ":b::A:": '<img width="28" height="20" src="Icons/B_A.png" value = "bA"></img>',
+    ":b::B:": '<img width="28" height="20" src="Icons/B_B.png" value = "bB"></img>',
+    ":b::K:": '<img width="28" height="20" src="Icons/B_K.png" value = "bK"></img>',
+    ":b::G:": '<img width="28" height="20" src="Icons/B_G.png" value = "bG"></img>',
+    ":k::A:": '<img width="28" height="20" src="Icons/K_A.png" value = "kA"></img>',
+    ":k::B:": '<img width="28" height="20" src="Icons/K_B.png" value = "kB"></img>',
+    ":k::K:": '<img width="28" height="20" src="Icons/K_K.png" value = "kK"></img>',
+    ":k::G:": '<img width="28" height="20" src="Icons/K_G.png" value = "kG"></img>',
+    ":g::A:": '<img width="28" height="20" src="Icons/G_A.png" value = "gA"></img>',
+    ":g::B:": '<img width="28" height="20" src="Icons/G_B.png" value = "gB"></img>',
+    ":g::K:": '<img width="28" height="20" src="Icons/G_K.png" value = "gK"></img>',
+    ":g::G:": '<img width="28" height="20" src="Icons/G_G.png" value = "gG"></img>',
     
     //Directions
-    ":9:": '<img width="20" height="20" src="icons/9.png" value = "9"></img>',
-    ":8:": '<img width="20" height="20" src="icons/8.png" value = "8"></img>',
-    ":7:": '<img width="20" height="20" src="icons/7.png" value = "7"></img>',
-    ":6:": '<img width="20" height="20" src="icons/6.png" value = "6"></img>',
-    ":5:": '<img width="20" height="20" src="icons/5.png" value = "5"></img>',
-    ":4:": '<img width="20" height="20" src="icons/4.png" value = "4"></img>',
-    ":3:": '<img width="20" height="20" src="icons/3.png" value = "3"></img>',
-    ":2:": '<img width="20" height="20" src="icons/2.png" value = "2"></img>',
-    ":1:": '<img width="20" height="20" src="icons/1.png" value = "1"></img>',
+    ":9:": '<img width="20" height="20" src="Icons/9.png" value = "9"></img>',
+    ":8:": '<img width="20" height="20" src="Icons/8.png" value = "8"></img>',
+    ":7:": '<img width="20" height="20" src="Icons/7.png" value = "7"></img>',
+    ":6:": '<img width="20" height="20" src="Icons/6.png" value = "6"></img>',
+    ":5:": '<img width="20" height="20" src="Icons/5.png" value = "5"></img>',
+    ":4:": '<img width="20" height="20" src="Icons/4.png" value = "4"></img>',
+    ":3:": '<img width="20" height="20" src="Icons/3.png" value = "3"></img>',
+    ":2:": '<img width="20" height="20" src="Icons/2.png" value = "2"></img>',
+    ":1:": '<img width="20" height="20" src="Icons/1.png" value = "1"></img>',
 
     //Directions held
-    ":(9):": '<img width="20" height="20" src="icons/9_.png" value = "(9)"></img>',
-    ":(8):": '<img width="20" height="20" src="icons/8_.png" value = "(8)"></img>',
-    ":(7):": '<img width="20" height="20" src="icons/7_.png" value = "(7)"></img>',
-    ":(6):": '<img width="20" height="20" src="icons/6_.png" value = "(6)"></img>',
-    ":(4):": '<img width="20" height="20" src="icons/4_.png" value = "(4)"></img>',
-    ":(3):": '<img width="20" height="20" src="icons/3_.png" value = "(3)"></img>',
-    ":(2):": '<img width="20" height="20" src="icons/2_.png" value = "(2)"></img>',
-    ":(1):": '<img width="20" height="20" src="icons/1_.png" value = "(1)"></img>',
+    ":(9):": '<img width="20" height="20" src="Icons/9_.png" value = "(9)"></img>',
+    ":(8):": '<img width="20" height="20" src="Icons/8_.png" value = "(8)"></img>',
+    ":(7):": '<img width="20" height="20" src="Icons/7_.png" value = "(7)"></img>',
+    ":(6):": '<img width="20" height="20" src="Icons/6_.png" value = "(6)"></img>',
+    ":(4):": '<img width="20" height="20" src="Icons/4_.png" value = "(4)"></img>',
+    ":(3):": '<img width="20" height="20" src="Icons/3_.png" value = "(3)"></img>',
+    ":(2):": '<img width="20" height="20" src="Icons/2_.png" value = "(2)"></img>',
+    ":(1):": '<img width="20" height="20" src="Icons/1_.png" value = "(1)"></img>',
 
     //Held buttons
-    ":(G):": '<img width="20" height="20" src="icons/G_.png" value = "(G)"></img>',
-    ":(A):": '<img width="20" height="20" src="icons/A_.png" value = "(A)"></img>',
-    ":(B):": '<img width="20" height="20" src="icons/B_.png" value = "(B)"></img>',
-    ":(K):": '<img width="20" height="20" src="icons/K_.png" value = "(K)"></img>',
+    ":(G):": '<img width="20" height="20" src="Icons/G_.png" value = "(G)"></img>',
+    ":(A):": '<img width="20" height="20" src="Icons/A_.png" value = "(A)"></img>',
+    ":(B):": '<img width="20" height="20" src="Icons/B_.png" value = "(B)"></img>',
+    ":(K):": '<img width="20" height="20" src="Icons/K_.png" value = "(K)"></img>',
 
     //Buttons
-    ":G:": '<img width="20" height="20" src="icons/G.png" value = "G"></img>',
-    ":A:": '<img width="20" height="20" src="icons/A.png" value = "A"></img>',
-    ":B:": '<img width="20" height="20" src="icons/B.png" value = "B"></img>',
-    ":K:": '<img width="20" height="20" src="icons/K.png" value = "K"></img>',
+    ":G:": '<img width="20" height="20" src="Icons/G.png" value = "G"></img>',
+    ":A:": '<img width="20" height="20" src="Icons/A.png" value = "A"></img>',
+    ":B:": '<img width="20" height="20" src="Icons/B.png" value = "B"></img>',
+    ":K:": '<img width="20" height="20" src="Icons/K.png" value = "K"></img>',
 
     //Slide buttons
-    ":g:": '<img width="20" height="20" src="icons/gs.png" value = "g"></img>',
-    ":a:": '<img width="20" height="20" src="icons/As.png" value = "a"></img>',
-    ":b:": '<img width="20" height="20" src="icons/Bs.png" value = "b"></img>',
-    ":k:": '<img width="20" height="20" src="icons/Ks.png" value = "k"></img>',
+    ":g:": '<img width="20" height="20" src="Icons/gs.png" value = "g"></img>',
+    ":a:": '<img width="20" height="20" src="Icons/As.png" value = "a"></img>',
+    ":b:": '<img width="20" height="20" src="Icons/Bs.png" value = "b"></img>',
+    ":k:": '<img width="20" height="20" src="Icons/Ks.png" value = "k"></img>',
 
     //Held combo buttons
-    ":(A)+(K):": '<img width="46" height="20" src="icons/AK_.png" value = "(A)+(K)"></img>',
-    ":(A)+(B):": '<img width="46" height="20" src="icons/AB_.png" value = "(A)+(B)"></img>',
-    ":(K)+(G):": '<img width="46" height="20" src="icons/KG_.png" value = "(K)+(H)"></img>',
-    ":(B)+(K):": '<img width="46" height="20" src="icons/BK_.png" value = "(B+K)"></img>',
-    ":(A)+(G):": '<img width="46" height="20" src= "icons/AG_.png" value = "(A)+(G)"></img>',
-    ":(B)+(G):": '<img width="46" height="20" src="icons/BG_.png" value = "(B+G)"></img>',
+    ":(A)+(K):": '<img width="46" height="20" src="Icons/AK_.png" value = "(A)+(K)"></img>',
+    ":(A)+(B):": '<img width="46" height="20" src="Icons/AB_.png" value = "(A)+(B)"></img>',
+    ":(K)+(G):": '<img width="46" height="20" src="Icons/KG_.png" value = "(K)+(H)"></img>',
+    ":(B)+(K):": '<img width="46" height="20" src="Icons/BK_.png" value = "(B+K)"></img>',
+    ":(A)+(G):": '<img width="46" height="20" src= "Icons/AG_.png" value = "(A)+(G)"></img>',
+    ":(B)+(G):": '<img width="46" height="20" src="Icons/BG_.png" value = "(B+G)"></img>',
 
     //Combo buttons
-    ":A+K:": '<img width="46" height="20" src="icons/AK.png" value = "A+K"></img>',
-    ":A+B:": '<img width="46" height="20" src="icons/AB.png" value = "A+B"></img>',
-    ":K+G:": '<img width="46" height="20" src="icons/KG.png" value = "K+G"></img>',
-    ":A+G:": '<img width="46" height="20" src="icons/AG.png" value = "A+G"></img>',
-    ":B+K:": '<img width="46" height="20" src="icons/BK.png" value = "B+K"></img>',
-    ":B+G:": '<img width="46" height="20" src="icons/BG.png" value = "B+G"></img>',
+    ":A+K:": '<img width="46" height="20" src="Icons/AK.png" value = "A+K"></img>',
+    ":A+B:": '<img width="46" height="20" src="Icons/AB.png" value = "A+B"></img>',
+    ":K+G:": '<img width="46" height="20" src="Icons/KG.png" value = "K+G"></img>',
+    ":A+G:": '<img width="46" height="20" src="Icons/AG.png" value = "A+G"></img>',
+    ":B+K:": '<img width="46" height="20" src="Icons/BK.png" value = "B+K"></img>',
+    ":B+G:": '<img width="46" height="20" src="Icons/BG.png" value = "B+G"></img>',
 
-    ":A+B+K:": '<img width="72" height="20" src= "icons/ABK.png" value = "A+B+K"></img>',
-    ":(A)+(B)+(K):": '<img width="72" height="20" src="icons/ABK_.png" value = "(A+B+K)"></img>',
+    ":A+B+K:": '<img width="72" height="20" src= "Icons/ABK.png" value = "A+B+K"></img>',
+    ":(A)+(B)+(K):": '<img width="72" height="20" src="Icons/ABK_.png" value = "(A+B+K)"></img>',
 
     //Height
-    ":H:": '<img width="20" height="20" src="icons/H.png" value = "H"></img>',
-    ":M:": '<img width="20" height="20" src="icons/M.png" value = "M"></img>',
-    ":L:": '<img width="20" height="20" src="icons/L.png" value = "L"></img>',
-    ":SH:": '<img width="40" height="20" src="icons/SH.png" value = "SH"></img>',
-    ":SM:": '<img width="40" height="20" src="icons/SM.png" value = "SM"></img>',
-    ":SL:": '<img width="40" height="20" src="icons/SL.png" value = "SL"></img>',
+    ":H:": '<img width="20" height="20" src="Icons/H.png" value = "H"></img>',
+    ":M:": '<img width="20" height="20" src="Icons/M.png" value = "M"></img>',
+    ":L:": '<img width="20" height="20" src="Icons/L.png" value = "L"></img>',
+    ":SH:": '<img width="40" height="20" src="Icons/SH.png" value = "SH"></img>',
+    ":SM:": '<img width="40" height="20" src="Icons/SM.png" value = "SM"></img>',
+    ":SL:": '<img width="40" height="20" src="Icons/SL.png" value = "SL"></img>',
 
     //Misc
-    ":a+b:": '<img width="46" height="20" src="icons/AB.png" value = "a+b"></img>',
+    ":a+b:": '<img width="46" height="20" src="Icons/AB.png" value = "a+b"></img>',
 }
 
 var CommandIcons = [
@@ -200,9 +200,9 @@ var CommandIcons = [
     [":k:", Icons[":k:"]],
 
     //Misc
-    [":(B+K):", '<img width="46" height="20" src="icons/BK_.png" value = "(B+K)"></img>'],
-    [":a+b:", '<img width="46" height="20" src="icons/AB.png" value = "a+b"></img>'],
-    [":b+k:", '<img width="46" height="20" src="icons/BK.png" value = "B+K"></img>'],
+    [":(B+K):", '<img width="46" height="20" src="Icons/BK_.png" value = "(B+K)"></img>'],
+    [":a+b:", '<img width="46" height="20" src="Icons/AB.png" value = "a+b"></img>'],
+    [":b+k:", '<img width="46" height="20" src="Icons/BK.png" value = "B+K"></img>'],
 ];
 
 var HeightIcons = [
@@ -215,7 +215,7 @@ var HeightIcons = [
 ];
 
 var NotesIcons = [
-    //Unique notes icons
+    //Unique notes Icons
     [":TH:", Icons[":TH:"]],
     [":BA:", Icons[":BA:"]],
     [":GI:", Icons[":GI:"]],
@@ -241,7 +241,7 @@ var NotesIcons = [
     [":2:", Icons[":2:"]],
     [":1:", Icons[":1:"]],
 
-    //Height icons
+    //Height Icons
     [":H:", Icons[":H:"]],
     [":M:", Icons[":M:"]],
     [":L:", Icons[":L:"]],
