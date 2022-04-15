@@ -10,4 +10,26 @@ div.dt-buttons{
 table.display td {
     padding: 3px 10px;
     white-space:nowrap;
-    }
+}
+
+
+.superHidden{
+    display: inline;
+    visibility: hidden;
+    width: 0px;
+    height: 0px;
+    font-size: 0px;
+}
+
+
+.bigmodal {
+    max-width: 50% !important;
+}
+
+.unselect {
+    -webkit-user-drag: none !important;
+    user-select: none !important;
+    -moz-user-select: none !important;
+    -webkit-user-select: none !important;
+    -ms-user-select: none !important;
+}
