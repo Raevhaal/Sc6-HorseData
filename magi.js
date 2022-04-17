@@ -19,25 +19,134 @@ var Dtable;
 
 //#region Filter logic
 class searchFilters{
-    CharacterFilter = "";
-    ImpactFilter = "";
-    //UrlFilter = "";
+    commandFilter = [];
+    characterFilter = [];
 
     getUrlParameters(){
-        let urlParam = new URLSearchParams(window.location.search)
+        //Vars
+        var urlCharacterFilter = "";
+        var urlImpactFilter = "";
+
+        //
+        let urlParam = new URLSearchParams(window.location.search);
         
         //Character filter
         var characterlist = ["2b", "amy", "astaroth", "azwel", "cassandra", "cervantes", "geralt", "groh", "haohmaru", "hilde", "inferno", "ivy", "kilik", "maxi", "mitsurugi", "nightmare", "raphael", "seong-mi-na", "setsuka", "siegfried", "sophitia", "taki", "talim", "tira", "voldo", "xianghua", "yoshimitsu", "zasalamel", "hwang"]
         if(characterlist.includes(urlParam.get("character"))){
-            this.CharacterFilter = urlParam.get("character");
+            urlCharacterFilter = urlParam.get("character");
         }
 
         //Impact filter
         if(!isNaN(urlParam.get("imapct"))){
-            this.ImpactFilter = urlParam.get("impact");
+            urlImpactFilter = urlParam.get("impact");
         }
+
+        this.applyFilter(
+            urlCharacterFilter,
+            urlImpactFilter, 
+        );
         
-    }    
+    }
+
+    setCommandFilter(filter){
+        this.commandFilter = filter;
+    }
+
+    pushCommandFilter(filter){
+        this.commandFilter.push(filter);
+    }
+
+    setCharacterFilter(filter){
+        this.characterFilter = filter;
+    }
+
+    //Currently only applies url parameters needs rewrite push in as function params instead
+    applyFilter(
+        urlCharacterFilter = "",
+        urlImpactFilter = ""
+    ){
+
+        var filterArray;
+        if(Dtable.searchBuilder.getDetails().criteria !== undefined && $("#keepFilterBox").val() == true){
+            filterArray = Object.values(Dtable.searchBuilder.getDetails().criteria);
+        } else {
+            filterArray = [];
+        }
+
+        //Character filter
+        if(this.characterFilter.length > 0){
+            var charFilter = [];
+            for (let index = 0; index < this.characterFilter.length; index++) {
+
+                charFilter.push(
+                    {
+                        condition: "=",
+                        data: "Character",
+                        type: "string",
+                        value: [this.characterFilter[index]]
+                    }
+                );
+                
+            }
+            filterArray.push({
+                criteria: charFilter,
+                logic: "OR"
+            });
+        }
+
+
+        //#region Url filters
+        //Url Character fitler
+        if(urlCharacterFilter != "" && urlCharacterFilter !== null){
+            filterArray.push(
+                {
+                    condition: "=",
+                    data: "Character",
+                    type: "string",
+                    value: [urlCharacterFilter]
+                }
+            );
+        }
+
+        //Url Impact filter
+        if(urlImpactFilter != "" && urlImpactFilter !== null){
+            filterArray.push(
+                {
+                    condition: "=",
+                    data: "Impact",
+                    type: "num",
+                    value: [urlImpactFilter]
+                } 
+            );
+        }
+        //#endregion
+
+        //basic bad implimentation please shoot me if this is still in the code :)
+        //Missing auto :: around each character
+        if(this.commandFilter != "" && this.commandFilter !== null){
+
+            filterArray.push(
+                {
+                    condition: "contains",
+                    data: "Command",
+                    type: "string",
+                    value: [this.commandFilter]
+                }
+            );
+        }
+        //Command input filter
+        //$("#slideSensitivity").is(":checked")
+
+        //
+        if(this.characterFilter.length != 0){
+            Dtable.searchBuilder.rebuild({
+                criteria: filterArray,
+                logic: "AND"
+            });
+        }
+
+
+    }
 }
 
 var Filters = new searchFilters()
@@ -370,17 +479,25 @@ function createTable(data){
         dom: vDom,
         
         buttons: [
-            "colvis",
-            "csv",
-            "excel",
             {
                 text: "Command search",
                 action: function () {
                     $("#commandSearchModal").modal("show");
                 }
             },
-            "searchBuilder",
+            
+            "colvis",
 
+            {
+                extend: 'collection',
+                text: 'Advanced',
+                buttons: [
+                    { extend: 'searchBuilder', text: 'Advanced search' },
+                    { extend: 'copy', text: 'Copy table to clipboard' },
+                    { extend: 'excel', text: 'Save as Excel' },
+                    { extend: 'csv', text: 'Save as CSV' },
+                ]
+            },
         ],
 
         bProcessing: true,
@@ -388,7 +505,7 @@ function createTable(data){
         responsive: true,
         fixedHeader: true,
 
-        pageLength: 15,
+        pageLength: 20,
         lengthMenu: [[10, 15, 20, 30, 40, 50, -1], [10, 15, 20, 30, 40, 50, "All"]],
 
         scrollCollapse: true,
@@ -418,7 +535,7 @@ function createTable(data){
                         value = value.replaceAll(CommandIcons[index][0], CommandIcons[index][1])
                     }
                     value = value.replaceAll("_", '<img width="10" height="20" src="Icons/underscore.png" value = "_"></img>');
-                    return value + `<p class="superHidden"> ${data} </p>`;
+                    return value + `<p class="superHidden">${data}</p>`;
                 }
             },//Command
             {
@@ -447,25 +564,34 @@ function createTable(data){
             },//Notes
         ],
 
+        on_resize: function(){
+            $('div.dataTables_scrollBody').css('height', newHt, 'maxHeight', newHt);
+        },
+
         searchBuilder: {
             columns: [3,4,5],
         },
+
+        searchCols: [
+            null,//"Character"
+            null,//"Move categ
+            null,//"Move Name"
+            null,//"Stance"
+            { "regex": true },//"Command"
+            null,//"Hit level"
+            null,//"Impact",
+            null,//"Damage",
+            null,//"Sum(Damage
+            null,//"Block",
+            null,//"Hit",
+            null,//"Counter H
+            null,//"Guard Bur
+            null,//"Notes"
+        ],
     });
     
-
-    Dtable.searchBuilder.rebuild({
-        criteria:[
-            {
-                condition: '=',
-                data: 'Character',
-                type: 'string',
-                value: [Filters.CharacterFilter]
-            },
-        ],
-        logic: 'AND'
-    });
-
-    //Dtable.columns(0).search(Filters.CharacterFilter).draw()
+    //Filters.getUrlParameters();
+    //Filters.applyFilter()
 }
 
 
@@ -477,9 +603,24 @@ function refreshFrameData(){
     downloadFrameData();
 }
 
-$(document).ready(function() {
-    Filters.getUrlParameters();
+//#region Command filter modal
+//Fires on buttons in command search modal are pressed
+function filterModal(e){
+    Filters.pushCommandFilter($(this).attr("Value"));
+}
 
+
+function applyCmdModalFilter(){
+    //Sets character modal
+    Filters.setCharacterFilter($("#charMultiSelector").val());
+    Filters.setCommandFilter($("#commandInput").val());
+    
+    Filters.applyFilter()
+}
+//#endregion
+
+
+$(document).ready(function() {
     //Options for toastr
     toastr.options = {
         "closeButton": true,
@@ -495,15 +636,25 @@ $(document).ready(function() {
         "hideMethod": "fadeOut"
     };
 
+
+    //#region SELECT2 dropdowns
+    $("#charMultiSelector").select2({
+        allowClear: true,//Adds clear all button
+    });
+    //$("#charMultiSelector").on("select2:select", charSelectOnChange);
+    //#endregion
+
+
     //#region Buttons
     $("#btnRefreshFramedata").on("click", refreshFrameData);
 
-    $("#btnCredits").on("click", function(){
-        $("#creditModal").modal("show");
-    });
+    //Modal
+    $(".btnCall input").on("click", filterModal);
+    $("#applyCmdModalFilter").on("click", applyCmdModalFilter);
+
     //#endregion
 
-    //
+    //Determine if data is already downloaded
     if (localStorage.hasOwnProperty("Fdata")) {
         createTable(JSON.parse(localStorage.Fdata));
     } else {

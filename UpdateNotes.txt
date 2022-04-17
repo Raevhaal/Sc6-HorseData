@@ -1,0 +1,3 @@
+If more characters are added
+    add to url filter
+    add to command search
