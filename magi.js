@@ -16,6 +16,7 @@ var Fdata;
 
 //Framedata Datatable refrenece
 var Dtable;
+//#endregion
 
 //#region Filter logic
 class searchFilters{
@@ -404,7 +405,7 @@ function downloadFrameData(){
             results.data.splice(0,3);
 
             //Add framedata to localstorage
-            localStorage.setItem("Fdata", JSON.stringify(results.data));
+            //localStorage.setItem("Fdata", JSON.stringify(results.data));
 
             createTable(results.data);
             toastr.clear();
@@ -413,33 +414,76 @@ function downloadFrameData(){
 
 }
 
+function clearCache(){
+    localStorage.clear("vData");
+}
+
 function createTable(data){
     const Fheaders = ["Character", "Move category", "Move Name", "Stance", "Command", "Hit level", "Impact", "Damage", "Sum(Damage)", "Block", "Hit", "Counter Hit", "Guard Burst", "Notes"];
 
-    var vData = [];
-    data.forEach(function (row, index){
+    console.log(`Creating tablestart ${performance.now() - StartTime} milliseconds.`);
+    var vData;
+    if(data === undefined || data === null){
+        //Load cached version
+        vData = JSON.parse(localStorage.vData);
+    } else {
+        vData = [];
+        data.forEach(function (row, index){
+    
+            //Sum damage
+            sumDamage = row[Fheaders[7]].split(",").map(Number).reduce((partialSum, a) => partialSum + a, 0);
+    
+    
+            //Command
+            var Command = row[Fheaders[4]];
+            for (let index = 0; index < CommandIcons.length; index++) {
+                Command = Command.replaceAll(CommandIcons[index][0], CommandIcons[index][1]);
+            }
+            Command = Command.replaceAll("_", '<img width="10" height="20" src="Icons/underscore.png" value = "_"></img>');
+            var Command =  Command + `<p class="superHidden">${row[Fheaders[4]]}</p>`;
+    
+    
+            //Hit level
+            var hitLevel = row[Fheaders[5]];
+            for (let index = 0; index < HeightIcons.length; index++) {
+                hitLevel = hitLevel.replaceAll(HeightIcons[index][0], HeightIcons[index][1]);
+            }
+            hitLevel = hitLevel.replaceAll("_", "");
+            hitLevel = hitLevel + `<p class="superHidden">${row[Fheaders[5]]}</p>`;
+    
+    
+            //Notes
+            var Notes = row[Fheaders[13]];
+            for (let index = 0; index < NotesIcons.length; index++) {
+                Notes = Notes.replaceAll(NotesIcons[index][0], NotesIcons[index][1]);
+            }
+            Notes =  Notes + `<p class="superHidden">${row[Fheaders[13]]}</p>`;
+    
+    
+            vData.push([
+                row[Fheaders[0]],//"Character"
+                row[Fheaders[1]],//"Move category"
+                row[Fheaders[2]],//"Move Name"
+                row[Fheaders[3]],//"Stance"
+                Command,//"Command"
+                hitLevel,//"Hit level"
+                row[Fheaders[6]],//"Impact",
+                row[Fheaders[7]],//"Damage",
+                sumDamage,       //"Sum(Damage)"
+                row[Fheaders[9]],//"Block",
+                row[Fheaders[10]],//"Hit",
+                row[Fheaders[11]],//"Counter Hit"
+                row[Fheaders[12]],//"Guard Burst"
+                Notes,//"Notes"
+            ]);
+        });
+        
+        //Save to cache
+        localStorage.setItem("vData", JSON.stringify(vData));
+    }
+    console.log(`Created vData ${performance.now() - StartTime} milliseconds.`);
 
-        sumDamage = row[Fheaders[7]].split(",").map(Number).reduce((partialSum, a) => partialSum + a, 0);
-        //sumDamage = "0";
-        //console.log(row[Fheaders[7]])
 
-        vData.push([
-            row[Fheaders[0]],//"Character"
-            row[Fheaders[1]],//"Move category"
-            row[Fheaders[2]],//"Move Name"
-            row[Fheaders[3]],//"Stance"
-            row[Fheaders[4]],//"Command"
-            row[Fheaders[5]],//"Hit level"
-            row[Fheaders[6]],//"Impact",
-            row[Fheaders[7]],//"Damage",
-            sumDamage,       //"Sum(Damage)"
-            row[Fheaders[9]],//"Block",
-            row[Fheaders[10]],//"Hit",
-            row[Fheaders[11]],//"Counter Hit"
-            row[Fheaders[12]],//"Guard Burst"
-            row[Fheaders[13]],//"Notes"
-        ]);
-    });
 
     var vDom = `
                 <"row mx-0"
@@ -455,9 +499,9 @@ function createTable(data){
     `;
     
     Dtable = $('#fdata').DataTable({
-        // initComplete: function(settings, json){
-        //     console.log("Finished")
-        // },
+        initComplete: function(settings, json){
+            console.log(`Datatable took ${performance.now() - StartTime} milliseconds.`);
+        },
         data: vData,
         columns: [
             { title: Fheaders[0] },//"Character"
@@ -504,6 +548,7 @@ function createTable(data){
         orderCellsTop: true,
         responsive: true,
         fixedHeader: true,
+        deferRender: true,
 
         pageLength: 20,
         lengthMenu: [[10, 15, 20, 30, 40, 50, -1], [10, 15, 20, 30, 40, 50, "All"]],
@@ -520,48 +565,13 @@ function createTable(data){
             {targets: 0, visible: true},//Character
             {targets: 1, visible: false},//Move category
             {targets: 2, visible: false},//Move Name
-            {
-                targets: 3, 
-                visible: true,
-                className: 'dt-body-right'
-            },//Stance
-            {
-                targets: 4, 
-                visible: true,
-                width: "10%",
-                render: function(data, type, row){
-                    var value = data;
-                    for (let index = 0; index < CommandIcons.length; index++) {
-                        value = value.replaceAll(CommandIcons[index][0], CommandIcons[index][1])
-                    }
-                    value = value.replaceAll("_", '<img width="10" height="20" src="Icons/underscore.png" value = "_"></img>');
-                    return value + `<p class="superHidden">${data}</p>`;
-                }
-            },//Command
-            {
-                targets: 5, visible: true,
-                render: function(data, type, row){
-                    var value = data;
-                    for (let index = 0; index < HeightIcons.length; index++) {
-                        value = value.replaceAll(HeightIcons[index][0], HeightIcons[index][1])
-                    }
-                    value = value.replaceAll("_", "");
-                    return value + `<p class="superHidden"> ${data} </p>`;
-                }
-            },//Hitlevel
+            {targets: 3, visible: true,className: 'dt-body-right'},//Stance
+            {targets: 4, visible: true, width: "10%",},//Command
+            {targets: 5, visible: true,},//Hitlevel
             {targets: 6, visible: true},//impact
-            {targets: 7, visible: false},//Damage
+            {targets: 7, visible: false},//Damage 
             {targets: 8, type: 'numeric-comma'},//Sum damage
-            {targets: 13, 
-                visible: true,
-                render: function(data, type, row){
-                    value = data;
-                    for (let index = 0; index < NotesIcons.length; index++) {
-                        value = value.replaceAll(NotesIcons[index][0], NotesIcons[index][1])
-                    }
-                    return value;
-                }
-            },//Notes
+            {targets: 13, visible: true,},//Notes
         ],
 
         on_resize: function(){
@@ -619,8 +629,13 @@ function applyCmdModalFilter(){
 }
 //#endregion
 
-
+var StartTime;
 $(document).ready(function() {
+    //Debug timing code
+    StartTime = performance.now();
+    console.log(`Starting: ${performance.now() - StartTime} milliseconds.`);
+
+
     //Options for toastr
     toastr.options = {
         "closeButton": true,
@@ -655,8 +670,8 @@ $(document).ready(function() {
     //#endregion
 
     //Determine if data is already downloaded
-    if (localStorage.hasOwnProperty("Fdata")) {
-        createTable(JSON.parse(localStorage.Fdata));
+    if (localStorage.hasOwnProperty("vData")) {
+        createTable();
     } else {
         downloadFrameData();
     }
