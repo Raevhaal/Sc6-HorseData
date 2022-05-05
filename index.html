@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Framedata tool</title>
+        <title>SC6 Horsedata</title>
         <meta name="description" content="Framedata tool for Soulcalibur 6">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="style.css">
@@ -15,7 +15,7 @@
         <!-- Tables -->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.11.5/af-2.3.7/b-2.2.2/b-colvis-2.2.2/b-html5-2.2.2/b-print-2.2.2/cr-1.5.5/fc-4.0.2/fh-3.2.2/kt-2.6.4/r-2.2.9/rg-1.1.4/rr-1.2.8/sc-2.0.5/sb-1.3.2/sp-2.0.0/sl-1.3.4/sr-1.1.0/datatables.css"/>
         <!-- Select 2 -->
-        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.css" rel="stylesheet"/>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -54,82 +54,402 @@
                         <div class="row">
                             <div class="col-1"></div>
 
-                            <div class="col-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="keepFilterBox">
-                                    <label class="form-check-label" for="flexSwitchCheckDefault">Keep old filter</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="slideSensitivity" value="0">
-                                    <label class="form-check-label" for="slideSensitivity">Slide input sensitivity</label>
-                                </div>  
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="">
-                                    <label class="form-check-label" for="flexSwitchCheckDefault">Temp switch</label>
-                                </div>                                
-                            </div>
-
+                            
                             <div class="col-4">
                                 <p class="mb-0">Character Filter:</p>
                                 <select 
-                                 class="select2" 
-                                 id="charMultiSelector" 
-                                 data-placeholder="Set characters..." 
-                                 name="characterFilter[]" 
-                                 multiple="multiple" 
-                                 >
+                                class="select2" 
+                                id="charMultiSelector" 
+                                data-placeholder="Set characters..." 
+                                name="characterFilter[]" 
+                                multiple="multiple" 
+                                >
+                                
+                                <option value="2b">2b</option>
+                                <option value="amy">Amy</option>
+                                <option value="astaroth">Astaroth</option>
+                                <option value="azwel">Azwel</option>
+                                <option value="cassandra">Cassandra</option>
+                                <option value="cervantes">Cervantes</option>
+                                <option value="geralt">Geralt</option>
+                                <option value="groh">Groh</option>
+                                <option value="haohmaru">Haohmaru</option>
+                                <option value="hilde">Hilde</option>
+                                <option value="inferno">Inferno</option>
+                                <option value="ivy">Ivy</option>
+                                <option value="kilik">Kilik</option>
+                                <option value="maxi">Maxi</option>
+                                <option value="mitsurugi">Mitsurugi</option>
+                                <option value="nightmare">Nightmare</option>
+                                <option value="raphael">Raphael</option>
+                                <option value="seong-mi-na">Seong-mi-na</option>
+                                <option value="setsuka">Setsuka</option>
+                                <option value="siegfried">Siegfried</option>
+                                <option value="sophitia">Sophitia</option>
+                                <option value="taki">Taki</option>
+                                <option value="talim">Talim</option>
+                                <option value="tira">Tira</option>
+                                <option value="voldo">Voldo</option>
+                                <option value="xianghua">Xianghua</option>
+                                <option value="yoshimitsu">Yoshimitsu</option>
+                                <option value="zasalamel">Zasalamel</option>
+                                <option value="hwang">Hwang</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-2">
+                            <p class="mb-0">Hit Level:</p>
+                            <select 
+                                class="select2" 
+                                id="hitlevelMultiSelector" 
+                                data-placeholder="Set characters..." 
+                                name="heightFilter[]" 
+                                multiple="multiple" 
+                                >
+                            
+                                <option value="testi">test</option>
+                                <option value=":H:">H</option>
+                                <!-- <option value=":SH:">SH</option> -->
+                                <option value=":M:">M</option>
+                                <option value=":SM:">SM</option>
+                                <option value=":L:">L</option>
+                                <option value=":SL:">SL</option>
 
-                                    <option value="2b">2b</option>
-                                    <option value="amy">Amy</option>
-                                    <option value="astaroth">Astaroth</option>
-                                    <option value="azwel">Azwel</option>
-                                    <option value="cassandra">Cassandra</option>
-                                    <option value="cervantes">Cervantes</option>
-                                    <option value="geralt">Geralt</option>
-                                    <option value="groh">Groh</option>
-                                    <option value="haohmaru">Haohmaru</option>
-                                    <option value="hilde">Hilde</option>
-                                    <option value="inferno">Inferno</option>
-                                    <option value="ivy">Ivy</option>
-                                    <option value="kilik">Kilik</option>
-                                    <option value="maxi">Maxi</option>
-                                    <option value="mitsurugi">Mitsurugi</option>
-                                    <option value="nightmare">Nightmare</option>
-                                    <option value="raphael">Raphael</option>
-                                    <option value="seong-mi-na">Seong-mi-na</option>
-                                    <option value="setsuka">Setsuka</option>
-                                    <option value="siegfried">Siegfried</option>
-                                    <option value="sophitia">Sophitia</option>
-                                    <option value="taki">Taki</option>
-                                    <option value="talim">Talim</option>
-                                    <option value="tira">Tira</option>
-                                    <option value="voldo">Voldo</option>
-                                    <option value="xianghua">Xianghua</option>
-                                    <option value="yoshimitsu">Yoshimitsu</option>
-                                    <option value="zasalamel">Zasalamel</option>
-                                    <option value="hwang">Hwang</option>
-                                </select>
-                            </div>
-
-                            <div class="col-3"></div>
-
-                            <div class="col-1"></div>
+                            </select>
                         </div>
 
+                        <div class="col-1">
+                            <div>
+                                <input class="checkbox" type="checkbox" id="unblockableCHK">
+                                <label class="form-check-label" for="unblockableCHK">
+                                    <img class="my-auto" src="Icons/UA.png" height="15" alt="">
+                                </label>
+                            </div>  
 
-                        <hr class="mt-2 mb-3"/>
+                            <div>
+                                <input class="checkbox" type="checkbox" id="LethalhitCHK">
+                                <label class="form-check-label" for="LethalhitCHK">
+                                    <img class="my-auto" src="Icons/LH.png" height="15" alt="">
+                                </label>
+                            </div>  
 
-                        <div class="row mb-3">
-                            <div class="col-1"></div>
-                            <div class="col-10">
-                                <p class="mb-0">Command filter</p>
-                                <input type="text" class="form-control" id="commandInput"/>
+                            <div>
+                                <input class="checkbox" type="checkbox" id="StanceShiftCHK">
+                                <label class="form-check-label" for="StanceShiftCHK">
+                                    <img class="my-auto" src="Icons/SS.png" height="15" alt="">
+                                </label>
+                            </div>  
+                        </div>
+                        
+                        <div class="col-3">
+                            <div>
+                                <input class="checkbox" type="checkbox" id="keepFilterBox">
+                                <label class="form-check-label" for="keepFilterBox">Keep old filter</label>
                             </div>
-                            <div class="col-1"></div>
+                            <div>
+                                <input class="checkbox" type="checkbox" id="breakAttackCHK">
+                                <label class="form-check-label" for="breakAttackCHK">
+                                    <img class="my-auto" src="Icons/BA.png" height="15" alt="">
+                                </label>
+                            </div>  
+                            <div>
+                                <input class="checkbox" type="checkbox" id="guardImpactCHK">
+                                <label class="form-check-label" for="guardImpactCHK">
+                                    <img class="my-auto" src="Icons/GI.png" height="15" alt="">
+                                </label>
+                            </div>                                
+                        </div>
+                    </div>
+                    
+                    
+                    <hr class="mt-2 mb-3"/>
+                    
+                    <div class="row mb-3">
+                        <div class="col-1"></div>
+
+                        <div class="col-3">
+                            <!-- Stance selector -->
+                            <p class="mb-0">Stance filter</p>
+                            <select 
+                              class="select2" 
+                              id="stanceMultiselector"
+                              data-placeholder="Set Stance" 
+                              name="stanceFilter[]" 
+                              multiple="multiple">
+
+                                <option type="String" value="AG">AG</option>
+                                <option type="String" value="AGS">AGS</option>
+                                <option type="String" value="AIR">AIR</option>
+                                <option type="String" value="AL">AL</option>
+                                <option type="String" value="ANG">ANG</option>
+                                <option type="String" value="AS">AS</option>
+                                <option type="String" value="AS DF">AS DF</option>
+                                <option type="String" value="AS RRP">AS RRP</option>
+                                <option type="String" value="AS WRP">AS WRP</option>
+                                <option type="String" value="AS on hit">AS on hit</option>
+                                <option type="String" value="AT">AT</option>
+                                <option type="String" value="AVN">AVN</option>
+                                <option type="String" value="Any Stance ">Any Stance </option>
+                                <option type="String" value="BACK SIDE THROW">BACK SIDE THROW</option>
+                                <option type="String" value="BACK THROW">BACK THROW</option>
+                                <option type="String" value="BE">BE</option>
+                                <option type="String" value="BHH">BHH</option>
+                                <option type="String" value="BKN">BKN</option>
+                                <option type="String" value="BL">BL</option>
+                                <option type="String" value="BOB">BOB</option>
+                                <option type="String" value="BP">BP</option>
+                                <option type="String" value="BS">BS</option>
+                                <option type="String" value="BS CR">BS CR</option>
+                                <option type="String" value="BS FC">BS FC</option>
+                                <option type="String" value="BS WR">BS WR</option>
+                                <option type="String" value="BT">BT</option>
+                                <option type="String" value="CH">CH</option>
+                                <option type="String" value="COE">COE</option>
+                                <option type="String" value="CR">CR</option>
+                                <option type="String" value="DB">DB</option>
+                                <option type="String" value="DB LEFT">DB LEFT</option>
+                                <option type="String" value="DB RIGHT">DB RIGHT</option>
+                                <option type="String" value="DC">DC</option>
+                                <option type="String" value="DF">DF</option>
+                                <option type="String" value="DGF">DGF</option>
+                                <option type="String" value="DL">DL</option>
+                                <option type="String" value="DL FC">DL FC</option>
+                                <option type="String" value="DOWN">DOWN</option>
+                                <option type="String" value="DS">DS</option>
+                                <option type="String" value="DURING MOTION">DURING MOTION</option>
+                                <option type="String" value="DW">DW</option>
+                                <option type="String" value="DW CH">DW CH</option>
+                                <option type="String" value="DW DS">DW DS</option>
+                                <option type="String" value="DW MS">DW MS</option>
+                                <option type="String" value="DW RS">DW RS</option>
+                                <option type="String" value="DW WS">DW WS</option>
+                                <option type="String" value="Down">Down</option>
+                                <option type="String" value="Downed Opponent">Downed Opponent</option>
+                                <option type="String" value="Evade">Evade</option>
+                                <option type="String" value="FC">FC</option>
+                                <option type="String" value="FC GI">FC GI</option>
+                                <option type="String" value="FC tip">FC tip</option>
+                                <option type="String" value="FJ">FJ</option>
+                                <option type="String" value="FLE">FLE</option>
+                                <option type="String" value="Flea Stance">Flea Stance</option>
+                                <option type="String" value="GI">GI</option>
+                                <option type="String" value="GROUNDED">GROUNDED</option>
+                                <option type="String" value="GS">GS</option>
+                                <option type="String" value="GS BT">GS BT</option>
+                                <option type="String" value="GS RUN">GS RUN</option>
+                                <option type="String" value="GS SC">GS SC</option>
+                                <option type="String" value="HL">HL</option>
+                                <option type="String" value="HP">HP</option>
+                                <option type="String" value="IND">IND</option>
+                                <option type="String" value="Indian Stance">Indian Stance</option>
+                                <option type="String" value="JS">JS</option>
+                                <option type="String" value="JS BT">JS BT</option>
+                                <option type="String" value="JS RUN">JS RUN</option>
+                                <option type="String" value="JS SC">JS SC</option>
+                                <option type="String" value="JUMP">JUMP</option>
+                                <option type="String" value="LEFT SIDE">LEFT SIDE</option>
+                                <option type="String" value="LEFT SIDE THROW">LEFT SIDE THROW</option>
+                                <option type="String" value="LH RE">LH RE</option>
+                                <option type="String" value="LI">LI</option>
+                                <option type="String" value="LO">LO</option>
+                                <option type="String" value="LP">LP</option>
+                                <option type="String" value="LP WR">LP WR</option>
+                                <option type="String" value="LS">LS</option>
+                                <option type="String" value="MC">MC</option>
+                                <option type="String" value="MCFT">MCFT</option>
+                                <option type="String" value="MCFT far">MCFT far</option>
+                                <option type="String" value="MCHT">MCHT</option>
+                                <option type="String" value="MO">MO</option>
+                                <option type="String" value="MP">MP</option>
+                                <option type="String" value="MP WRP">MP WRP</option>
+                                <option type="String" value="MS">MS</option>
+                                <option type="String" value="MST">MST</option>
+                                <option type="String" value="Manji Dragonfly">Manji Dragonfly</option>
+                                <option type="String" value="Midair Opponent">Midair Opponent</option>
+                                <option type="String" value="NBS">NBS</option>
+                                <option type="String" value="NG">NG</option>
+                                <option type="String" value="NLS">NLS</option>
+                                <option type="String" value="NSS">NSS</option>
+                                <option type="String" value="NTC">NTC</option>
+                                <option type="String" value="NTC GS">NTC GS</option>
+                                <option type="String" value="NTC NBS">NTC NBS</option>
+                                <option type="String" value="NTC NLS">NTC NLS</option>
+                                <option type="String" value="NTC NSS">NTC NSS</option>
+                                <option type="String" value="NTC WR">NTC WR</option>
+                                <option type="String" value="PO">PO</option>
+                                <option type="String" value="PO  BT">PO  BT</option>
+                                <option type="String" value="PR">PR</option>
+                                <option type="String" value="PXS">PXS</option>
+                                <option type="String" value="QP">QP</option>
+                                <option type="String" value="RC">RC</option>
+                                <option type="String" value="RE">RE</option>
+                                <option type="String" value="RE  2nd round">RE  2nd round</option>
+                                <option type="String" value="RE  Second round">RE  Second round</option>
+                                <option type="String" value="RE BOB">RE BOB</option>
+                                <option type="String" value="RE GS">RE GS</option>
+                                <option type="String" value="RE GS SC">RE GS SC</option>
+                                <option type="String" value="RE JS">RE JS</option>
+                                <option type="String" value="RE SC">RE SC</option>
+                                <option type="String" value="RE TS1">RE TS1</option>
+                                <option type="String" value="RE TS2">RE TS2</option>
+                                <option type="String" value="RE TS3">RE TS3</option>
+                                <option type="String" value="RG">RG</option>
+                                <option type="String" value="RG RXP">RG RXP</option>
+                                <option type="String" value="RIGHT SIDE">RIGHT SIDE</option>
+                                <option type="String" value="RIGHT SIDE THROW">RIGHT SIDE THROW</option>
+                                <option type="String" value="RLC">RLC</option>
+                                <option type="String" value="RLC GI">RLC GI</option>
+                                <option type="String" value="RO">RO</option>
+                                <option type="String" value="RRP">RRP</option>
+                                <option type="String" value="RRP WRP">RRP WRP</option>
+                                <option type="String" value="RS">RS</option>
+                                <option type="String" value="RT">RT</option>
+                                <option type="String" value="RT FC">RT FC</option>
+                                <option type="String" value="RT WR">RT WR</option>
+                                <option type="String" value="RUN">RUN</option>
+                                <option type="String" value="RXP">RXP</option>
+                                <option type="String" value="RXP WF">RXP WF</option>
+                                <option type="String" value="RXP WR">RXP WR</option>
+                                <option type="String" value="SBH">SBH</option>
+                                <option type="String" value="SC">SC</option>
+                                <option type="String" value="SC AGS">SC AGS</option>
+                                <option type="String" value="SC AL">SC AL</option>
+                                <option type="String" value="SC AS">SC AS</option>
+                                <option type="String" value="SC AS RRP">SC AS RRP</option>
+                                <option type="String" value="SC AT">SC AT</option>
+                                <option type="String" value="SC AVN">SC AVN</option>
+                                <option type="String" value="SC BL">SC BL</option>
+                                <option type="String" value="SC BS">SC BS</option>
+                                <option type="String" value="SC BS CR">SC BS CR</option>
+                                <option type="String" value="SC CR">SC CR</option>
+                                <option type="String" value="SC DC">SC DC</option>
+                                <option type="String" value="SC DGF">SC DGF</option>
+                                <option type="String" value="SC DR">SC DR</option>
+                                <option type="String" value="SC DR BT">SC DR BT</option>
+                                <option type="String" value="SC DR revenge">SC DR revenge</option>
+                                <option type="String" value="SC DS">SC DS</option>
+                                <option type="String" value="SC DW">SC DW</option>
+                                <option type="String" value="SC FC">SC FC</option>
+                                <option type="String" value="SC FJ">SC FJ</option>
+                                <option type="String" value="SC HP">SC HP</option>
+                                <option type="String" value="SC LH RE">SC LH RE</option>
+                                <option type="String" value="SC LI">SC LI</option>
+                                <option type="String" value="SC LO">SC LO</option>
+                                <option type="String" value="SC LP">SC LP</option>
+                                <option type="String" value="SC MCFT">SC MCFT</option>
+                                <option type="String" value="SC MCHT">SC MCHT</option>
+                                <option type="String" value="SC MP">SC MP</option>
+                                <option type="String" value="SC MST">SC MST</option>
+                                <option type="String" value="SC PO">SC PO</option>
+                                <option type="String" value="SC PR">SC PR</option>
+                                <option type="String" value="SC RC">SC RC</option>
+                                <option type="String" value="SC RE">SC RE</option>
+                                <option type="String" value="SC RO">SC RO</option>
+                                <option type="String" value="SC RRP">SC RRP</option>
+                                <option type="String" value="SC SBH">SC SBH</option>
+                                <option type="String" value="SC SCH">SC SCH</option>
+                                <option type="String" value="SC SE">SC SE</option>
+                                <option type="String" value="SC SKY">SC SKY</option>
+                                <option type="String" value="SC SRSH">SC SRSH</option>
+                                <option type="String" value="SC SS">SC SS</option>
+                                <option type="String" value="SC SXS">SC SXS</option>
+                                <option type="String" value="SC TAS">SC TAS</option>
+                                <option type="String" value="SC WALL">SC WALL</option>
+                                <option type="String" value="SC WNC">SC WNC</option>
+                                <option type="String" value="SC WNS">SC WNS</option>
+                                <option type="String" value="SC WR">SC WR</option>
+                                <option type="String" value="SC WRP">SC WRP</option>
+                                <option type="String" value="SC WRP FC">SC WRP FC</option>
+                                <option type="String" value="SC vs crouch">SC vs crouch</option>
+                                <option type="String" value="SCH">SCH</option>
+                                <option type="String" value="SE">SE</option>
+                                <option type="String" value="SE Mid-air Opponent">SE Mid-air Opponent</option>
+                                <option type="String" value="SG">SG</option>
+                                <option type="String" value="SGDF">SGDF</option>
+                                <option type="String" value="SKY  stage I">SKY  stage I</option>
+                                <option type="String" value="SKY  stage II">SKY  stage II</option>
+                                <option type="String" value="SKY  stage III">SKY  stage III</option>
+                                <option type="String" value="SL">SL</option>
+                                <option type="String" value="SPR">SPR</option>
+                                <option type="String" value="SPR FC">SPR FC</option>
+                                <option type="String" value="SPR c">SPR c</option>
+                                <option type="String" value="SRSH">SRSH</option>
+                                <option type="String" value="SS">SS</option>
+                                <option type="String" value="SS Shura">SS Shura</option>
+                                <option type="String" value="SSH">SSH</option>
+                                <option type="String" value="SSR">SSR</option>
+                                <option type="String" value="SSR LI">SSR LI</option>
+                                <option type="String" value="SSR RO">SSR RO</option>
+                                <option type="String" value="STG">STG</option>
+                                <option type="String" value="STK">STK</option>
+                                <option type="String" value="SWR">SWR</option>
+                                <option type="String" value="SWR c">SWR c</option>
+                                <option type="String" value="SXS">SXS</option>
+                                <option type="String" value="Shura">Shura</option>
+                                <option type="String" value="TAS">TAS</option>
+                                <option type="String" value="TOW">TOW</option>
+                                <option type="String" value="TS">TS</option>
+                                <option type="String" value="TS DF">TS DF</option>
+                                <option type="String" value="TS1">TS1</option>
+                                <option type="String" value="TS2">TS2</option>
+                                <option type="String" value="TS3">TS3</option>
+                                <option type="String" value="UD">UD</option>
+                                <option type="String" value="VG">VG</option>
+                                <option type="String" value="VS">VS</option>
+                                <option type="String" value="WD">WD</option>
+                                <option type="String" value="WF">WF</option>
+                                <option type="String" value="WNB">WNB</option>
+                                <option type="String" value="WNC">WNC</option>
+                                <option type="String" value="WNF">WNF</option>
+                                <option type="String" value="WNS">WNS</option>
+                                <option type="String" value="WR">WR</option>
+                                <option type="String" value="WR Shura">WR Shura</option>
+                                <option type="String" value="WR c">WR c</option>
+                                <option type="String" value="WRO">WRO</option>
+                                <option type="String" value="WRP">WRP</option>
+                                <option type="String" value="WRP HP">WRP HP</option>
+                                <option type="String" value="WRP LP">WRP LP</option>
+                                <option type="String" value="WS">WS</option>
+                                <option type="String" value="WT">WT</option>
+                                <option type="String" value="WoH">WoH</option>
+                                <option type="String" value="YYT">YYT</option>
+                                <option type="String" value="almighty">almighty</option>
+                                <option type="String" value="ax">ax</option>
+                                <option type="String" value="c">c</option>
+                                <option type="String" value="enemy in SC">enemy in SC</option>
+                                <option type="String" value="even activation">even activation</option>
+                                <option type="String" value="full">full</option>
+                                <option type="String" value="full hold">full hold</option>
+                                <option type="String" value="hit">hit</option>
+                                <option type="String" value="long">long</option>
+                                <option type="String" value="medium">medium</option>
+                                <option type="String" value="miss">miss</option>
+                                <option type="String" value="odd activation">odd activation</option>
+                                <option type="String" value="partial">partial</option>
+                                <option type="String" value="quake">quake</option>
+                                <option type="String" value="revenge">revenge</option>
+                                <option type="String" value="run">run</option>
+                                <option type="String" value="short">short</option>
+                                <option type="String" value="short hold">short hold</option>
+                                <option type="String" value="spear">spear</option>
+                                <option type="String" value="sword">sword</option>
+                                <option type="String" value="tip range">tip range</option>
+                                <option type="String" value="vs crouch">vs crouch</option>
+                                <option type="String" value="weaponless">weaponless</option>
+
+                            </select> 
                         </div>
 
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" id="applyCmdModalFilter" data-dismiss="modal">Apply filter</button>
+                        <div class="col-7">
+                            <p class="mb-0">Command filter</p>
+                            <input type="text" class="form-control" id="commandInput"/>
+                        </div>
+                        
+                        <div class="col-1"></div>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="applyCmdModalFilter" data-dismiss="modal">Apply filter</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                                 

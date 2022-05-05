@@ -22,7 +22,8 @@ var Dtable;
 class searchFilters{
     commandFilter = [];
     characterFilter = [];
-
+    hitLevelFilter = [];
+    
     getUrlParameters(){
         //Vars
         var urlCharacterFilter = "";
@@ -50,7 +51,38 @@ class searchFilters{
     }
 
     setCommandFilter(filter){
-        this.commandFilter = filter;
+        //Replace dict 
+        var replaceValues = [
+            ["11", "(1)"],
+            ["22", "(2)"],
+            ["33", "(3)"],
+            ["44", "(4)"],
+            ["55", "(5)"],
+            ["66", "(6)"],
+            ["77", "(7)"],
+            ["88", "(8)"],
+            ["99", "(9)"],
+        ]
+        
+        var vFilter = filter;
+        
+        //Replace 22 with (2)
+        for (let index = 0; index < replaceValues.length; index++) {
+            if(vFilter.includes(replaceValues[index][0])){
+                
+                vFilter = vFilter.replaceAll(replaceValues[index][0], replaceValues[index][1]);
+            }
+        }
+
+        //Add :: around each icon
+        vFilter = vFilter.split("");
+        vFilter = ":" + vFilter.join("::") + ":";
+
+        //fix issue with parentheses
+        vFilter = vFilter.replaceAll("(::", "(");
+        vFilter = vFilter.replaceAll("::)", ")");
+
+        this.commandFilter = vFilter; 
     }
 
     pushCommandFilter(filter){
@@ -59,6 +91,10 @@ class searchFilters{
 
     setCharacterFilter(filter){
         this.characterFilter = filter;
+    }
+
+    setHitlevelFilter(filter){
+        this.hitLevelFilter = filter;
     }
 
     //Currently only applies url parameters needs rewrite push in as function params instead
@@ -70,6 +106,7 @@ class searchFilters{
         var filterArray;
         if(Dtable.searchBuilder.getDetails().criteria !== undefined && $("#keepFilterBox").val() == true){
             filterArray = Object.values(Dtable.searchBuilder.getDetails().criteria);
+            console.log("DEBUG Keeping filter");
         } else {
             filterArray = [];
         }
@@ -89,11 +126,39 @@ class searchFilters{
                 );
                 
             }
+            //console.log(charFilter);
             filterArray.push({
                 criteria: charFilter,
                 logic: "OR"
             });
         }
+        console.log("1:");
+        console.log(filterArray);
+
+        //Hit level
+        if(this.hitLevelFilter.length > 0){
+            var hitFilter = [];
+            for (let index = 0; index < this.hitLevelFilter.length; index++) {
+
+                hitFilter.push(
+                    {
+                        condition: "=",
+                        data: "Character",
+                        type: "string",
+                        value: [this.hitLevelFilter[index]]
+                    }
+                );
+                
+            }
+            //console.log(hitLevelFilter);
+            filterArray.push({
+                criteria: hitFilter,
+                logic: "OR"
+            });
+        }
+
+        console.log("2:");
+        console.log(filterArray);
 
 
         //#region Url filters
@@ -123,20 +188,114 @@ class searchFilters{
         //#endregion
 
         //basic bad implimentation please shoot me if this is still in the code :)
-        //Missing auto :: around each character
-        if(this.commandFilter != "" && this.commandFilter !== null){
+        // if(this.commandFilter != "" && this.commandFilter !== null){
 
+        //     filterArray.push(
+        //         {
+        //             condition: "contains",
+        //             data: "Command",
+        //             type: "string",
+        //             value: [this.commandFilter]
+        //         }
+        //     );
+        // }
+
+        //Command input filter
+        //$("#slideSensitivity").is(":checked")
+
+
+        //#region Note filters
+
+        if($("#breakAttackCHK").is(":checked")) {
             filterArray.push(
                 {
-                    condition: "contains",
-                    data: "Command",
-                    type: "string",
-                    value: [this.commandFilter]
+                    criteria:
+                    [
+                    {
+                        condition: "contains",
+                        data: "Notes",
+                        type: "string",
+                        value: [":BA:"],
+                        
+                    }],
+                    logic: "OR"
                 }
             );
         }
-        //Command input filter
-        //$("#slideSensitivity").is(":checked")
+
+        if($("#LethalhitCHK").is(":checked")) {
+            filterArray.push(
+                {
+                    criteria:
+                    [
+                    {
+                        condition: "contains",
+                        data: "Notes",
+                        type: "string",
+                        value: [":LH:"],
+                        
+                    }],
+                    logic: "OR"
+                }
+            );
+        }
+
+        if($("#StanceShiftCHK").is(":checked")) {
+            filterArray.push(
+                {
+                    criteria:
+                    [
+                    {
+                        condition: "contains",
+                        data: "Notes",
+                        type: "string",
+                        value: [":SS:"],
+                        
+                    }],
+                    logic: "OR"
+                }
+            );
+        }
+
+        if($("#unblockableCHK").is(":checked")) {
+            filterArray.push(
+                {
+                    criteria:
+                    [
+                    {
+                        condition: "contains",
+                        data: "Notes",
+                        type: "string",
+                        value: [":UA:"],
+                        
+                    }],
+                    logic: "OR"
+                }
+            );
+        }
+
+        if($("#guardImpactCHK").is(":checked")) {
+            filterArray.push(
+                {
+                    criteria:
+                    [
+                    {
+                        condition: "contains",
+                        data: "Notes",
+                        type: "string",
+                        value: [":GI:"],
+                        
+                    }],
+                    logic: "OR"
+                }
+            );
+        }
+
+
+        //#endregion
+
+        //console.log(filterArray);
+
 
         //
         if(this.characterFilter.length != 0){
@@ -421,7 +580,7 @@ function clearCache(){
 function createTable(data){
     const Fheaders = ["Character", "Move category", "Move Name", "Stance", "Command", "Hit level", "Impact", "Damage", "Sum(Damage)", "Block", "Hit", "Counter Hit", "Guard Burst", "Notes"];
 
-    console.log(`Creating tablestart ${performance.now() - StartTime} milliseconds.`);
+    //console.log(`Creating tablestart ${performance.now() - StartTime} milliseconds.`);
     var vData;
     if(data === undefined || data === null){
         //Load cached version
@@ -481,7 +640,7 @@ function createTable(data){
         //Save to cache
         localStorage.setItem("vData", JSON.stringify(vData));
     }
-    console.log(`Created vData ${performance.now() - StartTime} milliseconds.`);
+    //console.log(`Created vData ${performance.now() - StartTime} milliseconds.`);
 
 
 
@@ -499,9 +658,9 @@ function createTable(data){
     `;
     
     Dtable = $('#fdata').DataTable({
-        initComplete: function(settings, json){
-            console.log(`Datatable took ${performance.now() - StartTime} milliseconds.`);
-        },
+        // initComplete: function(settings, json){
+        //     console.log(`Datatable took ${performance.now() - StartTime} milliseconds.`);
+        // },
         data: vData,
         columns: [
             { title: Fheaders[0] },//"Character"
@@ -623,6 +782,7 @@ function filterModal(e){
 function applyCmdModalFilter(){
     //Sets character modal
     Filters.setCharacterFilter($("#charMultiSelector").val());
+    Filters.setHitlevelFilter($("#hitlevelMultiSelector").val());
     Filters.setCommandFilter($("#commandInput").val());
     
     Filters.applyFilter()
@@ -633,7 +793,19 @@ var StartTime;
 $(document).ready(function() {
     //Debug timing code
     StartTime = performance.now();
-    console.log(`Starting: ${performance.now() - StartTime} milliseconds.`);
+    //console.log(`Starting: ${performance.now() - StartTime} milliseconds.`);
+
+    //Version checker very primitive but works
+    version = "0.11"
+    if(!localStorage.hasOwnProperty("version")){
+        localStorage.setItem("version", version);
+    }
+    
+    if(localStorage.getItem("version") != version){
+        localStorage.clear("Fdata")
+        localStorage.setItem("version", version);
+    }
+    
 
 
     //Options for toastr
@@ -656,7 +828,15 @@ $(document).ready(function() {
     $("#charMultiSelector").select2({
         allowClear: true,//Adds clear all button
     });
-    //$("#charMultiSelector").on("select2:select", charSelectOnChange);
+
+    $("#hitlevelMultiSelector").select2({
+        allowClear: true,//Adds clear all button
+    });
+
+    $("#stanceMultiselector").select2({
+        allowClear: true,//Adds clear all button
+    });
+    
     //#endregion
 
 
