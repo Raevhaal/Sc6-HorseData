@@ -16,6 +16,10 @@ var Fdata;
 
 //Framedata Datatable refrenece
 var Dtable;
+
+//Can refresh
+var CanRefresh = 0;
+
 //#endregion
 
 //#region Filter logic
@@ -243,9 +247,9 @@ class searchFilters{
         // Could be replaced by positive lookahead?
         vFilter = vFilter.replaceAll(")", ").*");
         vFilter = vFilter.replaceAll("]", "].*");
-        vFilter = vFilter.replaceAll("A", "A.*");
-        vFilter = vFilter.replaceAll("B", "B.*");
-        vFilter = vFilter.replaceAll("K", "K.*");
+        vFilter = vFilter.replaceAll("a", "A.*");
+        vFilter = vFilter.replaceAll("b", "B.*");
+        vFilter = vFilter.replaceAll("k", "K.*");
 
         this.commandFilter = vFilter; 
     }
@@ -863,17 +867,25 @@ function createTable(data){
         ],
     });
 
+    //Can refresh
+    CanRefresh = 1;
+
     //Url filters when datatables if finished
     Filters.applyUrlFilter();
 }
 
 
 function refreshFrameData(){
-    if(Dtable !== undefined){
-        Dtable.destroy();
-        $("#fdata").html("");
+    if(CanRefresh == 1){
+        CanRefresh = 0;
+        if(Dtable !== undefined){
+            Dtable.destroy();
+            $("#fdata").html("");
+        }
+        downloadFrameData();
+    } else {
+        console.log("Already refreshing framedata")
     }
-    downloadFrameData();
 }
 
 //#region Command filter modal
@@ -989,7 +1001,13 @@ $(document).ready(function() {
         } else {
             $('#commandInput').focus();
         }
-    })  
+    });
+    
+    $("#commandInput").on('keypress',function(e) {
+        if(e.which == 13) {
+            $("#applyCmdModalFilter").click();
+        }
+    });
     //#endregion
         
 
