@@ -40,7 +40,7 @@ class searchFilters{
         //Character filter
         var characterlist = ["2b", "amy", "astaroth", "azwel", "cassandra", "cervantes", "geralt", "groh", "haohmaru", "hilde", "inferno", "ivy", "kilik", "maxi", "mitsurugi", "nightmare", "raphael", "seong-mi-na", "setsuka", "siegfried", "sophitia", "taki", "talim", "tira", "voldo", "xianghua", "yoshimitsu", "zasalamel", "hwang"]
         if(characterlist.includes(urlParam.get("character").toLocaleLowerCase())){
-            $("#charMultiSelector").val($("#charMultiSelector").val().concat([urlParam.get("character")])).trigger("change")
+            $("#charMultiSelector").val($("#charMultiSelector").val().concat([urlParam.get("character").toLocaleLowerCase()])).trigger("change")
         }
 
         //Impact filter
