@@ -39,3 +39,57 @@ a.buttons-collection {
 .select2{
     width:100%!important;
 }
+
+#toast-container > div {
+    opacity:1 !important;
+}
+
+element {
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+    overflow-y: scroll; 
+}
+
+element::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Opera */
+}
+
+
+/* Expand credits button */
+#creditModal #collapseCredits.collapse:not(.show) {
+display: block;
+height: 4.7rem;
+overflow: hidden;
+}
+
+#creditModal #collapseCredits.collapsing {
+    height: 4.7rem;
+}
+
+#creditModal #collapseCreditsBT.collapsed::after {
+    content: '+ Show More';
+}
+
+#creditModal #collapseCreditsBT:not(.collapsed)::after {
+    content: '- Show Less';
+}
+
+/* Expand website credits */
+#creditModal #collapseWebsiteCredits.collapse:not(.show) {
+    display: block;
+    height: 4.5rem;
+    overflow: hidden;
+}
+    
+#creditModal #collapseWebsiteCredits.collapsing {
+    height: 4.5rem;
+}
+    
+
+#creditModal #collapseWebsiteCreditsBT.collapsed::after {
+    content: '+ Show More';
+}
+
+#creditModal #collapseWebsiteCreditsBT:not(.collapsed)::after {
+    content: '- Show Less';
+}

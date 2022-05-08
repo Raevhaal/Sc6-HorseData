@@ -23,8 +23,9 @@ class searchFilters{
     commandFilter = [];
     characterFilter = [];
     hitLevelFilter = [];
+    stanceFilter = "";
     
-    getUrlParameters(){
+    applyUrlFilter(){
         //Vars
         var urlCharacterFilter = "";
         var urlImpactFilter = "";
@@ -34,23 +35,31 @@ class searchFilters{
         
         //Character filter
         var characterlist = ["2b", "amy", "astaroth", "azwel", "cassandra", "cervantes", "geralt", "groh", "haohmaru", "hilde", "inferno", "ivy", "kilik", "maxi", "mitsurugi", "nightmare", "raphael", "seong-mi-na", "setsuka", "siegfried", "sophitia", "taki", "talim", "tira", "voldo", "xianghua", "yoshimitsu", "zasalamel", "hwang"]
-        if(characterlist.includes(urlParam.get("character"))){
-            urlCharacterFilter = urlParam.get("character");
+        if(characterlist.includes(urlParam.get("character").toLocaleLowerCase())){
+            $("#charMultiSelector").val($("#charMultiSelector").val().concat([urlParam.get("character")])).trigger("change")
         }
 
         //Impact filter
-        if(!isNaN(urlParam.get("imapct"))){
-            urlImpactFilter = urlParam.get("impact");
-        }
+        // if(!isNaN(urlParam.get("imapct"))){
+        //     urlImpactFilter = urlParam.get("impact");
+        // }
 
-        this.applyFilter(
-            urlCharacterFilter,
-            urlImpactFilter, 
-        );
+        this.applyFilter();
         
     }
 
     setCommandFilter(filter){
+        function addStance(vStances){
+            //Allow for input string and array
+            if(typeof(vStances) == 'string'){
+                vStances = [vStances]
+            }
+            //Adds stances 
+            $("#stanceMultiselector").val($("#stanceMultiselector").val().concat(vStances)).trigger("change")
+            return true
+        }
+
+        //A.*K
         //Replace dict 
         var replaceValues = [
             ["11", "(1)"],
@@ -62,31 +71,193 @@ class searchFilters{
             ["77", "(7)"],
             ["88", "(8)"],
             ["99", "(9)"],
+        ];
+        
+        var vFilter = filter.toLowerCase();
+        
+        //#region Add stances to stance filter instead of command
+        
+        //0 is what the user types (lowercase) second is what the stance is named
+        var stances = [
+            ["se mid-air opponent", "SE Mid-air Opponent"],
+            ["downed opponent", "Downed Opponent"],
+            ["manji dragonfly", "Manji Dragonfly"],
+            ["midair opponent", "Midair Opponent"],
+            ["even activation", "even activation"],
+            ["sky  stage iii", "SKY  stage III"],
+            ["odd activation", "odd activation"],
+            ["during motion", "DURING MOTION"],
+            ["indian stance", "Indian Stance"],
+            ["sky  stage ii", "SKY  stage II"],
+            ["sky  stage i", "SKY  stage I"],
+            ["flea stance", "Flea Stance"],
+            ["short hold", "short hold"],
+            ["weaponless", "weaponless"],
+            ["tip range", "tip range"],
+            ["vs crouch", "vs crouch"],
+            ["grounded", "GROUNDED"],
+            ["mcft far", "MCFT far"],
+            ["almighty", "almighty"],
+            ["partial", "partial"],
+            ["revenge", "revenge"],
+            ["mp wrp", "MP WRP"],
+            ["medium", "medium"],
+            ["evade", "Evade"],
+            ["shura", "Shura"],
+            ["quake", "quake"],
+            ["short", "short"],
+            ["spear", "spear"],
+            ["sword", "sword"],
+            ["down", "DOWN"],
+            ["down", "Down"],
+            ["jump", "JUMP"],
+            ["mcft", "MCFT"],
+            ["mcht", "MCHT"],
+            ["sgdf", "SGDF"],
+            ["srsh", "SRSH"],
+            ["long", "long"],
+            ["miss", "miss"],
+            ["ags", "AGS"],
+            ["air", "AIR"],
+            ["ang", "ANG"],
+            ["avn", "AVN"],
+            ["bhh", "BHH"],
+            ["bkn", "BKN"],
+            ["bob", "BOB"],
+            ["coe", "COE"],
+            ["dgf", "DGF"],
+            ["fle", "FLE"],
+            ["ind", "IND"],
+            ["mst", "MST"],
+            ["nbs", "NBS"],
+            ["nls", "NLS"],
+            ["nss", "NSS"],
+            ["ntc", "NTC"],
+            ["pxs", "PXS"],
+            ["rlc", "RLC"],
+            ["rrp", "RRP"],
+            ["run", "RUN"],
+            ["rxp", "RXP"],
+            ["sbh", "SBH"],
+            ["sch", "SCH"],
+            ["spr", "SPR"],
+            ["ssh", "SSH"],
+            ["ssr", "SSR"],
+            ["stg", "STG"],
+            ["stk", "STK"],
+            ["swr", "SWR"],
+            ["sxs", "SXS"],
+            ["tas", "TAS"],
+            ["tow", "TOW"],
+            ["ts1", "TS1"],
+            ["ts2", "TS2"],
+            ["ts3", "TS3"],
+            ["wnb", "WNB"],
+            ["wnc", "WNC"],
+            ["wnf", "WNF"],
+            ["wns", "WNS"],
+            ["wro", "WRO"],
+            ["wrp", "WRP"],
+            ["woh", "WoH"],
+            ["yyt", "YYT"],
+            ["hit", "hit"],
+            ["run", "run"],
+            ["ag", "AG"],
+            ["al", "AL"],
+            ["as", "AS"],
+            ["at", "AT"],
+            ["be", "BE"],
+            ["bl", "BL"],
+            ["bp", "BP"],
+            ["bs", "BS"],
+            ["bt", "BT"],
+            ["ch", "CH"],
+            ["cr", "CR"],
+            ["db", "DB"],
+            ["dc", "DC"],
+            ["df", "DF"],
+            ["dl", "DL"],
+            ["ds", "DS"],
+            ["dw", "DW"],
+            ["fc", "FC"],
+            ["fj", "FJ"],
+            ["gi", "GI"],
+            ["gs", "GS"],
+            ["hl", "HL"],
+            ["hp", "HP"],
+            ["js", "JS"],
+            ["li", "LI"],
+            ["lo", "LO"],
+            ["lp", "LP"],
+            ["ls", "LS"],
+            ["mc", "MC"],
+            ["mo", "MO"],
+            ["mp", "MP"],
+            ["ms", "MS"],
+            ["ng", "NG"],
+            ["po", "PO"],
+            ["pr", "PR"],
+            ["qp", "QP"],
+            ["rc", "RC"],
+            ["re", "RE"],
+            ["rg", "RG"],
+            ["ro", "RO"],
+            ["rs", "RS"],
+            ["rt", "RT"],
+            ["sc", "SC"],
+            ["se", "SE"],
+            ["sg", "SG"],
+            ["sl", "SL"],
+            ["ss", "SS"],
+            ["ts", "TS"],
+            ["ud", "UD"],
+            ["vg", "VG"],
+            ["vs", "VS"],
+            ["wd", "WD"],
+            ["wf", "WF"],
+            ["wr", "WR"],
+            ["ws", "WS"],
+            ["wt", "WT"],
+            ["ax", "ax"],
+            ["c", "c"],
         ]
-        
-        var vFilter = filter;
-        
-        //Replace 22 with (2)
-        for (let index = 0; index < replaceValues.length; index++) {
-            if(vFilter.includes(replaceValues[index][0])){
-                
-                vFilter = vFilter.replaceAll(replaceValues[index][0], replaceValues[index][1]);
+
+        for (let index = 0; index < stances.length; index++) {
+            if(vFilter.includes(stances[index][0])){
+                vFilter = vFilter.replaceAll(stances[index][0], "")
+                addStance(stances[index][1]);    
             }
         }
 
-        //Add :: around each icon
-        vFilter = vFilter.split("");
-        vFilter = ":" + vFilter.join("::") + ":";
+        //Overwrite userinput incase stances are in command field
+        $("#commandInput").val(vFilter)
+        //#endregion
 
-        //fix issue with parentheses
-        vFilter = vFilter.replaceAll("(::", "(");
-        vFilter = vFilter.replaceAll("::)", ")");
+        for (let index = 0; index < replaceValues.length; index++) {
+            vFilter = vFilter.replaceAll(replaceValues[index][0], replaceValues[index][1]);
+        }
+
+        //Escapes characters like ( ) [ ]
+        vFilter = vFilter.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+        // Could be replaced by positive lookahead?
+        vFilter = vFilter.replaceAll(")", ").*");
+        vFilter = vFilter.replaceAll("]", "].*");
+        vFilter = vFilter.replaceAll("A", "A.*");
+        vFilter = vFilter.replaceAll("B", "B.*");
+        vFilter = vFilter.replaceAll("K", "K.*");
 
         this.commandFilter = vFilter; 
     }
 
-    pushCommandFilter(filter){
-        this.commandFilter.push(filter);
+    //#region Simple setters
+    setStanceFilter(filter){
+        var vFilter = filter;
+        for (let index = 0; index < vFilter.length; index++) {
+            vFilter[index] = "((?<![A-Za-z])" + vFilter[index] + "(?![A-Za-z]))"
+        }
+        vFilter = vFilter.join("&");
+        this.stanceFilter = vFilter;
     }
 
     setCharacterFilter(filter){
@@ -96,20 +267,18 @@ class searchFilters{
     setHitlevelFilter(filter){
         this.hitLevelFilter = filter;
     }
+    //#endregion
 
-    //Currently only applies url parameters needs rewrite push in as function params instead
-    applyFilter(
-        urlCharacterFilter = "",
-        urlImpactFilter = ""
-    ){
 
-        var filterArray;
-        if(Dtable.searchBuilder.getDetails().criteria !== undefined && $("#keepFilterBox").val() == true){
-            filterArray = Object.values(Dtable.searchBuilder.getDetails().criteria);
-            console.log("DEBUG Keeping filter");
-        } else {
-            filterArray = [];
-        }
+    applyFilter(){
+
+        var filterArray = [];
+
+        // Code to keep old filter when applying through command search modal
+        // if(Dtable.searchBuilder.getDetails().criteria !== undefined && $("#keepFilterBox").val() == true){
+        //     filterArray = Object.values(Dtable.searchBuilder.getDetails().criteria);
+        //     console.log("DEBUG Keeping filter");
+        // }
 
         //Character filter
         if(this.characterFilter.length > 0){
@@ -132,8 +301,6 @@ class searchFilters{
                 logic: "OR"
             });
         }
-        console.log("1:");
-        console.log(filterArray);
 
         //Hit level
         if(this.hitLevelFilter.length > 0){
@@ -142,8 +309,8 @@ class searchFilters{
 
                 hitFilter.push(
                     {
-                        condition: "=",
-                        data: "Character",
+                        condition: "contains",
+                        data: "Hit level",
                         type: "string",
                         value: [this.hitLevelFilter[index]]
                     }
@@ -157,68 +324,31 @@ class searchFilters{
             });
         }
 
-        console.log("2:");
-        console.log(filterArray);
+        //Stance level
+        Dtable.column(3).search(this.stanceFilter, true, true, false).draw();
 
+        //Command filter
+        Dtable.column(4).search(this.commandFilter, true, true, false).draw();
 
-        //#region Url filters
-        //Url Character fitler
-        if(urlCharacterFilter != "" && urlCharacterFilter !== null){
+        //#region Note filters
+        if($("#breakAttackCHK").is(":checked")) {
             filterArray.push(
                 {
-                    condition: "=",
-                    data: "Character",
-                    type: "string",
-                    value: [urlCharacterFilter]
+                    condition: "contains",
+                    data: "Notes",
+                    type: "html",
+                    value: [":BA:"],
                 }
             );
         }
 
-        //Url Impact filter
-        if(urlImpactFilter != "" && urlImpactFilter !== null){
+        if($("#throwCHK").is(":checked")) {
             filterArray.push(
                 {
-                    condition: "=",
-                    data: "Impact",
-                    type: "num",
-                    value: [urlImpactFilter]
-                } 
-            );
-        }
-        //#endregion
-
-        //basic bad implimentation please shoot me if this is still in the code :)
-        // if(this.commandFilter != "" && this.commandFilter !== null){
-
-        //     filterArray.push(
-        //         {
-        //             condition: "contains",
-        //             data: "Command",
-        //             type: "string",
-        //             value: [this.commandFilter]
-        //         }
-        //     );
-        // }
-
-        //Command input filter
-        //$("#slideSensitivity").is(":checked")
-
-
-        //#region Note filters
-
-        if($("#breakAttackCHK").is(":checked")) {
-            filterArray.push(
-                {
-                    criteria:
-                    [
-                    {
-                        condition: "contains",
-                        data: "Notes",
-                        type: "string",
-                        value: [":BA:"],
-                        
-                    }],
-                    logic: "OR"
+                    condition: "contains",
+                    data: "Notes",
+                    type: "html",
+                    value: [":TH:"],
                 }
             );
         }
@@ -226,16 +356,10 @@ class searchFilters{
         if($("#LethalhitCHK").is(":checked")) {
             filterArray.push(
                 {
-                    criteria:
-                    [
-                    {
-                        condition: "contains",
-                        data: "Notes",
-                        type: "string",
-                        value: [":LH:"],
-                        
-                    }],
-                    logic: "OR"
+                    condition: "contains",
+                    data: "Notes",
+                    type: "html",
+                    value: [":LH:"],
                 }
             );
         }
@@ -243,16 +367,10 @@ class searchFilters{
         if($("#StanceShiftCHK").is(":checked")) {
             filterArray.push(
                 {
-                    criteria:
-                    [
-                    {
-                        condition: "contains",
-                        data: "Notes",
-                        type: "string",
-                        value: [":SS:"],
-                        
-                    }],
-                    logic: "OR"
+                    condition: "contains",
+                    data: "Notes",
+                    type: "html",
+                    value: [":SS:"],
                 }
             );
         }
@@ -260,16 +378,10 @@ class searchFilters{
         if($("#unblockableCHK").is(":checked")) {
             filterArray.push(
                 {
-                    criteria:
-                    [
-                    {
-                        condition: "contains",
-                        data: "Notes",
-                        type: "string",
-                        value: [":UA:"],
-                        
-                    }],
-                    logic: "OR"
+                    condition: "contains",
+                    data: "Notes",
+                    type: "html",
+                    value: [":UA:"],
                 }
             );
         }
@@ -277,27 +389,17 @@ class searchFilters{
         if($("#guardImpactCHK").is(":checked")) {
             filterArray.push(
                 {
-                    criteria:
-                    [
-                    {
-                        condition: "contains",
-                        data: "Notes",
-                        type: "string",
-                        value: [":GI:"],
-                        
-                    }],
-                    logic: "OR"
+                    condition: "contains",
+                    data: "Notes",
+                    type: "html",
+                    value: [":GI:"],
                 }
             );
         }
+        //#endregion 
 
 
-        //#endregion
-
-        //console.log(filterArray);
-
-
-        //
+        //Apply filter
         if(this.characterFilter.length != 0){
             Dtable.searchBuilder.rebuild({
                 criteria: filterArray,
@@ -309,6 +411,7 @@ class searchFilters{
     }
 }
 
+//Create instance of searchFilter as global
 var Filters = new searchFilters()
 
 
@@ -705,7 +808,7 @@ function createTable(data){
 
         bProcessing: true,
         orderCellsTop: true,
-        responsive: true,
+        responsive: false,
         fixedHeader: true,
         deferRender: true,
 
@@ -745,7 +848,7 @@ function createTable(data){
             null,//"Character"
             null,//"Move categ
             null,//"Move Name"
-            null,//"Stance"
+            { "regex": true },//"Stance"
             { "regex": true },//"Command"
             null,//"Hit level"
             null,//"Impact",
@@ -759,8 +862,7 @@ function createTable(data){
         ],
     });
     
-    //Filters.getUrlParameters();
-    //Filters.applyFilter()
+    Filters.applyUrlFilter();
 }
 
 
@@ -778,11 +880,28 @@ function filterModal(e){
     Filters.pushCommandFilter($(this).attr("Value"));
 }
 
+function clearCmdFilter(){
+
+    Dtable.searchBuilder.rebuild({});
+}
 
 function applyCmdModalFilter(){
+    // Enforce char filter
+    if($("#charMultiSelector").val().length == 0){
+        toastr.warning('Character filter is required please set one', 'Error',{
+            target: 'body',
+            tapToDismiss: true,
+            positionClass: 'toast-top-left',
+            timeOut: 4000,
+            progressBar:true,
+            hideMethod: "slideUp",
+          })
+
+        //toastr.warning("Character filter is required.");
+        return false;
+    }
+
     //Sets character modal
-    Filters.setCharacterFilter($("#charMultiSelector").val());
-    Filters.setHitlevelFilter($("#hitlevelMultiSelector").val());
     Filters.setCommandFilter($("#commandInput").val());
     
     Filters.applyFilter()
@@ -820,7 +939,7 @@ $(document).ready(function() {
         "showEasing": "swing",
         "hideEasing": "linear",
         "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
+        "hideMethod": "fadeOut",
     };
 
 
@@ -843,9 +962,34 @@ $(document).ready(function() {
     //#region Buttons
     $("#btnRefreshFramedata").on("click", refreshFrameData);
 
-    //Modal
+    //#region Cmd modal
     $(".btnCall input").on("click", filterModal);
     $("#applyCmdModalFilter").on("click", applyCmdModalFilter);
+    $("#clearCmdFilter").on("click", clearCmdFilter);
+
+    //onchange couldnt directly call for some reason
+    $("#charMultiSelector").on("change", function(){
+        Filters.setCharacterFilter($("#charMultiSelector").val())
+    });
+    
+    $("#hitlevelMultiSelector").on("change", function(){
+        Filters.setHitlevelFilter($("#hitlevelMultiSelector").val())
+    });
+
+    $("#stanceMultiselector").on("change", function(){
+        Filters.setStanceFilter($("#stanceMultiselector").val())
+    });
+
+    $('#commandSearchModal').on('shown.bs.modal', function () {
+        if($("#charMultiSelector").val().length == 0){
+            $('#charMultiSelector').focus();
+            $('#charMultiSelector').select2("open");
+        } else {
+            $('#commandInput').focus();
+        }
+    })  
+    //#endregion
+        
 
     //#endregion
 
@@ -858,4 +1002,3 @@ $(document).ready(function() {
       
     
 });
-    
