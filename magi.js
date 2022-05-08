@@ -752,13 +752,13 @@ function createTable(data){
 
 
     var vDom = `
-                <"row mx-0"
+                <"row bg-themed mx-0"
                     <"col-6"l>
                     <"col-6 px-0 float-right"B>
                     
                 >
                 rt
-                <"row fixed-bottom mx-0 bg-light"
+                <"row fixed-bottom mx-0 bg-themed"
                     <"col-6"i>
                     <"col-6 px-0 float-right"p>
                 >
@@ -990,7 +990,7 @@ $(document).ready(function() {
             url.searchParams.set('character', $("#charMultiSelector").val()[0]);
             window.history.replaceState({}, '', url);
         }
-        
+
         Filters.setCharacterFilter($("#charMultiSelector").val())
     });
     
