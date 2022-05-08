@@ -761,9 +761,10 @@ function createTable(data){
     `;
     
     Dtable = $('#fdata').DataTable({
-        // initComplete: function(settings, json){
-        //     console.log(`Datatable took ${performance.now() - StartTime} milliseconds.`);
-        // },
+        initComplete: function(settings, json){
+            Filters.applyUrlFilter();
+            //console.log(`Datatable took ${performance.now() - StartTime} milliseconds.`);
+        },
         data: vData,
         columns: [
             { title: Fheaders[0] },//"Character"
@@ -861,8 +862,6 @@ function createTable(data){
             null,//"Notes"
         ],
     });
-    
-    Filters.applyUrlFilter();
 }
 
 
