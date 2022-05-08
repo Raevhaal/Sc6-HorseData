@@ -983,6 +983,14 @@ $(document).ready(function() {
 
     //onchange couldnt directly call for some reason
     $("#charMultiSelector").on("change", function(){
+
+        //Set url filter if only one character
+        if($("#charMultiSelector").val().length == 1){
+            const url = new URL(window.location);
+            url.searchParams.set('character', $("#charMultiSelector").val()[0]);
+            window.history.replaceState({}, '', url);
+        }
+        
         Filters.setCharacterFilter($("#charMultiSelector").val())
     });
     
