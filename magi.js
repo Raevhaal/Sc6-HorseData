@@ -761,10 +761,10 @@ function createTable(data){
     `;
     
     Dtable = $('#fdata').DataTable({
-        initComplete: function(settings, json){
-            Filters.applyUrlFilter();
-            //console.log(`Datatable took ${performance.now() - StartTime} milliseconds.`);
-        },
+        // initComplete: function(settings, json){
+        //     console.log(`Datatable took ${performance.now() - StartTime} milliseconds.`);
+        // },
+
         data: vData,
         columns: [
             { title: Fheaders[0] },//"Character"
@@ -862,6 +862,9 @@ function createTable(data){
             null,//"Notes"
         ],
     });
+
+    //Url filters when datatables if finished
+    Filters.applyUrlFilter();
 }
 
 
@@ -910,11 +913,11 @@ function applyCmdModalFilter(){
 var StartTime;
 $(document).ready(function() {
     //Debug timing code
-    StartTime = performance.now();
+    //StartTime = performance.now();
     //console.log(`Starting: ${performance.now() - StartTime} milliseconds.`);
 
     //Version checker very primitive but works
-    version = "0.11"
+    version = "0.12"
     if(!localStorage.hasOwnProperty("version")){
         localStorage.setItem("version", version);
     }
