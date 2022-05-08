@@ -758,6 +758,7 @@ function createTable(data){
                     
                 >
                 rt
+                <"my-3">
                 <"row fixed-bottom mx-0 bg-themed"
                     <"col-6"i>
                     <"col-6 px-0 float-right"p>
