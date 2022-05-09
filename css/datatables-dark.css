@@ -538,7 +538,7 @@ div.dt-button-collection span.dt-button-spacer.bar {
 div.dt-button-collection {
   position: absolute;
   z-index: 2001;
-  background-color: white;
+  background-color: #343a40;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 4px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
@@ -1306,7 +1306,8 @@ div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria input.dtsb-input {
   padding: 0.4em;
   margin-right: 0.8em;
   max-width: 20em;
-  background-color: rgba(200, 200, 200, 0.3);
+  /* Customized */
+  background-color: #606469;
 }
 div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria select.dtsb-dropDown option.dtsb-notItalic,
 div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria input.dtsb-input option.dtsb-notItalic {
