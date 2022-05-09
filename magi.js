@@ -492,7 +492,7 @@ var Icons = {
     ":K:": '<img width="20" height="20" src="Icons/K.png" class="mr-1" value = "K" ></img>',
 
     //Slide buttons
-    ":g:": '<img width="20" height="20" src="Icons/gs.png" value = "g" ></img>',
+    ":g:": '<img width="20" height="20" src="Icons/Gs.png" value = "g" ></img>',
     ":a:": '<img width="20" height="20" src="Icons/As.png" value = "a" ></img>',
     ":b:": '<img width="20" height="20" src="Icons/Bs.png" value = "b" ></img>',
     ":k:": '<img width="20" height="20" src="Icons/Ks.png" value = "k" ></img>',
