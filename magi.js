@@ -66,15 +66,15 @@ class searchFilters{
         //A.*K
         //Replace dict 
         var replaceValues = [
-            ["11", "(1)"],
-            ["22", "(2)"],
-            ["33", "(3)"],
-            ["44", "(4)"],
-            ["55", "(5)"],
-            ["66", "(6)"],
-            ["77", "(7)"],
-            ["88", "(8)"],
-            ["99", "(9)"],
+            ["1 1", "(1)"],
+            ["2 2", "(2)"],
+            ["3 3", "(3)"],
+            ["4 4", "(4)"],
+            ["5 5", "(5)"],
+            ["6 6", "(6)"],
+            ["7 7", "(7)"],
+            ["8 8", "(8)"],
+            ["9 9", "(9)"],
         ];
         
         var vFilter = filter.toLowerCase();
@@ -224,18 +224,21 @@ class searchFilters{
             ["wt", "WT"],
             ["ax", "ax"],
             ["c", "c"],
-        ]
+        ];
 
         for (let index = 0; index < stances.length; index++) {
             if(vFilter.includes(stances[index][0])){
-                vFilter = vFilter.replaceAll(stances[index][0], "")
+                vFilter = vFilter.replaceAll(stances[index][0], "");
                 addStance(stances[index][1]);    
             }
         }
 
         //Overwrite userinput incase stances are in command field
-        $("#commandInput").val(vFilter)
+        $("#commandInput").val(vFilter);
         //#endregion
+
+        // Add space between each character
+        vFilter = vFilter.split("").join(" ") + " ";
 
         for (let index = 0; index < replaceValues.length; index++) {
             vFilter = vFilter.replaceAll(replaceValues[index][0], replaceValues[index][1]);
@@ -250,6 +253,8 @@ class searchFilters{
         vFilter = vFilter.replaceAll("a", "A.*");
         vFilter = vFilter.replaceAll("b", "B.*");
         vFilter = vFilter.replaceAll("k", "K.*");
+
+        console.log(vFilter);
 
         this.commandFilter = vFilter; 
     }
@@ -1003,6 +1008,7 @@ $(document).ready(function() {
         Filters.setStanceFilter($("#stanceMultiselector").val())
     });
 
+    // Open character select if empty
     $('#commandSearchModal').on('shown.bs.modal', function () {
         if($("#charMultiSelector").val().length == 0){
             $('#charMultiSelector').focus();
@@ -1012,6 +1018,7 @@ $(document).ready(function() {
         }
     });
     
+    // Pressing Enter applies filter
     $("#commandInput").on('keypress',function(e) {
         if(e.which == 13) {
             $("#applyCmdModalFilter").click();
