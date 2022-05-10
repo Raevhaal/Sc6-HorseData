@@ -131,6 +131,8 @@ overflow: hidden;
     background-color: #606469;
 }
 
-
-
+/* Fix text color */
+.btn-outline-secondary{
+    color: #cdcdcd !important;
+}
 

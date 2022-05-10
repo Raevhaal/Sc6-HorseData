@@ -794,28 +794,40 @@ function createTable(data){
         ],
 
         dom: vDom,
-        
-        buttons: [
-            {
-                text: "Command search",
-                action: function () {
-                    $("#commandSearchModal").modal("show");
-                }
-            },
-            
-            "colvis",
 
-            {
-                extend: 'collection',
-                text: 'Advanced',
-                buttons: [
-                    { extend: 'searchBuilder', text: 'Advanced search' },
-                    { extend: 'copy', text: 'Copy table to clipboard' },
-                    { extend: 'excel', text: 'Save as Excel' },
-                    { extend: 'csv', text: 'Save as CSV' },
-                ]
-            },
-        ],
+        buttons: {
+            buttons: [
+                {
+                    text: "Command search",
+                    action: function () {
+                        $("#commandSearchModal").modal("show");
+                    },
+                    className: 'btn btn-outline-secondary'
+                },
+                
+                {
+                    extend: 'colvis',
+                    className: 'btn btn-outline-secondary',
+                },
+    
+                {
+                    extend: 'collection',
+                    text: 'Advanced',
+                    className: 'btn btn-outline-secondary',
+                    buttons: [
+                        { extend: 'searchBuilder', text: 'Advanced search' },
+                        { extend: 'copy', text: 'Copy table to clipboard' },
+                        { extend: 'excel', text: 'Save as Excel' },
+                        { extend: 'csv', text: 'Save as CSV' },
+                    ]
+                },
+            ],
+            dom: {
+                button: {
+                    className: ''
+                }
+            }
+        },
 
         bProcessing: true,
         orderCellsTop: true,
