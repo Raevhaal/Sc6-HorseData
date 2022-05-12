@@ -38,9 +38,11 @@ class searchFilters{
         let urlParam = new URLSearchParams(window.location.search);
         
         //Character filter
-        var characterlist = ["2b", "amy", "astaroth", "azwel", "cassandra", "cervantes", "geralt", "groh", "haohmaru", "hilde", "inferno", "ivy", "kilik", "maxi", "mitsurugi", "nightmare", "raphael", "seong-mi-na", "setsuka", "siegfried", "sophitia", "taki", "talim", "tira", "voldo", "xianghua", "yoshimitsu", "zasalamel", "hwang"]
-        if(characterlist.includes(urlParam.get("character").toLocaleLowerCase())){
-            $("#charMultiSelector").val($("#charMultiSelector").val().concat([urlParam.get("character").toLocaleLowerCase()])).trigger("change")
+        if(urlParam.get("character") != null){
+            var characterlist = ["2b", "amy", "astaroth", "azwel", "cassandra", "cervantes", "geralt", "groh", "haohmaru", "hilde", "inferno", "ivy", "kilik", "maxi", "mitsurugi", "nightmare", "raphael", "seong-mi-na", "setsuka", "siegfried", "sophitia", "taki", "talim", "tira", "voldo", "xianghua", "yoshimitsu", "zasalamel", "hwang"]
+            if(characterlist.includes(urlParam.get("character").toLocaleLowerCase())){
+                $("#charMultiSelector").val($("#charMultiSelector").val().concat([urlParam.get("character").toLocaleLowerCase()])).trigger("change")
+            }
         }
 
         //Impact filter
@@ -254,7 +256,7 @@ class searchFilters{
         vFilter = vFilter.replaceAll("b", "B.*");
         vFilter = vFilter.replaceAll("k", "K.*");
 
-        console.log(vFilter);
+        //console.log(vFilter);
 
         this.commandFilter = vFilter; 
     }
@@ -304,7 +306,7 @@ class searchFilters{
                 );
                 
             }
-            //console.log(charFilter);
+
             filterArray.push({
                 criteria: charFilter,
                 logic: "OR"
@@ -326,7 +328,7 @@ class searchFilters{
                 );
                 
             }
-            //console.log(hitLevelFilter);
+
             filterArray.push({
                 criteria: hitFilter,
                 logic: "OR"
@@ -913,27 +915,40 @@ function filterModal(e){
 }
 
 function clearCmdFilter(){
-
     Dtable.searchBuilder.rebuild({});
+    //Clear stance filter 
+    Dtable.column(3).search("", true, true, false).draw();
+
+    //Clear command filter
+    Dtable.column(4).search("", true, true, false).draw();
+
+    //TODO:
+    // Clear filters in command search modal
+
 }
 
 function applyCmdModalFilter(){
     // Enforce char filter
     if($("#charMultiSelector").val().length == 0){
-        toastr.warning('Character filter is required please set one', 'Error',{
-            target: 'body',
-            tapToDismiss: true,
-            positionClass: 'toast-top-left',
-            timeOut: 4000,
-            progressBar:true,
-            hideMethod: "slideUp",
-          })
+        toastr.warning('Character filter is required please set one', 'Error',
+            {
+                target: 'body',
+                tapToDismiss: true,
+                positionClass: 'toast-top-left',
+                timeOut: 4000,
+                progressBar:true,
+                hideMethod: "slideUp",
+            }
+        );
 
-        //toastr.warning("Character filter is required.");
+        //Open character dropdown
+        $('#charMultiSelector').focus();
+        $('#charMultiSelector').select2("open");
+
         return false;
     }
 
-    //Sets character modal
+    //Sets command filter
     Filters.setCommandFilter($("#commandInput").val());
     
     Filters.applyFilter()
@@ -950,15 +965,13 @@ $(document).ready(function() {
     version = "0.12"
     if(!localStorage.hasOwnProperty("version")){
         localStorage.setItem("version", version);
+    } else {
+        if(localStorage.getItem("version") != version){
+            localStorage.clear("Fdata");
+            localStorage.setItem("version", version);
+        }
     }
     
-    if(localStorage.getItem("version") != version){
-        localStorage.clear("Fdata")
-        localStorage.setItem("version", version);
-    }
-    
-
-
     //Options for toastr
     toastr.options = {
         "closeButton": true,
