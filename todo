@@ -1,8 +1,18 @@
-stance filter and command filter dif height
-
-integrity on css
-
 fix notes export in excel 
+    make new column for notes to use for export.
 
 Remake icons in svg format for better scaling 
     icon scaling on zoom?
+    haha sure will do past me lol
+
+clear filter should clear fields in modal???
+
+Hotkeys?
+
+or mode on stance filter?
+
+Notes:
+//js doesnt support lookaheads maybe source stackoverflow
+
+
+

@@ -28,12 +28,34 @@ class searchFilters{
     characterFilter = [];
     hitLevelFilter = [];
     stanceFilter = "";
+
+    addStance(vStances){
+        //Allow for input string and array
+        if(typeof(vStances) == 'string'){
+            vStances = [vStances];
+        }
+        //Adds stances 
+        $("#stanceMultiselector").val($("#stanceMultiselector").val().concat(vStances)).trigger("change");
+        return true;
+    }
+
+    removeStance(vStances){
+        //Allow for input string and array
+        if(typeof(vStances) == 'string'){
+            vStances = [vStances];
+        }
+
+        // Removes unwanted stances
+        var currentStances = new Set($("#stanceMultiselector").val());
+        for (let index = 0; index < vStances.length; index++) {
+            currentStances.delete(vStances[index]);
+        }
+
+        //Set new stance filter
+        $("#stanceMultiselector").val(Array.from(currentStances)).trigger("change");
+    }
     
     applyUrlFilter(){
-        //Vars
-        var urlCharacterFilter = "";
-        var urlImpactFilter = "";
-
         //
         let urlParam = new URLSearchParams(window.location.search);
         
@@ -45,42 +67,13 @@ class searchFilters{
             }
         }
 
-        //Impact filter
-        // if(!isNaN(urlParam.get("imapct"))){
-        //     urlImpactFilter = urlParam.get("impact");
-        // }
-
+        // Apply filter
         this.applyFilter();
-        
     }
 
     setCommandFilter(filter){
-        function addStance(vStances){
-            //Allow for input string and array
-            if(typeof(vStances) == 'string'){
-                vStances = [vStances]
-            }
-            //Adds stances 
-            $("#stanceMultiselector").val($("#stanceMultiselector").val().concat(vStances)).trigger("change")
-            return true
-        }
-
-        //A.*K
-        //Replace dict 
-        var replaceValues = [
-            ["1 1", "(1)"],
-            ["2 2", "(2)"],
-            ["3 3", "(3)"],
-            ["4 4", "(4)"],
-            ["5 5", "(5)"],
-            ["6 6", "(6)"],
-            ["7 7", "(7)"],
-            ["8 8", "(8)"],
-            ["9 9", "(9)"],
-        ];
-        
         var vFilter = filter.toLowerCase();
-        
+        //#region Stance fixer
         //#region Add stances to stance filter instead of command
         
         //0 is what the user types (lowercase) second is what the stance is named
@@ -231,20 +224,67 @@ class searchFilters{
         for (let index = 0; index < stances.length; index++) {
             if(vFilter.includes(stances[index][0])){
                 vFilter = vFilter.replaceAll(stances[index][0], "");
-                addStance(stances[index][1]);    
+                this.addStance(stances[index][1]);    
             }
         }
 
-        //Overwrite userinput incase stances are in command field
+        //#endregion
+
+        //#region Replace 236 with stance where applicable
+        if(
+            this.characterFilter.length == 1 
+            && ["2b", "cassandra", "sophitia", "voldo"].includes(this.characterFilter[0])
+            && vFilter.match("236") != null
+            && vFilter.match("2.*3.*6.*a.*b.*k") === null //
+        ){
+            //Checks for TAS
+            if(
+                this.characterFilter[0] == "sophitia"
+                && (vFilter.match("236236") != null || vFilter.match("2366") != null)
+            ){
+                console.log("iran");
+                vFilter = vFilter.replaceAll("236236", "");
+                vFilter = vFilter.replaceAll("2366", "");
+                this.addStance("TAS");
+                this.removeStance("AS");
+            } else {
+                vFilter = vFilter.replaceAll("236", "");
+                var stance236Chars = {
+                    "2b": "AGS",
+                    "cassandra": "AS",
+                    "sophitia": "AS",
+                    "voldo": "CR"
+                };
+                this.addStance(stance236Chars[this.characterFilter[0]]);                
+            }
+        }
+        //#endregion
+
+        //Overwrite userinput with stances removed
         $("#commandInput").val(vFilter);
         //#endregion
 
         // Add space between each character
         vFilter = vFilter.split("").join(" ") + " ";
 
+
+        //Replace dict 
+        var replaceValues = [
+            ["1 1", "(1)"],
+            ["2 2", "(2)"],
+            ["3 3", "(3)"],
+            ["4 4", "(4)"],
+            ["5 5", "(5)"],
+            ["6 6", "(6)"],
+            ["7 7", "(7)"],
+            ["8 8", "(8)"],
+            ["9 9", "(9)"],
+        ];
+
         for (let index = 0; index < replaceValues.length; index++) {
             vFilter = vFilter.replaceAll(replaceValues[index][0], replaceValues[index][1]);
         }
+
 
         //Escapes characters like ( ) [ ]
         vFilter = vFilter.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -256,8 +296,8 @@ class searchFilters{
         vFilter = vFilter.replaceAll("b", "B.*");
         vFilter = vFilter.replaceAll("k", "K.*");
 
-        //console.log(vFilter);
 
+        //console.log(vFilter);
         this.commandFilter = vFilter; 
     }
 
@@ -835,14 +875,15 @@ function createTable(data){
         orderCellsTop: true,
         responsive: false,
         fixedHeader: true,
-        deferRender: true,
+        deferRender: true,//Performance fix since wokring with lots of data
 
-        pageLength: 20,
-        lengthMenu: [[10, 15, 20, 30, 40, 50, -1], [10, 15, 20, 30, 40, 50, "All"]],
+        pageLength: 20,//Default record amount
+        lengthMenu: [//Record amount
+            [10, 15, 20, 30, 40, 50, -1],//Actual value
+            [10, 15, 20, 30, 40, 50, "All"]],//Displayed value
 
         scrollCollapse: true,
         scrollX: true,
-        //scrollY: '1vh',
         scrollY: true,
           
         colReorder: {
@@ -861,7 +902,7 @@ function createTable(data){
             {targets: 13, visible: true,},//Notes
         ],
 
-        on_resize: function(){
+        on_resize: function(){ //lol dont remember 
             $('div.dataTables_scrollBody').css('height', newHt, 'maxHeight', newHt);
         },
 
@@ -923,7 +964,7 @@ function clearCmdFilter(){
     Dtable.column(4).search("", true, true, false).draw();
 
     //TODO:
-    // Clear filters in command search modal
+    // Clear filters in command search modal???
 
 }
 
@@ -1050,9 +1091,10 @@ $(document).ready(function() {
         }
     });
     //#endregion
-        
 
     //#endregion
+
+
 
     //Determine if data is already downloaded
     if (localStorage.hasOwnProperty("vData")) {
