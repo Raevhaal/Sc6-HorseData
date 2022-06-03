@@ -18,7 +18,6 @@
         <link rel="stylesheet" href="/css/datatables-dark.css"/>
         <!-- Select 2 -->
         <link rel="stylesheet" href="/css/select2-dark.css"/>
-
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-themed">
@@ -181,7 +180,6 @@
                                 <select 
                                     class="select2" 
                                     id="stanceMultiselector"
-                                    data-placeholder="Set Stance..." 
                                     name="stanceFilter[]" 
                                     multiple="multiple"
                                     tabindex="0"
@@ -366,11 +364,12 @@
                         <div>
                             <p class="mb-2">
                                 Link to the shared framedata: 
-                                <a class="link-primary" href="https://docs.google.com/spreadsheets/d/1R3I_LXfqhvFjlHTuj-wSWwwqYmlUf299a3VY9pVyGEw">Shared framedata</a><br>
+                                <a class="link-primary" href="https://docs.google.com/spreadsheets/d/1R3I_LXfqhvFjlHTuj-wSWwwqYmlUf299a3VY9pVyGEw" target="_blank">Shared framedata</a><br>
                                 Site is open source: 
-                                <a rel="noopener noreferrer" href="https://github.com/aHorseface/Sc6-HorseData">Github repo</a> <br>
+                                <a rel="noopener noreferrer" href="https://github.com/aHorseface/Sc6-HorseData" target="_blank">Github repo</a> <br>
                                 Submit bugs to: 
-                                <a rel="noopener noreferrer" href="https://forms.gle/1Adfyka5qVXVkr4B6">Bug report</a> <br>
+                                <a rel="noopener noreferrer" href="https://forms.gle/1Adfyka5qVXVkr4B6" target="_blank">Bug report</a> <br>
+                                or message me on discord: Horseface#0742
                             </p>
                         </div>
 
@@ -439,6 +438,41 @@
                                 <a class="link-primary" href="https://discord.gg/XhnVuFe" target="_blank">Framecalibur discord</a>
                             </p>
                         </div>			
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="settingsModal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header pb-1">
+                        <h5 class="modal-title" id="settingsModalLabel">Settings:</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div>
+                            <b>General</b><br>
+                            <input class="checkbox" tabindex="-1" type="checkbox" settingName="StanceSelector" id="StanceSelectorCHK">
+                            <label class="form-check-label" for="StanceSelectorCHK">Stance selector</label><br>
+                            <input class="checkbox" tabindex="-1" type="checkbox" settingName="StanceAND" id="StanceANDCHK">
+                            <label class="form-check-label" for="StanceANDCHK">Stance AND mode:</label><br>
+                        </div>
+
+                        <div class="mt-2">
+                            <b>Experimental</b><br>
+                            N/A
+                        </div>
+
+
+
                     </div>
 
                     <div class="modal-footer">

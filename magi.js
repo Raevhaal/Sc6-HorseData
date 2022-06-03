@@ -20,6 +20,8 @@ var Dtable;
 //Can refresh
 var CanRefresh = 0;
 
+var Test;
+
 //#endregion
 
 //#region Filter logic
@@ -74,6 +76,11 @@ class searchFilters{
     setCommandFilter(filter){
         var vFilter = filter.toLowerCase();
         //#region Stance fixer
+
+        if(UserSettings.settings.StanceSelector == false){
+            $("#stanceMultiselector").val([]).trigger("change");
+        }
+
         //#region Add stances to stance filter instead of command
         
         //0 is what the user types (lowercase) second is what the stance is named
@@ -242,11 +249,9 @@ class searchFilters{
                 this.characterFilter[0] == "sophitia"
                 && (vFilter.match("236236") != null || vFilter.match("2366") != null)
             ){
-                console.log("iran");
                 vFilter = vFilter.replaceAll("236236", "");
                 vFilter = vFilter.replaceAll("2366", "");
                 this.addStance("TAS");
-                this.removeStance("AS");
             } else {
                 vFilter = vFilter.replaceAll("236", "");
                 var stance236Chars = {
@@ -263,6 +268,7 @@ class searchFilters{
         //Overwrite userinput with stances removed
         $("#commandInput").val(vFilter);
         //#endregion
+
 
         // Add space between each character
         vFilter = vFilter.split("").join(" ") + " ";
@@ -303,11 +309,46 @@ class searchFilters{
 
     //#region Simple setters
     setStanceFilter(filter){
-        var vFilter = filter;
-        for (let index = 0; index < vFilter.length; index++) {
-            vFilter[index] = "((?<![A-Za-z])" + vFilter[index] + "(?![A-Za-z]))"
+        function permute(permutation) {
+            var length = permutation.length,
+                result = [permutation.slice()],
+                c = new Array(length).fill(0),
+                i = 1, k, p;
+          
+            while (i < length) {
+              if (c[i] < i) {
+                k = i % 2 && c[i];
+                p = permutation[i];
+                permutation[i] = permutation[k];
+                permutation[k] = p;
+                ++c[i];
+                i = 1;
+                result.push(permutation.slice());
+              } else {
+                c[i] = 0;
+                ++i;
+              }
+            }
+            return result;
         }
-        vFilter = vFilter.join("&");
+
+        var vFilter = "";
+
+        if(UserSettings.settings.StanceAND){
+            if(filter.length > 0){
+                var vPermFilter = permute(filter);
+                vFilter = [];
+        
+                //(\bSC\b.*\bAS\b|\bAS\b.*\bSC\b)
+                for (let index = 0; index < vPermFilter.length; index++) {
+                    vFilter[index] = "(\\b" + vPermFilter[index].join("\\b.*\\b") + "\\b)"
+                }
+        
+                vFilter = vFilter.join("|");
+            }
+        } else {
+            vFilter = "\\b" + filter.join("|\\b") + "\\b";
+        }
         this.stanceFilter = vFilter;
     }
 
@@ -376,7 +417,7 @@ class searchFilters{
         }
 
         //Stance level
-        Dtable.column(3).search(this.stanceFilter, true, true, false).draw();
+        Dtable.column(3).search(this.stanceFilter, true, false, false).draw();
 
         //Command filter
         Dtable.column(4).search(this.commandFilter, true, true, false).draw();
@@ -464,111 +505,111 @@ class searchFilters{
 
 //Create instance of searchFilter as global
 var Filters = new searchFilters()
-
+// #endregion
 
 // #region Gloabl icons
 var Icons = {
     //Notes
-    ":TH:": '<img width="40" height="20" src="Icons/TH.png" value="TH" ></img>',
-    ":BA:": '<img width="40" height="20" src="Icons/BA.png" value="BA" ></img>',
-    ":GI:": '<img width="40" height="20" src="Icons/GI.png" value="GI" ></img>',
-    ":SS:": '<img width="40" height="20" src="Icons/SS.png" value="SS" ></img>',
-    ":UA:": '<img width="40" height="20" src="Icons/UA.png" value="UA" ></img>',
-    ":LH:": '<img width="40" height="20" src="Icons/LH.png" value="LH" ></img>',
-    ":RE:": '<img width="40" height="20" src="Icons/RE.png" value="RE" ></img>',
-    ":GC:": '<img width="40" height="20" src="Icons/GC.png" value="GC" ></img>',
-    ":AT:": '<img width="40" height="20" src="Icons/AT.png" value="AT" ></img>',
-    ":CE:": '<img width="40" height="20" src="Icons/CE.png" value="CE" ></img>',
-    ":SC:": '<img width="40" height="20" src="Icons/SC.png" value="SC" ></img>',
+    ":TH:": '<img width="40" height="20" src="Icons/TH.png" value="TH" ></img><p class="superHidden">TH</p>',
+    ":BA:": '<img width="40" height="20" src="Icons/BA.png" value="BA" ></img><p class="superHidden">BA</p>',
+    ":GI:": '<img width="40" height="20" src="Icons/GI.png" value="GI" ></img><p class="superHidden">GI</p>',
+    ":SS:": '<img width="40" height="20" src="Icons/SS.png" value="SS" ></img><p class="superHidden">SS</p>',
+    ":UA:": '<img width="40" height="20" src="Icons/UA.png" value="UA" ></img><p class="superHidden">UA</p>',
+    ":LH:": '<img width="40" height="20" src="Icons/LH.png" value="LH" ></img><p class="superHidden">LH</p>',
+    ":RE:": '<img width="40" height="20" src="Icons/RE.png" value="RE" ></img><p class="superHidden">RE</p>',
+    ":GC:": '<img width="40" height="20" src="Icons/GC.png" value="GC" ></img><p class="superHidden">GC</p>',
+    ":AT:": '<img width="40" height="20" src="Icons/AT.png" value="AT" ></img><p class="superHidden">AT</p>',
+    ":CE:": '<img width="40" height="20" src="Icons/CE.png" value="CE" ></img><p class="superHidden">CE</p>',
+    ":SC:": '<img width="40" height="20" src="Icons/SC.png" value="SC" ></img><p class="superHidden">SC</p>',
     //":TS:": '<img width="40" height="20" src="Icons/TS.png" value = "TS"></img>',
 
     //Slide combo buttons
-    ":a::A:": '<img width="28" height="20" src="Icons/A-A.png" class="mr-1" value = "aA" ></img>',
-    ":a::B:": '<img width="28" height="20" src="Icons/A-B.png" class="mr-1" value = "aB" ></img>',
-    ":a::K:": '<img width="28" height="20" src="Icons/A-K.png" class="mr-1" value = "aK" ></img>',
-    ":a::G:": '<img width="28" height="20" src="Icons/A-G.png" class="mr-1" value = "aG" ></img>',
-    ":b::A:": '<img width="28" height="20" src="Icons/B-A.png" class="mr-1" value = "bA" ></img>',
-    ":b::B:": '<img width="28" height="20" src="Icons/B-B.png" class="mr-1" value = "bB" ></img>',
-    ":b::K:": '<img width="28" height="20" src="Icons/B-K.png" class="mr-1" value = "bK" ></img>',
-    ":b::G:": '<img width="28" height="20" src="Icons/B-G.png" class="mr-1" value = "bG" ></img>',
-    ":k::A:": '<img width="28" height="20" src="Icons/K-A.png" class="mr-1" value = "kA" ></img>',
-    ":k::B:": '<img width="28" height="20" src="Icons/K-B.png" class="mr-1" value = "kB" ></img>',
-    ":k::K:": '<img width="28" height="20" src="Icons/K-K.png" class="mr-1" value = "kK" ></img>',
-    ":k::G:": '<img width="28" height="20" src="Icons/K-G.png" class="mr-1" value = "kG" ></img>',
-    ":g::A:": '<img width="28" height="20" src="Icons/G-A.png" class="mr-1" value = "gA" ></img>',
-    ":g::B:": '<img width="28" height="20" src="Icons/G-B.png" class="mr-1" value = "gB" ></img>',
-    ":g::K:": '<img width="28" height="20" src="Icons/G-K.png" class="mr-1" value = "gK" ></img>',
-    ":g::G:": '<img width="28" height="20" src="Icons/G-G.png" class="mr-1" value = "gG" ></img>',
+    ":a::A:": '<img width="28" height="20" src="Icons/A-A.png" class="mr-1" value = "aA" ></img><p class="superHidden">aA</p>',
+    ":a::B:": '<img width="28" height="20" src="Icons/A-B.png" class="mr-1" value = "aB" ></img><p class="superHidden">aB</p>',
+    ":a::K:": '<img width="28" height="20" src="Icons/A-K.png" class="mr-1" value = "aK" ></img><p class="superHidden">aK</p>',
+    ":a::G:": '<img width="28" height="20" src="Icons/A-G.png" class="mr-1" value = "aG" ></img><p class="superHidden">aG</p>',
+    ":b::A:": '<img width="28" height="20" src="Icons/B-A.png" class="mr-1" value = "bA" ></img><p class="superHidden">bA</p>',
+    ":b::B:": '<img width="28" height="20" src="Icons/B-B.png" class="mr-1" value = "bB" ></img><p class="superHidden">bB</p>',
+    ":b::K:": '<img width="28" height="20" src="Icons/B-K.png" class="mr-1" value = "bK" ></img><p class="superHidden">bK</p>',
+    ":b::G:": '<img width="28" height="20" src="Icons/B-G.png" class="mr-1" value = "bG" ></img><p class="superHidden">bG</p>',
+    ":k::A:": '<img width="28" height="20" src="Icons/K-A.png" class="mr-1" value = "kA" ></img><p class="superHidden">kA</p>',
+    ":k::B:": '<img width="28" height="20" src="Icons/K-B.png" class="mr-1" value = "kB" ></img><p class="superHidden">kB</p>',
+    ":k::K:": '<img width="28" height="20" src="Icons/K-K.png" class="mr-1" value = "kK" ></img><p class="superHidden">kK</p>',
+    ":k::G:": '<img width="28" height="20" src="Icons/K-G.png" class="mr-1" value = "kG" ></img><p class="superHidden">kG</p>',
+    ":g::A:": '<img width="28" height="20" src="Icons/G-A.png" class="mr-1" value = "gA" ></img><p class="superHidden">gA</p>',
+    ":g::B:": '<img width="28" height="20" src="Icons/G-B.png" class="mr-1" value = "gB" ></img><p class="superHidden">gB</p>',
+    ":g::K:": '<img width="28" height="20" src="Icons/G-K.png" class="mr-1" value = "gK" ></img><p class="superHidden">gK</p>',
+    ":g::G:": '<img width="28" height="20" src="Icons/G-G.png" class="mr-1" value = "gG" ></img><p class="superHidden">gG</p>',
     
     //Directions
-    ":9:": '<img width="20" height="20" src="Icons/9.png" value = "9" ></img>',
-    ":8:": '<img width="20" height="20" src="Icons/8.png" value = "8" ></img>',
-    ":7:": '<img width="20" height="20" src="Icons/7.png" value = "7" ></img>',
-    ":6:": '<img width="20" height="20" src="Icons/6.png" value = "6" ></img>',
-    ":5:": '<img width="20" height="20" src="Icons/5.png" value = "5" ></img>',
-    ":4:": '<img width="20" height="20" src="Icons/4.png" value = "4" ></img>',
-    ":3:": '<img width="20" height="20" src="Icons/3.png" value = "3" ></img>',
-    ":2:": '<img width="20" height="20" src="Icons/2.png" value = "2" ></img>',
-    ":1:": '<img width="20" height="20" src="Icons/1.png" value = "1" ></img>',
+    ":9:": '<img width="20" height="20" src="Icons/9.png" value = "9" ></img><p class="superHidden">9</p>',
+    ":8:": '<img width="20" height="20" src="Icons/8.png" value = "8" ></img><p class="superHidden">8</p>',
+    ":7:": '<img width="20" height="20" src="Icons/7.png" value = "7" ></img><p class="superHidden">7</p>',
+    ":6:": '<img width="20" height="20" src="Icons/6.png" value = "6" ></img><p class="superHidden">6</p>',
+    ":5:": '<img width="20" height="20" src="Icons/5.png" value = "5" ></img><p class="superHidden">5</p>',
+    ":4:": '<img width="20" height="20" src="Icons/4.png" value = "4" ></img><p class="superHidden">4</p>',
+    ":3:": '<img width="20" height="20" src="Icons/3.png" value = "3" ></img><p class="superHidden">3</p>',
+    ":2:": '<img width="20" height="20" src="Icons/2.png" value = "2" ></img><p class="superHidden">2</p>',
+    ":1:": '<img width="20" height="20" src="Icons/1.png" value = "1" ></img><p class="superHidden">1</p>',
 
     //Directions held
-    ":(9):": '<img width="20" height="20" src="Icons/9-.png" value = "(9)" ></img>',
-    ":(8):": '<img width="20" height="20" src="Icons/8-.png" value = "(8)" ></img>',
-    ":(7):": '<img width="20" height="20" src="Icons/7-.png" value = "(7)" ></img>',
-    ":(6):": '<img width="20" height="20" src="Icons/6-.png" value = "(6)" ></img>',
-    ":(4):": '<img width="20" height="20" src="Icons/4-.png" value = "(4)" ></img>',
-    ":(3):": '<img width="20" height="20" src="Icons/3-.png" value = "(3)" ></img>',
-    ":(2):": '<img width="20" height="20" src="Icons/2-.png" value = "(2)" ></img>',
-    ":(1):": '<img width="20" height="20" src="Icons/1-.png" value = "(1)" ></img>',
+    ":(9):": '<img width="20" height="20" src="Icons/9-.png" value = "(9)" ></img><p class="superHidden">(9)</p>',
+    ":(8):": '<img width="20" height="20" src="Icons/8-.png" value = "(8)" ></img><p class="superHidden">(8)</p>',
+    ":(7):": '<img width="20" height="20" src="Icons/7-.png" value = "(7)" ></img><p class="superHidden">(7)</p>',
+    ":(6):": '<img width="20" height="20" src="Icons/6-.png" value = "(6)" ></img><p class="superHidden">(6)</p>',
+    ":(4):": '<img width="20" height="20" src="Icons/4-.png" value = "(4)" ></img><p class="superHidden">(4)</p>',
+    ":(3):": '<img width="20" height="20" src="Icons/3-.png" value = "(3)" ></img><p class="superHidden">(3)</p>',
+    ":(2):": '<img width="20" height="20" src="Icons/2-.png" value = "(2)" ></img><p class="superHidden">(2)</p>',
+    ":(1):": '<img width="20" height="20" src="Icons/1-.png" value = "(1)" ></img><p class="superHidden">(1)</p>',
 
     //Held buttons
-    ":(G):": '<img width="20" height="20" src="Icons/G-.png" class="mr-1" value = "(G)" ></img>',
-    ":(A):": '<img width="20" height="20" src="Icons/A-.png" class="mr-1" value = "(A)" ></img>',
-    ":(B):": '<img width="20" height="20" src="Icons/B-.png" class="mr-1" value = "(B)" ></img>',
-    ":(K):": '<img width="20" height="20" src="Icons/K-.png" class="mr-1" value = "(K)" ></img>',
+    ":(G):": '<img width="20" height="20" src="Icons/G-.png" class="mr-1" value = "(G)" ></img><p class="superHidden">(G)</p>',
+    ":(A):": '<img width="20" height="20" src="Icons/A-.png" class="mr-1" value = "(A)" ></img><p class="superHidden">(A)</p>',
+    ":(B):": '<img width="20" height="20" src="Icons/B-.png" class="mr-1" value = "(B)" ></img><p class="superHidden">(B)</p>',
+    ":(K):": '<img width="20" height="20" src="Icons/K-.png" class="mr-1" value = "(K)" ></img><p class="superHidden">(K)</p>',
 
     //Buttons
-    ":G:": '<img width="20" height="20" src="Icons/G.png" class="mr-1" value = "G" ></img>',
-    ":A:": '<img width="20" height="20" src="Icons/A.png" class="mr-1" value = "A" ></img>',
-    ":B:": '<img width="20" height="20" src="Icons/B.png" class="mr-1" value = "B" ></img>',
-    ":K:": '<img width="20" height="20" src="Icons/K.png" class="mr-1" value = "K" ></img>',
+    ":G:": '<img width="20" height="20" src="Icons/G.png" class="mr-1" value = "G" ></img><p class="superHidden">G</p>',
+    ":A:": '<img width="20" height="20" src="Icons/A.png" class="mr-1" value = "A" ></img><p class="superHidden">A</p>',
+    ":B:": '<img width="20" height="20" src="Icons/B.png" class="mr-1" value = "B" ></img><p class="superHidden">B</p>',
+    ":K:": '<img width="20" height="20" src="Icons/K.png" class="mr-1" value = "K" ></img><p class="superHidden">K</p>',
 
     //Slide buttons
-    ":g:": '<img width="20" height="20" src="Icons/Gs.png" value = "g" ></img>',
-    ":a:": '<img width="20" height="20" src="Icons/As.png" value = "a" ></img>',
-    ":b:": '<img width="20" height="20" src="Icons/Bs.png" value = "b" ></img>',
-    ":k:": '<img width="20" height="20" src="Icons/Ks.png" value = "k" ></img>',
+    ":g:": '<img width="20" height="20" src="Icons/Gs.png" value = "g" ></img><p class="superHidden">g</p>',
+    ":a:": '<img width="20" height="20" src="Icons/As.png" value = "a" ></img><p class="superHidden">a</p>',
+    ":b:": '<img width="20" height="20" src="Icons/Bs.png" value = "b" ></img><p class="superHidden">b</p>',
+    ":k:": '<img width="20" height="20" src="Icons/Ks.png" value = "k" ></img><p class="superHidden">k</p>',
 
     //Held combo buttons
-    ":(A)+(K):": '<img width="46" height="20" src="Icons/AK-.png" class="mr-1" value = "(A)+(K)" ></img>',
-    ":(A)+(B):": '<img width="46" height="20" src="Icons/AB-.png" class="mr-1" value = "(A)+(B)" ></img>',
-    ":(K)+(G):": '<img width="46" height="20" src="Icons/KG-.png" class="mr-1" value = "(K)+(H)" ></img>',
-    ":(B)+(K):": '<img width="46" height="20" src="Icons/BK-.png" class="mr-1" value = "(B+K)" ></img>',
-    ":(A)+(G):": '<img width="46" height="20" src="Icons/AG-.png" class="mr-1" value = "(A)+(G)" ></img>',
-    ":(B)+(G):": '<img width="46" height="20" src="Icons/BG-.png" class="mr-1" value = "(B+G)" ></img>',
+    ":(A)+(K):": '<img width="46" height="20" src="Icons/AK-.png" class="mr-1" value = "(A)+(K)" ></img><p class="superHidden">(A)+(K)</p>',
+    ":(A)+(B):": '<img width="46" height="20" src="Icons/AB-.png" class="mr-1" value = "(A)+(B)" ></img><p class="superHidden">(A)+(B)</p>',
+    ":(K)+(G):": '<img width="46" height="20" src="Icons/KG-.png" class="mr-1" value = "(K)+(H)" ></img><p class="superHidden">(K)+(H)</p>',
+    ":(A)+(G):": '<img width="46" height="20" src="Icons/AG-.png" class="mr-1" value = "(A)+(G)" ></img><p class="superHidden">(A)+(G)</p>',
+    ":(B)+(K):": '<img width="46" height="20" src="Icons/BK-.png" class="mr-1" value = "(B+K)" ></img><p class="superHidden">(B+K)</p>',
+    ":(B)+(G):": '<img width="46" height="20" src="Icons/BG-.png" class="mr-1" value = "(B+G)" ></img><p class="superHidden">(B+G)</p>',
 
     //Combo buttons
-    ":A+K:": '<img width="46" height="20" src="Icons/AK.png" class="mr-1" value="A+K" ></img>',
-    ":A+B:": '<img width="46" height="20" src="Icons/AB.png" class="mr-1" value="A+B" ></img>',
-    ":K+G:": '<img width="46" height="20" src="Icons/KG.png" class="mr-1" value="K+G" ></img>',
-    ":A+G:": '<img width="46" height="20" src="Icons/AG.png" class="mr-1" value="A+G" ></img>',
-    ":B+K:": '<img width="46" height="20" src="Icons/BK.png" class="mr-1" value="B+K" ></img>',
-    ":B+G:": '<img width="46" height="20" src="Icons/BG.png" class="mr-1" value="B+G" ></img>',
+    ":A+K:": '<img width="46" height="20" src="Icons/AK.png" class="mr-1" value="A+K" ></img><p class="superHidden">A+K</p>',
+    ":A+B:": '<img width="46" height="20" src="Icons/AB.png" class="mr-1" value="A+B" ></img><p class="superHidden">A+B</p>',
+    ":K+G:": '<img width="46" height="20" src="Icons/KG.png" class="mr-1" value="K+G" ></img><p class="superHidden">K+G</p>',
+    ":A+G:": '<img width="46" height="20" src="Icons/AG.png" class="mr-1" value="A+G" ></img><p class="superHidden">A+G</p>',
+    ":B+K:": '<img width="46" height="20" src="Icons/BK.png" class="mr-1" value="B+K" ></img><p class="superHidden">B+K</p>',
+    ":B+G:": '<img width="46" height="20" src="Icons/BG.png" class="mr-1" value="B+G" ></img><p class="superHidden">B+G</p>',
 
-    ":A+B+K:": '<img width="72" height="20" src= "Icons/ABK.png" class="mr-1" value="A+B+K"></img>',
-    ":(A)+(B)+(K):": '<img width="72" height="20" src="Icons/ABK-.png" class="mr-1" value="(A+B+K)"></img>',
+    ":A+B+K:": '<img width="72" height="20" src= "Icons/ABK.png" class="mr-1" value="A+B+K"></img><p class="superHidden">A+B+K</p>',
+    ":(A)+(B)+(K):": '<img width="72" height="20" src="Icons/ABK-.png" class="mr-1" value="(A+B+K)"></img><p class="superHidden">(A+B+K)</p>',
 
     //Height
-    ":H:": '<img width="20" height="20" src="Icons/H.png" value="H"></img>',
-    ":M:": '<img width="20" height="20" src="Icons/M.png" value="M"></img>',
-    ":L:": '<img width="20" height="20" src="Icons/L.png" value="L"></img>',
-    ":SH:": '<img width="40" height="20" src="Icons/SH.png" value="SH"></img>',
-    ":SM:": '<img width="40" height="20" src="Icons/SM.png" value="SM"></img>',
-    ":SL:": '<img width="40" height="20" src="Icons/SL.png" value="SL"></img>',
+    ":H:": '<img width="20" height="20" src="Icons/H.png" value="H"></img><p class="superHidden">H</p>',
+    ":M:": '<img width="20" height="20" src="Icons/M.png" value="M"></img><p class="superHidden">M</p>',
+    ":L:": '<img width="20" height="20" src="Icons/L.png" value="L"></img><p class="superHidden">L</p>',
+    ":SH:": '<img width="40" height="20" src="Icons/SH.png" value="SH"></img><p class="superHidden">SH</p>',
+    ":SM:": '<img width="40" height="20" src="Icons/SM.png" value="SM"></img><p class="superHidden">SM</p>',
+    ":SL:": '<img width="40" height="20" src="Icons/SL.png" value="SL"></img><p class="superHidden">SL</p>',
 
     //Misc
     ":a+b:": '<img width="46" height="20" src="Icons/AB.png" class="mr-1" value="a+b"></img>',
-}
+};
 
 var CommandIcons = [
     //Slide inputs
@@ -699,7 +740,109 @@ var NotesIcons = [
 ];
 // #endregion
 
-// #endregion
+
+
+//#region Settings
+class Settings {
+
+    //Settings { value of setting,  jquery selector for dom check }
+    defaultSettings = {
+        "StanceSelector": true,
+        "StanceAND": true,
+    };
+
+    // Setting checkbox translator
+    settingCheckbox = {
+        "StanceSelector": "#StanceSelectorCHK",
+        "StanceAND": "#StanceANDCHK",
+    }
+
+    //Settings variable where everything is stored
+    settings = {};
+
+    //Change setting
+    set(setting, value){
+        this.settings[setting] = value;
+        this.saveSettings();
+        
+        if(setting == "StanceAND"){
+            Filters.setStanceFilter($("#stanceMultiselector").val())
+        }
+    }
+
+    resetSettings(){
+        this.settings = this.defaultSettings;
+        this.saveSettings();
+        this.udpateSettingsDisplay();
+    }
+
+    loadSettings(){
+        
+        //Load settings
+        if(!localStorage.hasOwnProperty("settings")){
+            this.settings = this.defaultSettings;
+        } else {
+            this.settings = JSON.parse(localStorage.settings);
+        }
+
+        
+        //Add missing settings from defaults
+        var _changed = 0;
+        for (const [key, value] of Object.entries(this.defaultSettings)) {
+            if(!this.settings.hasOwnProperty(key)){
+                this.settings[key] = value;
+                _changed = 1;
+            }
+        }
+
+        //Save settings if anything has been changed
+        if(_changed == 1){
+            this.saveSettings();
+        }
+
+        this.udpateSettingsDisplay();
+        //this.applySettings();
+    }
+
+    // Update to use new generalization thing ma ef sduighswiu iqeur hgåoi 
+    udpateSettingsDisplay(){
+        for (const [key, value] of Object.entries(this.settings)) {
+            $(this.settingCheckbox[key]).prop("checked", value );
+        }
+    }
+
+    saveSettings(){
+        localStorage.setItem("settings", JSON.stringify(this.settings));
+    }
+
+    applySettings(){
+        //StanceSelector
+        if(this.settings.StanceSelector){
+            $("#stanceMultiselector").prop('disabled', false);
+        } else {
+            $("#stanceMultiselector").prop('disabled', true);
+        }
+
+
+    }
+};
+
+
+//Settings
+var UserSettings = new Settings();
+UserSettings.loadSettings();
+UserSettings.applySettings();
+
+//Handles dom settings page
+$("#settingsModal .modal-body input").change(function(event){
+    UserSettings.set(
+        this.getAttribute("settingName"),
+        this.checked
+    );
+});
+
+//#endregion
+
 
 function downloadFrameData(){
     const CSVHeaders = ["Character", "Move category", "Move Name", "Stance", "Command", "Hit level", "Impact", "Damage", "Block", "Hit", "Counter Hit", "Guard Burst", "Notes"];
@@ -714,11 +857,8 @@ function downloadFrameData(){
             return CSVHeaders[index];
         },
         complete: (results) => {
-            //Pre process
+            //Remove data header
             results.data.splice(0,3);
-
-            //Add framedata to localstorage
-            //localStorage.setItem("Fdata", JSON.stringify(results.data));
 
             createTable(results.data);
             toastr.clear();
@@ -741,19 +881,19 @@ function createTable(data){
         vData = JSON.parse(localStorage.vData);
     } else {
         vData = [];
+
+        // Transform raw csv data
         data.forEach(function (row, index){
     
             //Sum damage
             sumDamage = row[Fheaders[7]].split(",").map(Number).reduce((partialSum, a) => partialSum + a, 0);
-    
-    
+
             //Command
             var Command = row[Fheaders[4]];
             for (let index = 0; index < CommandIcons.length; index++) {
                 Command = Command.replaceAll(CommandIcons[index][0], CommandIcons[index][1]);
             }
             Command = Command.replaceAll("_", '<img width="10" height="20" src="Icons/underscore.png" value = "_"></img>');
-            var Command =  Command + `<p class="superHidden">${row[Fheaders[4]]}</p>`;
     
     
             //Hit level
@@ -762,7 +902,6 @@ function createTable(data){
                 hitLevel = hitLevel.replaceAll(HeightIcons[index][0], HeightIcons[index][1]);
             }
             hitLevel = hitLevel.replaceAll("_", "");
-            hitLevel = hitLevel + `<p class="superHidden">${row[Fheaders[5]]}</p>`;
     
     
             //Notes
@@ -770,24 +909,23 @@ function createTable(data){
             for (let index = 0; index < NotesIcons.length; index++) {
                 Notes = Notes.replaceAll(NotesIcons[index][0], NotesIcons[index][1]);
             }
-            Notes =  Notes + `<p class="superHidden">${row[Fheaders[13]]}</p>`;
     
     
             vData.push([
-                row[Fheaders[0]],//"Character"
-                row[Fheaders[1]],//"Move category"
-                row[Fheaders[2]],//"Move Name"
-                row[Fheaders[3]],//"Stance"
-                Command,//"Command"
-                hitLevel,//"Hit level"
-                row[Fheaders[6]],//"Impact",
-                row[Fheaders[7]],//"Damage",
-                sumDamage,       //"Sum(Damage)"
-                row[Fheaders[9]],//"Block",
-                row[Fheaders[10]],//"Hit",
-                row[Fheaders[11]],//"Counter Hit"
-                row[Fheaders[12]],//"Guard Burst"
-                Notes,//"Notes"
+                row[Fheaders[0]],  //Character
+                row[Fheaders[1]],  //Move category
+                row[Fheaders[2]],  //Move Name
+                row[Fheaders[3]],  //Stance
+                Command,           //Command
+                hitLevel,          //Hit level
+                row[Fheaders[6]],  //Impact
+                row[Fheaders[7]],  //Damage
+                sumDamage,         //Sum(Damage)
+                row[Fheaders[9]],  //Block
+                row[Fheaders[10]], //Hit
+                row[Fheaders[11]], //Counter Hit
+                row[Fheaders[12]], //Guard Burst
+                Notes,             //"Notes"
             ]);
         });
         
@@ -857,10 +995,36 @@ function createTable(data){
                     text: 'Advanced',
                     className: 'btn btn-outline-secondary',
                     buttons: [
+                        {
+                            text: "Settings",
+                            action: function () {
+                                $(".dt-button-background").trigger("click"); //Close dropdown
+                                $("#settingsModal").modal("show");
+                            },
+                            className: 'btn btn-outline-secondary'
+                        },
                         { extend: 'searchBuilder', text: 'Advanced search' },
-                        { extend: 'copy', text: 'Copy table to clipboard' },
-                        { extend: 'excel', text: 'Save as Excel' },
-                        { extend: 'csv', text: 'Save as CSV' },
+                        { 
+                            extend: 'copy',
+                            text: 'Copy table to clipboard',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        { 
+                            extend: 'excel',
+                            text: 'Save as Excel',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        { 
+                            extend: 'csv', 
+                            text: 'Save as CSV',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
                     ]
                 },
             ],
@@ -889,27 +1053,24 @@ function createTable(data){
         colReorder: {
             realtime: false
         },
-        columnDefs: [
-            {targets: 0, visible: true},//Character
-            {targets: 1, visible: false},//Move category
-            {targets: 2, visible: false},//Move Name
-            {targets: 3, visible: true,className: 'dt-body-right'},//Stance
-            {targets: 4, visible: true, width: "10%",},//Command
-            {targets: 5, visible: true,},//Hitlevel
-            {targets: 6, visible: true},//impact
-            {targets: 7, visible: false},//Damage 
-            {targets: 8, type: 'numeric-comma'},//Sum damage
-            {targets: 13, visible: true,},//Notes
+
+        columnDefs: [ 
+            {targets: 0, visible: true, type:"string"}//Character
+            ,{targets: 1, visible: false, type:"string"}//Move category
+            ,{targets: 2, visible: false, type:"string"}//Move Name
+            ,{targets: 3, visible: true, type:"string", className: "dt-body-right"}//Stance allign text right
+            ,{targets: 4, visible: true, type:"string", width: "10%",}//Command
+            ,{targets: 5, visible: true, type:"string"}//Hitlevel
+            ,{targets: 6, visible: true, type:"num"}//impact
+            ,{targets: 7, visible: false, type:"string"}//Damage 
+            ,{targets: 8, visible: true, type:"num"}//Sum damage
+            ,{targets: 9, visible: true, type:"num"}//"Block"
+            ,{targets: 10, visible: true, type:"num"}//"Hit"
+            ,{targets: 11, visible: true, type:"num"}//"Counter
+            ,{targets: 12, visible: true, type:"num"}//"Guard Burst
+            ,{targets: 13, visible: true, type:"string"}//Notes
         ],
-
-        on_resize: function(){ //lol dont remember 
-            $('div.dataTables_scrollBody').css('height', newHt, 'maxHeight', newHt);
-        },
-
-        searchBuilder: {
-            columns: [3,4,5],
-        },
-
+        
         searchCols: [
             null,//"Character"
             null,//"Move categ
@@ -926,6 +1087,10 @@ function createTable(data){
             null,//"Guard Bur
             null,//"Notes"
         ],
+
+        on_resize: function(){ //lol dont remember 
+            $('div.dataTables_scrollBody').css('height', newHt, 'maxHeight', newHt);
+        },
     });
 
     //Can refresh
@@ -965,7 +1130,6 @@ function clearCmdFilter(){
 
     //TODO:
     // Clear filters in command search modal???
-
 }
 
 function applyCmdModalFilter(){
@@ -1008,10 +1172,11 @@ $(document).ready(function() {
         localStorage.setItem("version", version);
     } else {
         if(localStorage.getItem("version") != version){
-            localStorage.clear("Fdata");
+            clearCache();
             localStorage.setItem("version", version);
         }
     }
+    
     
     //Options for toastr
     toastr.options = {
@@ -1039,7 +1204,7 @@ $(document).ready(function() {
     });
 
     $("#stanceMultiselector").select2({
-        allowClear: true,//Adds clear all button
+        //allowClear: true,//Adds clear all button
     });
     
     //#endregion
@@ -1090,6 +1255,19 @@ $(document).ready(function() {
             $("#applyCmdModalFilter").click();
         }
     });
+
+    //tab open 
+    document.onkeydown = function(evt) {
+        evt = evt || window.event;
+        if (
+            evt.key == "Tab"
+            && !$("#commandSearchModal").data('bs.modal')?._isShown
+            && !$("#settingsModal").data('bs.modal')?._isShown
+        ) {
+            console.log("iran");
+            $("#commandSearchModal").modal("show");
+        }
+    };
     //#endregion
 
     //#endregion

@@ -1,18 +1,26 @@
-fix notes export in excel 
-    make new column for notes to use for export.
-
-Remake icons in svg format for better scaling 
-    icon scaling on zoom?
-    haha sure will do past me lol
-
-clear filter should clear fields in modal???
-
-Hotkeys?
 
 or mode on stance filter?
-
-Notes:
+stance filter not working with multiple stances
 //js doesnt support lookaheads maybe source stackoverflow
 
+add snap scroll to remove banner and stuff??
+
+copying icons still isnt perfect
+
+directions doesnt seem to work
+
+bugs around tab open command search
+
+---IDEAS probably never
+    gamepad input??
+
+    clear filter should clear fields in modal???
+
+    Remake icons in svg format for better scaling 
+        icon scaling on zoom?
+        haha sure will do past me lol
+    fix icons in command search on smaller screens SVG?
 
 
+
+Notes:

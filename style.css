@@ -18,11 +18,14 @@ table.display td {
 
 /* Hides text in the command columns */
 .superHidden{
-    display: inline;
-    visibility: hidden;
+    /* display: inline;
     width: 0px;
     height: 0px;
+    visibility: hidden; */
     font-size: 0px;
+    display: inline; 
+    position: absolute;
+    clip: rect(0,0,0,0);
 }
 
 
