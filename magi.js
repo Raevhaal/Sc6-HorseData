@@ -768,6 +768,8 @@ class Settings {
         if(setting == "StanceAND"){
             Filters.setStanceFilter($("#stanceMultiselector").val())
         }
+
+        this.applySettings();
     }
 
     resetSettings(){
