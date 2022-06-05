@@ -765,9 +765,7 @@ class Settings {
         this.settings[setting] = value;
         this.saveSettings();
         
-        if(setting == "StanceAND"){
-            Filters.setStanceFilter($("#stanceMultiselector").val())
-        }
+        if(setting == "StanceAND"){ Filters.setStanceFilter($("#stanceMultiselector").val()); }
 
         this.applySettings();
     }
@@ -1049,7 +1047,7 @@ function createTable(data){
             [10, 15, 20, 30, 40, 50, "All"]],//Displayed value
 
         scrollCollapse: true,
-        scrollX: true,
+        scrollX: false,
         scrollY: true,
           
         colReorder: {
