@@ -31,7 +31,7 @@ class searchFilters{
     hitLevelFilter = [];
     stanceFilter = "";
 
-    addStance(vStances){
+    addStance(vStances){//rename to addStances
         //Allow for input string and array
         if(typeof(vStances) == 'string'){
             vStances = [vStances];
@@ -39,6 +39,28 @@ class searchFilters{
         //Adds stances 
         $("#stanceMultiselector").val($("#stanceMultiselector").val().concat(vStances)).trigger("change");
         return true;
+    }
+
+    addCharacters(vCharacters){
+        //Allow for input string and array
+        if(typeof(vCharacters) == 'string'){
+            vCharacters = [vCharacters];
+        }
+        //Adds stances 
+        $("#charMultiSelector").val($("#charMultiSelector").val().concat(vCharacters)).trigger("change");
+        return true;
+    }
+
+    removeCharacter(vCharacters){
+        let vChars = $("#charMultiSelector").val();
+        let _index = vChars.indexOf(vCharacters);
+        if(_index != -1){
+            vChars.splice(_index,1);
+            $("#charMultiSelector").val(vChars).trigger("change");
+            return true;
+        }
+        
+        return false;
     }
 
     removeStance(vStances){
@@ -58,14 +80,14 @@ class searchFilters{
     }
     
     applyUrlFilter(){
-        //
-        let urlParam = new URLSearchParams(window.location.search);
+        let urlParam = new URLSearchParams( window.location.search);
         
         //Character filter
         if(urlParam.get("character") != null){
             var characterlist = ["2b", "amy", "astaroth", "azwel", "cassandra", "cervantes", "geralt", "groh", "haohmaru", "hilde", "inferno", "ivy", "kilik", "maxi", "mitsurugi", "nightmare", "raphael", "seong-mi-na", "setsuka", "siegfried", "sophitia", "taki", "talim", "tira", "voldo", "xianghua", "yoshimitsu", "zasalamel", "hwang"]
             if(characterlist.includes(urlParam.get("character").toLocaleLowerCase())){
-                $("#charMultiSelector").val($("#charMultiSelector").val().concat([urlParam.get("character").toLocaleLowerCase()])).trigger("change")
+                $("#charMultiSelector").val($("#charMultiSelector").val().concat([urlParam.get("character").toLocaleLowerCase()])).trigger("change");
+                $("#navbarFilter").click(); //Hides quick filter menu
             }
         }
 
@@ -270,38 +292,53 @@ class searchFilters{
         //#endregion
 
 
+        //#region Please dont look
+        
+        // Remove all spaces
+        vFilter = vFilter.replaceAll(" ", "");
         // Add space between each character
         vFilter = vFilter.split("").join(" ") + " ";
 
+        vFilter = vFilter.replaceAll("( ", "(");
+        vFilter = vFilter.replaceAll(" )", ")");
+        vFilter = vFilter.replaceAll("[ ", "[");
+        vFilter = vFilter.replaceAll(" ]", "]");
 
-        //Replace dict 
-        var replaceValues = [
-            ["1 1", "(1)"],
-            ["2 2", "(2)"],
-            ["3 3", "(3)"],
-            ["4 4", "(4)"],
-            ["5 5", "(5)"],
-            ["6 6", "(6)"],
-            ["7 7", "(7)"],
-            ["8 8", "(8)"],
-            ["9 9", "(9)"],
-        ];
-
-        for (let index = 0; index < replaceValues.length; index++) {
-            vFilter = vFilter.replaceAll(replaceValues[index][0], replaceValues[index][1]);
-        }
-
+        vFilter = vFilter.replaceAll("1 1 ", "(1) ");
+        vFilter = vFilter.replaceAll("2 2 ", "(2) ");
+        vFilter = vFilter.replaceAll("3 3 ", "(3) ");
+        vFilter = vFilter.replaceAll("4 4 ", "(4) ");
+        vFilter = vFilter.replaceAll("5 5 ", "(5) ");
+        vFilter = vFilter.replaceAll("6 6 ", "(6) ");
+        vFilter = vFilter.replaceAll("7 7 ", "(7) ");
+        vFilter = vFilter.replaceAll("8 8 ", "(8) ");
+        vFilter = vFilter.replaceAll("9 9 ", "(9) ");
 
         //Escapes characters like ( ) [ ]
         vFilter = vFilter.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
         // Could be replaced by positive lookahead?
-        vFilter = vFilter.replaceAll(")", ").*");
-        vFilter = vFilter.replaceAll("]", "].*");
-        vFilter = vFilter.replaceAll("a", "A.*");
-        vFilter = vFilter.replaceAll("b", "B.*");
-        vFilter = vFilter.replaceAll("k", "K.*");
+        vFilter = vFilter.replaceAll(") ", ").*");
+        vFilter = vFilter.replaceAll("] ", "].*");
+        vFilter = vFilter.replaceAll("+ ", "+.*");
+        vFilter = vFilter.replaceAll("a ", "a.*");
+        vFilter = vFilter.replaceAll("b ", "b.*");
+        vFilter = vFilter.replaceAll("k ", "k.*");
 
+        vFilter = vFilter.replaceAll("A ", "A.*");
+        vFilter = vFilter.replaceAll("B ", "B.*");
+        vFilter = vFilter.replaceAll("K ", "K.*");
+ 
+        vFilter = vFilter.replaceAll("1 ", "1.*");
+        vFilter = vFilter.replaceAll("2 ", "2.*");
+        vFilter = vFilter.replaceAll("3 ", "3.*");
+        vFilter = vFilter.replaceAll("4 ", "4.*");
+        vFilter = vFilter.replaceAll("5 ", "5.*");
+        vFilter = vFilter.replaceAll("6 ", "6.*");
+        vFilter = vFilter.replaceAll("7 ", "7.*");
+        vFilter = vFilter.replaceAll("8 ", "8.*");
+        vFilter = vFilter.replaceAll("9 ", "9.*");
+        //#endregion
 
         //console.log(vFilter);
         this.commandFilter = vFilter; 
@@ -392,6 +429,9 @@ class searchFilters{
                 criteria: charFilter,
                 logic: "OR"
             });
+        } else {
+            Dtable.searchBuilder.rebuild({});
+            return false;
         }
 
         //Hit level
@@ -420,7 +460,7 @@ class searchFilters{
         Dtable.column(3).search(this.stanceFilter, true, false, false).draw();
 
         //Command filter
-        Dtable.column(4).search(this.commandFilter, true, true, false).draw();
+        Dtable.column(4).search(this.commandFilter, true, false, true).draw();
 
         //#region Note filters
         if($("#breakAttackCHK").is(":checked")) {
@@ -510,17 +550,17 @@ var Filters = new searchFilters()
 // #region Gloabl icons
 var Icons = {
     //Notes
-    ":TH:": '<img width="40" height="20" src="Icons/TH.png" value="TH" ></img><p class="superHidden">TH</p>',
-    ":BA:": '<img width="40" height="20" src="Icons/BA.png" value="BA" ></img><p class="superHidden">BA</p>',
-    ":GI:": '<img width="40" height="20" src="Icons/GI.png" value="GI" ></img><p class="superHidden">GI</p>',
-    ":SS:": '<img width="40" height="20" src="Icons/SS.png" value="SS" ></img><p class="superHidden">SS</p>',
-    ":UA:": '<img width="40" height="20" src="Icons/UA.png" value="UA" ></img><p class="superHidden">UA</p>',
-    ":LH:": '<img width="40" height="20" src="Icons/LH.png" value="LH" ></img><p class="superHidden">LH</p>',
-    ":RE:": '<img width="40" height="20" src="Icons/RE.png" value="RE" ></img><p class="superHidden">RE</p>',
-    ":GC:": '<img width="40" height="20" src="Icons/GC.png" value="GC" ></img><p class="superHidden">GC</p>',
-    ":AT:": '<img width="40" height="20" src="Icons/AT.png" value="AT" ></img><p class="superHidden">AT</p>',
-    ":CE:": '<img width="40" height="20" src="Icons/CE.png" value="CE" ></img><p class="superHidden">CE</p>',
-    ":SC:": '<img width="40" height="20" src="Icons/SC.png" value="SC" ></img><p class="superHidden">SC</p>',
+    ":TH:": '<img width="40" height="20" src="Icons/TH.png" value=":TH:" ></img><p class="superHidden">TH</p>',
+    ":BA:": '<img width="40" height="20" src="Icons/BA.png" value=":BA:" ></img><p class="superHidden">BA</p>',
+    ":GI:": '<img width="40" height="20" src="Icons/GI.png" value=":GI:" ></img><p class="superHidden">GI</p>',
+    ":SS:": '<img width="40" height="20" src="Icons/SS.png" value=":SS:" ></img><p class="superHidden">SS</p>',
+    ":UA:": '<img width="40" height="20" src="Icons/UA.png" value=":UA:" ></img><p class="superHidden">UA</p>',
+    ":LH:": '<img width="40" height="20" src="Icons/LH.png" value=":LH:" ></img><p class="superHidden">LH</p>',
+    ":RE:": '<img width="40" height="20" src="Icons/RE.png" value=":RE:" ></img><p class="superHidden">RE</p>',
+    ":GC:": '<img width="40" height="20" src="Icons/GC.png" value=":GC:" ></img><p class="superHidden">GC</p>',
+    ":AT:": '<img width="40" height="20" src="Icons/AT.png" value=":AT:" ></img><p class="superHidden">AT</p>',
+    ":CE:": '<img width="40" height="20" src="Icons/CE.png" value=":CE:" ></img><p class="superHidden">CE</p>',
+    ":SC:": '<img width="40" height="20" src="Icons/SC.png" value=":SC:" ></img><p class="superHidden">SC</p>',
     //":TS:": '<img width="40" height="20" src="Icons/TS.png" value = "TS"></img>',
 
     //Slide combo buttons
@@ -1047,7 +1087,7 @@ function createTable(data){
             [10, 15, 20, 30, 40, 50, "All"]],//Displayed value
 
         scrollCollapse: true,
-        scrollX: false,
+        scrollX: true,
         scrollY: true,
           
         colReorder: {
@@ -1055,12 +1095,12 @@ function createTable(data){
         },
 
         columnDefs: [ 
-            {targets: 0, visible: true, type:"string"}//Character
+            {targets: 0, visible: true, type:"string", className: "text-capitalize"}//Character
             ,{targets: 1, visible: false, type:"string"}//Move category
             ,{targets: 2, visible: false, type:"string"}//Move Name
             ,{targets: 3, visible: true, type:"string", className: "dt-body-right"}//Stance allign text right
-            ,{targets: 4, visible: true, type:"string", width: "10%",}//Command
-            ,{targets: 5, visible: true, type:"string"}//Hitlevel
+            ,{targets: 4, visible: true, type:"string", width: "10%", className: "user-select-all"}//Command
+            ,{targets: 5, visible: true, type:"string", className:"user-select-all"}//Hitlevel
             ,{targets: 6, visible: true, type:"num"}//impact
             ,{targets: 7, visible: false, type:"string"}//Damage 
             ,{targets: 8, visible: true, type:"num"}//Sum damage
@@ -1068,7 +1108,7 @@ function createTable(data){
             ,{targets: 10, visible: true, type:"num"}//"Hit"
             ,{targets: 11, visible: true, type:"num"}//"Counter
             ,{targets: 12, visible: true, type:"num"}//"Guard Burst
-            ,{targets: 13, visible: true, type:"string"}//Notes
+            ,{targets: 13, visible: true, type:"string", className:"user-select-all"}//Notes
         ],
         
         searchCols: [
@@ -1213,6 +1253,31 @@ $(document).ready(function() {
     //#region Buttons
     $("#btnRefreshFramedata").on("click", refreshFrameData);
 
+    //Quick filter section
+    $("#navbarFilter").on("click", function(){
+        if($("#filtercontainer").hasClass("show")){
+            $("#navbarFilterIcon").removeClass("fa-angles-down");
+            $("#navbarFilterIcon").addClass("fa-angles-left");
+
+        } else {
+            $("#navbarFilterIcon").removeClass("fa-angles-left");
+            $("#navbarFilterIcon").addClass("fa-angles-down");
+        }
+    })
+
+    //Quick filters below header
+    $("#charSelectNavbar button").on("click", function(){
+        //Filters.setCharacterFilter = this.value;
+
+        if($(this).hasClass("active")){
+            Filters.removeCharacter(this.value)
+        } else {
+            Filters.addCharacters(this.value);
+        }
+        
+        Filters.applyFilter()
+    });
+
     //#region Cmd modal
     $(".btnCall input").on("click", filterModal);
     $("#applyCmdModalFilter").on("click", applyCmdModalFilter);
@@ -1228,7 +1293,15 @@ $(document).ready(function() {
             window.history.replaceState({}, '', url);
         }
 
-        Filters.setCharacterFilter($("#charMultiSelector").val())
+        $("#charSelectNavbar button.active").removeClass("active");
+        var _characters = $(this).val();
+        $( "#charSelectNavbar button" ).each(function( index ) {
+            if(_characters.indexOf(this.value) != -1){
+                $(this).addClass("active");
+            }
+        });
+
+        Filters.setCharacterFilter($("#charMultiSelector").val());
     });
     
     $("#hitlevelMultiSelector").on("change", function(){

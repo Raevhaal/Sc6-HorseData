@@ -18,10 +18,17 @@
         <link rel="stylesheet" href="/css/datatables-dark.css"/>
         <!-- Select 2 -->
         <link rel="stylesheet" href="/css/select2-dark.css"/>
+        <!-- Font awsome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-themed">
-            <a class="navbar-brand">Horseface's framedata tool</a>
+            <a class="ml-1 navbar-brand user-select-none" id="navbarFilter" data-toggle="collapse" data-target="#filtercontainer">
+                <img src="Icons/Horseface.png" width="35" height="35" class="d-inline-block align-top rounded" alt="">
+                <h3 class="d-inline">Filters</h4>
+                <i id="navbarFilterIcon" class="ml-1 fa-solid fa-angles-down fa-2xs"></i>
+            </a>
+            
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -32,9 +39,46 @@
                     <button class="btn btn-outline-info" id="btnCredits" data-toggle="modal" data-target="#creditModal">Info</button>
                 </div>
             </div>
-          
-
+            
         </nav>
+
+        <div class="bg-themed">
+            <div class="mx-3 pb-2">
+                <div id="filtercontainer" class="collapse show border" style="border-color: #6c757d !important">
+                    <div id="charSelectNavbar" class="bg-themed inline p-2">
+                        <button class="btn btn-outline-secondary text-light mb-1" value="2b">2b</button>
+                        <button class="btn btn-outline-secondary text-light mb-1" value="amy">Amy</button>
+                        <button class="btn btn-outline-secondary text-light mb-1" value="astaroth">Astaroth</button>
+                        <button class="btn btn-outline-secondary text-light mb-1" value="azwel">Azwel</button>
+                        <button class="btn btn-outline-secondary text-light mb-1" value="cassandra">Cassandra</button>
+                        <button class="btn btn-outline-secondary text-light mb-1" value="cervantes">Cervantes</button>
+                        <button class="btn btn-outline-secondary text-light mb-1" value="geralt">Geralt</button>
+                        <button class="btn btn-outline-secondary text-light mb-1" value="groh">Groh</button>
+                        <button class="btn btn-outline-secondary text-light mb-1" value="haohmaru">Haohmaru</button>
+                        <button class="btn btn-outline-secondary text-light mb-1" value="hilde">Hilde</button>
+                        <button class="btn btn-outline-secondary text-light mb-1" value="inferno">Inferno</button>
+                        <button class="btn btn-outline-secondary text-light mb-1" value="ivy">Ivy</button>
+                        <button class="btn btn-outline-secondary text-light mb-1" value="kilik">Kilik</button>
+                        <button class="btn btn-outline-secondary text-light mb-1" value="maxi">Maxi</button>
+                        <button class="btn btn-outline-secondary text-light mb-1" value="mitsurugi">Mitsurugi</button>
+                        <button class="btn btn-outline-secondary text-light mb-1" value="nightmare">Nightmare</button>
+                        <button class="btn btn-outline-secondary text-light mb-1" value="raphael">Raphael</button>
+                        <button class="btn btn-outline-secondary text-light mb-1" value="seong-mi-na">Seong-mi-na</button>
+                        <button class="btn btn-outline-secondary text-light mb-1" value="setsuka">Setsuka</button>
+                        <button class="btn btn-outline-secondary text-light mb-1" value="siegfried">Siegfried</button>
+                        <button class="btn btn-outline-secondary text-light mb-1" value="sophitia">Sophitia</button>
+                        <button class="btn btn-outline-secondary text-light mb-1" value="taki">Taki</button>
+                        <button class="btn btn-outline-secondary text-light mb-1" value="talim">Talim</button>
+                        <button class="btn btn-outline-secondary text-light mb-1" value="tira">Tira</button>
+                        <button class="btn btn-outline-secondary text-light mb-1" value="voldo">Voldo</button>
+                        <button class="btn btn-outline-secondary text-light mb-1" value="xianghua">Xianghua</button>
+                        <button class="btn btn-outline-secondary text-light mb-1" value="yoshimitsu">Yoshimitsu</button>
+                        <button class="btn btn-outline-secondary text-light mb-1" value="zasalamel">Zasalamel</button>
+                        <button class="btn btn-outline-secondary text-light mb-1" value="hwang">Hwang</button>
+                    </div>    
+                </div>
+            </div>
+        </div>
 
         <div class = "container-fluid px-0">
             <table class="table responsive" id = "fdata">
