@@ -293,7 +293,7 @@ class searchFilters{
 
 
         //#region Please dont look
-        
+
         // Remove all spaces
         vFilter = vFilter.replaceAll(" ", "");
         // Add space between each character
@@ -1083,8 +1083,8 @@ function createTable(data){
 
         pageLength: 20,//Default record amount
         lengthMenu: [//Record amount
-            [10, 15, 20, 30, 40, 50, -1],//Actual value
-            [10, 15, 20, 30, 40, 50, "All"]],//Displayed value
+            [10, 15, 20, 30, 40, 50, 100, 150, -1],//Actual value
+            [10, 15, 20, 30, 40, 50, 100, 150, "All"]],//Displayed value
 
         scrollCollapse: true,
         scrollX: true,
