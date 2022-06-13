@@ -30,6 +30,7 @@ class searchFilters{
     characterFilter = [];
     hitLevelFilter = [];
     stanceFilter = "";
+    notesFilter = [];
 
     addStance(vStances){//rename to addStances
         //Allow for input string and array
