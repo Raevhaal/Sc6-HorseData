@@ -1057,7 +1057,7 @@ function heightState (state) {
     }
     var baseUrl = "/user/pages/images/flags";
     var $state = $(
-      '<span><img height="20" src="Icons/' + state.text.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
+      '<span><img height="20" src="Icons/' + state.text + '.png" class="img-flag" /> ' + state.text + '</span>'
     );
     return $state;
 };
