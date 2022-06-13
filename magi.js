@@ -87,8 +87,10 @@ class searchFilters{
             var characterlist = ["2b", "amy", "astaroth", "azwel", "cassandra", "cervantes", "geralt", "groh", "haohmaru", "hilde", "inferno", "ivy", "kilik", "maxi", "mitsurugi", "nightmare", "raphael", "seong-mi-na", "setsuka", "siegfried", "sophitia", "taki", "talim", "tira", "voldo", "xianghua", "yoshimitsu", "zasalamel", "hwang"]
             if(characterlist.includes(urlParam.get("character").toLocaleLowerCase())){
                 $("#charMultiSelector").val($("#charMultiSelector").val().concat([urlParam.get("character").toLocaleLowerCase()])).trigger("change");
-                $("#navbarFilter").click(); //Hides quick filter menu
+                
             }
+        } else {
+            $("#navbarFilter").click(); //Shows quick filter menu
         }
 
         // Apply filter
@@ -301,8 +303,8 @@ class searchFilters{
 
         vFilter = vFilter.replaceAll("( ", "(");
         vFilter = vFilter.replaceAll(" )", ")");
-        vFilter = vFilter.replaceAll("[ ", "[");
-        vFilter = vFilter.replaceAll(" ]", "]");
+        vFilter = vFilter.replaceAll("[ ", "(");
+        vFilter = vFilter.replaceAll(" ]", ")");
 
         vFilter = vFilter.replaceAll("1 1 ", "(1) ");
         vFilter = vFilter.replaceAll("2 2 ", "(2) ");
@@ -341,7 +343,11 @@ class searchFilters{
         //#endregion
 
         //console.log(vFilter);
-        this.commandFilter = vFilter; 
+        if(vFilter == " "){
+            vFilter = "";
+        } else {
+            this.commandFilter = vFilter; 
+        }
     }
 
     //#region Simple setters
@@ -396,13 +402,14 @@ class searchFilters{
     setHitlevelFilter(filter){
         this.hitLevelFilter = filter;
     }
+
+    setNoteFilter(filter){
+        this.notesFilter = filter;
+    }
     //#endregion
 
 
     applyFilter(){
-
-        var filterArray = [];
-
         // Code to keep old filter when applying through command search modal
         // if(Dtable.searchBuilder.getDetails().criteria !== undefined && $("#keepFilterBox").val() == true){
         //     filterArray = Object.values(Dtable.searchBuilder.getDetails().criteria);
@@ -410,51 +417,10 @@ class searchFilters{
         // }
 
         //Character filter
-        if(this.characterFilter.length > 0){
-            var charFilter = [];
-            for (let index = 0; index < this.characterFilter.length; index++) {
+        Dtable.column(0).search(this.characterFilter.join("|"), true, false, false).draw();
 
-                charFilter.push(
-                    {
-                        condition: "=",
-                        data: "Character",
-                        type: "string",
-                        value: [this.characterFilter[index]]
-                    }
-                );
-                
-            }
-
-            filterArray.push({
-                criteria: charFilter,
-                logic: "OR"
-            });
-        } else {
-            Dtable.searchBuilder.rebuild({});
-            return false;
-        }
-
-        //Hit level
-        if(this.hitLevelFilter.length > 0){
-            var hitFilter = [];
-            for (let index = 0; index < this.hitLevelFilter.length; index++) {
-
-                hitFilter.push(
-                    {
-                        condition: "contains",
-                        data: "Hit level",
-                        type: "string",
-                        value: [this.hitLevelFilter[index]]
-                    }
-                );
-                
-            }
-
-            filterArray.push({
-                criteria: hitFilter,
-                logic: "OR"
-            });
-        }
+        //Hit level 
+        Dtable.column(5).search(this.hitLevelFilter.join("|"), true, false, false).draw();
 
         //Stance level
         Dtable.column(3).search(this.stanceFilter, true, false, false).draw();
@@ -462,84 +428,8 @@ class searchFilters{
         //Command filter
         Dtable.column(4).search(this.commandFilter, true, false, true).draw();
 
-        //#region Note filters
-        if($("#breakAttackCHK").is(":checked")) {
-            filterArray.push(
-                {
-                    condition: "contains",
-                    data: "Notes",
-                    type: "html",
-                    value: [":BA:"],
-                }
-            );
-        }
-
-        if($("#throwCHK").is(":checked")) {
-            filterArray.push(
-                {
-                    condition: "contains",
-                    data: "Notes",
-                    type: "html",
-                    value: [":TH:"],
-                }
-            );
-        }
-
-        if($("#LethalhitCHK").is(":checked")) {
-            filterArray.push(
-                {
-                    condition: "contains",
-                    data: "Notes",
-                    type: "html",
-                    value: [":LH:"],
-                }
-            );
-        }
-
-        if($("#StanceShiftCHK").is(":checked")) {
-            filterArray.push(
-                {
-                    condition: "contains",
-                    data: "Notes",
-                    type: "html",
-                    value: [":SS:"],
-                }
-            );
-        }
-
-        if($("#unblockableCHK").is(":checked")) {
-            filterArray.push(
-                {
-                    condition: "contains",
-                    data: "Notes",
-                    type: "html",
-                    value: [":UA:"],
-                }
-            );
-        }
-
-        if($("#guardImpactCHK").is(":checked")) {
-            filterArray.push(
-                {
-                    condition: "contains",
-                    data: "Notes",
-                    type: "html",
-                    value: [":GI:"],
-                }
-            );
-        }
-        //#endregion 
-
-
-        //Apply filter
-        if(this.characterFilter.length != 0){
-            Dtable.searchBuilder.rebuild({
-                criteria: filterArray,
-                logic: "AND"
-            });
-        }
-
-
+        //Notes filter
+        Dtable.column(13).search(this.notesFilter.join("|"), true, false, false).draw();
     }
 }
 
@@ -549,106 +439,112 @@ var Filters = new searchFilters()
 
 // #region Gloabl icons
 var Icons = {
+    // .V{width: 72px;height: 20px;}
+    // .W{width: 46px;height: 20px;}
+    // .X{width: 20px;height: 20px;}
+    // .Y{width: 40px;height: 20px;}
+    // .Z{width: 28px;height: 20px;}
+
     //Notes
-    ":TH:": '<img width="40" height="20" src="Icons/TH.png" value=":TH:" ></img><p class="superHidden">TH</p>',
-    ":BA:": '<img width="40" height="20" src="Icons/BA.png" value=":BA:" ></img><p class="superHidden">BA</p>',
-    ":GI:": '<img width="40" height="20" src="Icons/GI.png" value=":GI:" ></img><p class="superHidden">GI</p>',
-    ":SS:": '<img width="40" height="20" src="Icons/SS.png" value=":SS:" ></img><p class="superHidden">SS</p>',
-    ":UA:": '<img width="40" height="20" src="Icons/UA.png" value=":UA:" ></img><p class="superHidden">UA</p>',
-    ":LH:": '<img width="40" height="20" src="Icons/LH.png" value=":LH:" ></img><p class="superHidden">LH</p>',
-    ":RE:": '<img width="40" height="20" src="Icons/RE.png" value=":RE:" ></img><p class="superHidden">RE</p>',
-    ":GC:": '<img width="40" height="20" src="Icons/GC.png" value=":GC:" ></img><p class="superHidden">GC</p>',
-    ":AT:": '<img width="40" height="20" src="Icons/AT.png" value=":AT:" ></img><p class="superHidden">AT</p>',
-    ":CE:": '<img width="40" height="20" src="Icons/CE.png" value=":CE:" ></img><p class="superHidden">CE</p>',
-    ":SC:": '<img width="40" height="20" src="Icons/SC.png" value=":SC:" ></img><p class="superHidden">SC</p>',
+    ":TH:": '<img class="X" src="Icons/TH.png"></img><p class="superHidden">:TH:</p>',
+    ":BA:": '<img class="X" src="Icons/BA.png"></img><p class="superHidden">:BA:</p>',
+    ":GI:": '<img class="X" src="Icons/GI.png"></img><p class="superHidden">:GI:</p>',
+    ":SS:": '<img class="X" src="Icons/SS.png"></img><p class="superHidden">:SS:</p>',
+    ":UA:": '<img class="X" src="Icons/UA.png"></img><p class="superHidden">:UA:</p>',
+    ":LH:": '<img class="X" src="Icons/LH.png"></img><p class="superHidden">:LH:</p>',
+    ":RE:": '<img class="X" src="Icons/RE.png"></img><p class="superHidden">:RE:</p>',
+    ":GC:": '<img class="X" src="Icons/GC.png"></img><p class="superHidden">:GC:</p>',
+    ":AT:": '<img class="X" src="Icons/AT.png"></img><p class="superHidden">:AT:</p>',
+    ":CE:": '<img class="X" src="Icons/CE.png"></img><p class="superHidden">:CE:</p>',
+    ":SC:": '<img class="X" src="Icons/SC.png"></img><p class="superHidden">:SC:</p>',
     //":TS:": '<img width="40" height="20" src="Icons/TS.png" value = "TS"></img>',
 
     //Slide combo buttons
-    ":a::A:": '<img width="28" height="20" src="Icons/A-A.png" class="mr-1" value = "aA" ></img><p class="superHidden">aA</p>',
-    ":a::B:": '<img width="28" height="20" src="Icons/A-B.png" class="mr-1" value = "aB" ></img><p class="superHidden">aB</p>',
-    ":a::K:": '<img width="28" height="20" src="Icons/A-K.png" class="mr-1" value = "aK" ></img><p class="superHidden">aK</p>',
-    ":a::G:": '<img width="28" height="20" src="Icons/A-G.png" class="mr-1" value = "aG" ></img><p class="superHidden">aG</p>',
-    ":b::A:": '<img width="28" height="20" src="Icons/B-A.png" class="mr-1" value = "bA" ></img><p class="superHidden">bA</p>',
-    ":b::B:": '<img width="28" height="20" src="Icons/B-B.png" class="mr-1" value = "bB" ></img><p class="superHidden">bB</p>',
-    ":b::K:": '<img width="28" height="20" src="Icons/B-K.png" class="mr-1" value = "bK" ></img><p class="superHidden">bK</p>',
-    ":b::G:": '<img width="28" height="20" src="Icons/B-G.png" class="mr-1" value = "bG" ></img><p class="superHidden">bG</p>',
-    ":k::A:": '<img width="28" height="20" src="Icons/K-A.png" class="mr-1" value = "kA" ></img><p class="superHidden">kA</p>',
-    ":k::B:": '<img width="28" height="20" src="Icons/K-B.png" class="mr-1" value = "kB" ></img><p class="superHidden">kB</p>',
-    ":k::K:": '<img width="28" height="20" src="Icons/K-K.png" class="mr-1" value = "kK" ></img><p class="superHidden">kK</p>',
-    ":k::G:": '<img width="28" height="20" src="Icons/K-G.png" class="mr-1" value = "kG" ></img><p class="superHidden">kG</p>',
-    ":g::A:": '<img width="28" height="20" src="Icons/G-A.png" class="mr-1" value = "gA" ></img><p class="superHidden">gA</p>',
-    ":g::B:": '<img width="28" height="20" src="Icons/G-B.png" class="mr-1" value = "gB" ></img><p class="superHidden">gB</p>',
-    ":g::K:": '<img width="28" height="20" src="Icons/G-K.png" class="mr-1" value = "gK" ></img><p class="superHidden">gK</p>',
-    ":g::G:": '<img width="28" height="20" src="Icons/G-G.png" class="mr-1" value = "gG" ></img><p class="superHidden">gG</p>',
+    ":a::A:": '<img class="X" src="Icons/A-A.png"></img><p class="superHidden">aA</p>',
+    ":a::B:": '<img class="X" src="Icons/A-B.png"></img><p class="superHidden">aB</p>',
+    ":a::K:": '<img class="X" src="Icons/A-K.png"></img><p class="superHidden">aK</p>',
+    ":a::G:": '<img class="X" src="Icons/A-G.png"></img><p class="superHidden">aG</p>',
+    ":b::A:": '<img class="X" src="Icons/B-A.png"></img><p class="superHidden">bA</p>',
+    ":b::B:": '<img class="X" src="Icons/B-B.png"></img><p class="superHidden">bB</p>',
+    ":b::K:": '<img class="X" src="Icons/B-K.png"></img><p class="superHidden">bK</p>',
+    ":b::G:": '<img class="X" src="Icons/B-G.png"></img><p class="superHidden">bG</p>',
+    ":k::A:": '<img class="X" src="Icons/K-A.png"></img><p class="superHidden">kA</p>',
+    ":k::B:": '<img class="X" src="Icons/K-B.png"></img><p class="superHidden">kB</p>',
+    ":k::K:": '<img class="X" src="Icons/K-K.png"></img><p class="superHidden">kK</p>',
+    ":k::G:": '<img class="X" src="Icons/K-G.png"></img><p class="superHidden">kG</p>',
+    ":g::A:": '<img class="X" src="Icons/G-A.png"></img><p class="superHidden">gA</p>',
+    ":g::B:": '<img class="X" src="Icons/G-B.png"></img><p class="superHidden">gB</p>',
+    ":g::K:": '<img class="X" src="Icons/G-K.png"></img><p class="superHidden">gK</p>',
+    ":g::G:": '<img class="X" src="Icons/G-G.png"></img><p class="superHidden">gG</p>',
     
     //Directions
-    ":9:": '<img width="20" height="20" src="Icons/9.png" value = "9" ></img><p class="superHidden">9</p>',
-    ":8:": '<img width="20" height="20" src="Icons/8.png" value = "8" ></img><p class="superHidden">8</p>',
-    ":7:": '<img width="20" height="20" src="Icons/7.png" value = "7" ></img><p class="superHidden">7</p>',
-    ":6:": '<img width="20" height="20" src="Icons/6.png" value = "6" ></img><p class="superHidden">6</p>',
-    ":5:": '<img width="20" height="20" src="Icons/5.png" value = "5" ></img><p class="superHidden">5</p>',
-    ":4:": '<img width="20" height="20" src="Icons/4.png" value = "4" ></img><p class="superHidden">4</p>',
-    ":3:": '<img width="20" height="20" src="Icons/3.png" value = "3" ></img><p class="superHidden">3</p>',
-    ":2:": '<img width="20" height="20" src="Icons/2.png" value = "2" ></img><p class="superHidden">2</p>',
-    ":1:": '<img width="20" height="20" src="Icons/1.png" value = "1" ></img><p class="superHidden">1</p>',
+    ":9:": '<img class="X" src="Icons/9.png" ></img><p class="superHidden">9</p>',
+    ":8:": '<img class="X" src="Icons/8.png" ></img><p class="superHidden">8</p>',
+    ":7:": '<img class="X" src="Icons/7.png" ></img><p class="superHidden">7</p>',
+    ":6:": '<img class="X" src="Icons/6.png" ></img><p class="superHidden">6</p>',
+    ":5:": '<img class="X" src="Icons/5.png" ></img><p class="superHidden">5</p>',
+    ":4:": '<img class="X" src="Icons/4.png" ></img><p class="superHidden">4</p>',
+    ":3:": '<img class="X" src="Icons/3.png" ></img><p class="superHidden">3</p>',
+    ":2:": '<img class="X" src="Icons/2.png" ></img><p class="superHidden">2</p>',
+    ":1:": '<img class="X" src="Icons/1.png" ></img><p class="superHidden">1</p>',
 
     //Directions held
-    ":(9):": '<img width="20" height="20" src="Icons/9-.png" value = "(9)" ></img><p class="superHidden">(9)</p>',
-    ":(8):": '<img width="20" height="20" src="Icons/8-.png" value = "(8)" ></img><p class="superHidden">(8)</p>',
-    ":(7):": '<img width="20" height="20" src="Icons/7-.png" value = "(7)" ></img><p class="superHidden">(7)</p>',
-    ":(6):": '<img width="20" height="20" src="Icons/6-.png" value = "(6)" ></img><p class="superHidden">(6)</p>',
-    ":(4):": '<img width="20" height="20" src="Icons/4-.png" value = "(4)" ></img><p class="superHidden">(4)</p>',
-    ":(3):": '<img width="20" height="20" src="Icons/3-.png" value = "(3)" ></img><p class="superHidden">(3)</p>',
-    ":(2):": '<img width="20" height="20" src="Icons/2-.png" value = "(2)" ></img><p class="superHidden">(2)</p>',
-    ":(1):": '<img width="20" height="20" src="Icons/1-.png" value = "(1)" ></img><p class="superHidden">(1)</p>',
+    ":(9):": '<img class="X" src="Icons/9-.png" ></img><p class="superHidden">(9)</p>',
+    ":(8):": '<img class="X" src="Icons/8-.png" ></img><p class="superHidden">(8)</p>',
+    ":(7):": '<img class="X" src="Icons/7-.png" ></img><p class="superHidden">(7)</p>',
+    ":(6):": '<img class="X" src="Icons/6-.png" ></img><p class="superHidden">(6)</p>',
+    ":(4):": '<img class="X" src="Icons/4-.png" ></img><p class="superHidden">(4)</p>',
+    ":(3):": '<img class="X" src="Icons/3-.png" ></img><p class="superHidden">(3)</p>',
+    ":(2):": '<img class="X" src="Icons/2-.png" ></img><p class="superHidden">(2)</p>',
+    ":(1):": '<img class="X" src="Icons/1-.png" ></img><p class="superHidden">(1)</p>',
 
     //Held buttons
-    ":(G):": '<img width="20" height="20" src="Icons/G-.png" class="mr-1" value = "(G)" ></img><p class="superHidden">(G)</p>',
-    ":(A):": '<img width="20" height="20" src="Icons/A-.png" class="mr-1" value = "(A)" ></img><p class="superHidden">(A)</p>',
-    ":(B):": '<img width="20" height="20" src="Icons/B-.png" class="mr-1" value = "(B)" ></img><p class="superHidden">(B)</p>',
-    ":(K):": '<img width="20" height="20" src="Icons/K-.png" class="mr-1" value = "(K)" ></img><p class="superHidden">(K)</p>',
+    ":(G):": '<img class="X" src="Icons/G-.png"></img><p class="superHidden">(G)</p>',
+    ":(A):": '<img class="X" src="Icons/A-.png"></img><p class="superHidden">(A)</p>',
+    ":(B):": '<img class="X" src="Icons/B-.png"></img><p class="superHidden">(B)</p>',
+    ":(K):": '<img class="X" src="Icons/K-.png"></img><p class="superHidden">(K)</p>',
 
     //Buttons
-    ":G:": '<img width="20" height="20" src="Icons/G.png" class="mr-1" value = "G" ></img><p class="superHidden">G</p>',
-    ":A:": '<img width="20" height="20" src="Icons/A.png" class="mr-1" value = "A" ></img><p class="superHidden">A</p>',
-    ":B:": '<img width="20" height="20" src="Icons/B.png" class="mr-1" value = "B" ></img><p class="superHidden">B</p>',
-    ":K:": '<img width="20" height="20" src="Icons/K.png" class="mr-1" value = "K" ></img><p class="superHidden">K</p>',
+    ":G:": '<img class="X" src="Icons/G.png"></img><p class="superHidden">G</p>',
+    ":A:": '<img class="X" src="Icons/A.png"></img><p class="superHidden">A</p>',
+    ":B:": '<img class="X" src="Icons/B.png"></img><p class="superHidden">B</p>',
+    ":K:": '<img class="X" src="Icons/K.png"></img><p class="superHidden">K</p>',
 
     //Slide buttons
-    ":g:": '<img width="20" height="20" src="Icons/Gs.png" value = "g" ></img><p class="superHidden">g</p>',
-    ":a:": '<img width="20" height="20" src="Icons/As.png" value = "a" ></img><p class="superHidden">a</p>',
-    ":b:": '<img width="20" height="20" src="Icons/Bs.png" value = "b" ></img><p class="superHidden">b</p>',
-    ":k:": '<img width="20" height="20" src="Icons/Ks.png" value = "k" ></img><p class="superHidden">k</p>',
+    ":g:": '<img class="X" src="Icons/Gs.png"></img><p class="superHidden">g</p>',
+    ":a:": '<img class="X" src="Icons/As.png"></img><p class="superHidden">a</p>',
+    ":b:": '<img class="X" src="Icons/Bs.png"></img><p class="superHidden">b</p>',
+    ":k:": '<img class="X" src="Icons/Ks.png"></img><p class="superHidden">k</p>',
 
     //Held combo buttons
-    ":(A)+(K):": '<img width="46" height="20" src="Icons/AK-.png" class="mr-1" value = "(A)+(K)" ></img><p class="superHidden">(A)+(K)</p>',
-    ":(A)+(B):": '<img width="46" height="20" src="Icons/AB-.png" class="mr-1" value = "(A)+(B)" ></img><p class="superHidden">(A)+(B)</p>',
-    ":(K)+(G):": '<img width="46" height="20" src="Icons/KG-.png" class="mr-1" value = "(K)+(H)" ></img><p class="superHidden">(K)+(H)</p>',
-    ":(A)+(G):": '<img width="46" height="20" src="Icons/AG-.png" class="mr-1" value = "(A)+(G)" ></img><p class="superHidden">(A)+(G)</p>',
-    ":(B)+(K):": '<img width="46" height="20" src="Icons/BK-.png" class="mr-1" value = "(B+K)" ></img><p class="superHidden">(B+K)</p>',
-    ":(B)+(G):": '<img width="46" height="20" src="Icons/BG-.png" class="mr-1" value = "(B+G)" ></img><p class="superHidden">(B+G)</p>',
+    ":(A)+(K):": '<img class="X" src="Icons/AK-.png"></img><p class="superHidden">(A)+(K)</p>',
+    ":(A)+(B):": '<img class="X" src="Icons/AB-.png"></img><p class="superHidden">(A)+(B)</p>',
+    ":(K)+(G):": '<img class="X" src="Icons/KG-.png"></img><p class="superHidden">(K)+(H)</p>',
+    ":(A)+(G):": '<img class="X" src="Icons/AG-.png"></img><p class="superHidden">(A)+(G)</p>',
+    ":(B)+(K):": '<img class="X" src="Icons/BK-.png"></img><p class="superHidden">(B+K)</p>',
+    ":(B)+(G):": '<img class="X" src="Icons/BG-.png"></img><p class="superHidden">(B+G)</p>',
 
     //Combo buttons
-    ":A+K:": '<img width="46" height="20" src="Icons/AK.png" class="mr-1" value="A+K" ></img><p class="superHidden">A+K</p>',
-    ":A+B:": '<img width="46" height="20" src="Icons/AB.png" class="mr-1" value="A+B" ></img><p class="superHidden">A+B</p>',
-    ":K+G:": '<img width="46" height="20" src="Icons/KG.png" class="mr-1" value="K+G" ></img><p class="superHidden">K+G</p>',
-    ":A+G:": '<img width="46" height="20" src="Icons/AG.png" class="mr-1" value="A+G" ></img><p class="superHidden">A+G</p>',
-    ":B+K:": '<img width="46" height="20" src="Icons/BK.png" class="mr-1" value="B+K" ></img><p class="superHidden">B+K</p>',
-    ":B+G:": '<img width="46" height="20" src="Icons/BG.png" class="mr-1" value="B+G" ></img><p class="superHidden">B+G</p>',
+    ":A+K:": '<img class="X" src="Icons/AK.png"></img><p class="superHidden">A+K</p>',
+    ":A+B:": '<img class="X" src="Icons/AB.png"></img><p class="superHidden">A+B</p>',
+    ":K+G:": '<img class="X" src="Icons/KG.png"></img><p class="superHidden">K+G</p>',
+    ":A+G:": '<img class="X" src="Icons/AG.png"></img><p class="superHidden">A+G</p>',
+    ":B+K:": '<img class="X" src="Icons/BK.png"></img><p class="superHidden">B+K</p>',
+    ":B+G:": '<img class="X" src="Icons/BG.png"></img><p class="superHidden">B+G</p>',
 
-    ":A+B+K:": '<img width="72" height="20" src= "Icons/ABK.png" class="mr-1" value="A+B+K"></img><p class="superHidden">A+B+K</p>',
-    ":(A)+(B)+(K):": '<img width="72" height="20" src="Icons/ABK-.png" class="mr-1" value="(A+B+K)"></img><p class="superHidden">(A+B+K)</p>',
+    ":A+B+K:":       '<img class="X" src= "Icons/ABK.png" ></img><p class="superHidden">A+B+K</p>',
+    ":(A)+(B)+(K):": '<img class="X" src="Icons/ABK-.png" ></img><p class="superHidden">(A+B+K)</p>',
 
     //Height
-    ":H:": '<img width="20" height="20" src="Icons/H.png" value="H"></img><p class="superHidden">H</p>',
-    ":M:": '<img width="20" height="20" src="Icons/M.png" value="M"></img><p class="superHidden">M</p>',
-    ":L:": '<img width="20" height="20" src="Icons/L.png" value="L"></img><p class="superHidden">L</p>',
-    ":SH:": '<img width="40" height="20" src="Icons/SH.png" value="SH"></img><p class="superHidden">SH</p>',
-    ":SM:": '<img width="40" height="20" src="Icons/SM.png" value="SM"></img><p class="superHidden">SM</p>',
-    ":SL:": '<img width="40" height="20" src="Icons/SL.png" value="SL"></img><p class="superHidden">SL</p>',
+    ":H:":  '<img class="X" src="Icons/H.png" ></img><p class="superHidden">:H:</p>',
+    ":M:":  '<img class="X" src="Icons/M.png" ></img><p class="superHidden">:M:</p>',
+    ":L:":  '<img class="X" src="Icons/L.png" ></img><p class="superHidden">:L:</p>',
+    ":SH:": '<img class="X" src="Icons/SH.png" ></img><p class="superHidden">:SH:</p>',
+    ":SM:": '<img class="X" src="Icons/SM.png" ></img><p class="superHidden">:SM:</p>', 
+    ":SL:": '<img class="X" src="Icons/SL.png" ></img><p class="superHidden">:SL:</p>',
 
     //Misc
-    ":a+b:": '<img width="46" height="20" src="Icons/AB.png" class="mr-1" value="a+b"></img>',
+    ":a+b:": '<img class="X" src="Icons/AB.png" ></img><p class="superHidden">a+b</p>',
 };
 
 var CommandIcons = [
@@ -933,7 +829,7 @@ function createTable(data){
             for (let index = 0; index < CommandIcons.length; index++) {
                 Command = Command.replaceAll(CommandIcons[index][0], CommandIcons[index][1]);
             }
-            Command = Command.replaceAll("_", '<img width="10" height="20" src="Icons/underscore.png" value = "_"></img>');
+            Command = Command.replaceAll("_", '<img class="X" src="Icons/underscore.png"</img>');
     
     
             //Hit level
@@ -1099,8 +995,8 @@ function createTable(data){
             ,{targets: 1, visible: false, type:"string"}//Move category
             ,{targets: 2, visible: false, type:"string"}//Move Name
             ,{targets: 3, visible: true, type:"string", className: "dt-body-right"}//Stance allign text right
-            ,{targets: 4, visible: true, type:"string", width: "10%", className: "user-select-all"}//Command
-            ,{targets: 5, visible: true, type:"string", className:"user-select-all"}//Hitlevel
+            ,{targets: 4, visible: true, type:"html", width: "10%", className: "user-select-all"}//Command
+            ,{targets: 5, visible: true, type:"html", className:"user-select-all"}//Hitlevel
             ,{targets: 6, visible: true, type:"num"}//impact
             ,{targets: 7, visible: false, type:"string"}//Damage 
             ,{targets: 8, visible: true, type:"num"}//Sum damage
@@ -1108,7 +1004,7 @@ function createTable(data){
             ,{targets: 10, visible: true, type:"num"}//"Hit"
             ,{targets: 11, visible: true, type:"num"}//"Counter
             ,{targets: 12, visible: true, type:"num"}//"Guard Burst
-            ,{targets: 13, visible: true, type:"string", className:"user-select-all"}//Notes
+            ,{targets: 13, visible: true, type:"html", className:"user-select-all"}//Notes
         ],
         
         searchCols: [
@@ -1117,7 +1013,7 @@ function createTable(data){
             null,//"Move Name"
             { "regex": true },//"Stance"
             { "regex": true },//"Command"
-            null,//"Hit level"
+            { "regex": true },//"Hit level"
             null,//"Impact",
             null,//"Damage",
             null,//"Sum(Damage
@@ -1125,7 +1021,7 @@ function createTable(data){
             null,//"Hit",
             null,//"Counter H
             null,//"Guard Bur
-            null,//"Notes"
+            { "regex": true },//"Notes"
         ],
 
         on_resize: function(){ //lol dont remember 
@@ -1154,6 +1050,18 @@ function refreshFrameData(){
     }
 }
 
+
+function heightState (state) {
+    if (!state.id) {
+      return state.text;
+    }
+    var baseUrl = "/user/pages/images/flags";
+    var $state = $(
+      '<span><img height="20" src="Icons/' + state.text.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
+    );
+    return $state;
+};
+
 //#region Command filter modal
 //Fires on buttons in command search modal are pressed
 function filterModal(e){
@@ -1162,37 +1070,26 @@ function filterModal(e){
 
 function clearCmdFilter(){
     Dtable.searchBuilder.rebuild({});
-    //Clear stance filter 
-    Dtable.column(3).search("", true, true, false).draw();
 
-    //Clear command filter
-    Dtable.column(4).search("", true, true, false).draw();
+    Dtable.column(1).search("", true, true, false);
+    Dtable.column(2).search("", true, true, false);
+    Dtable.column(3).search("", true, true, false);
+    Dtable.column(4).search("", true, true, false);
+    Dtable.column(5).search("", true, true, false);
+    Dtable.column(6).search("", true, true, false);
+    Dtable.column(7).search("", true, true, false);
+    Dtable.column(8).search("", true, true, false);
+    Dtable.column(9).search("", true, true, false);
+    Dtable.column(10).search("", true, true, false);
+    Dtable.column(11).search("", true, true, false);
+    Dtable.column(12).search("", true, true, false);
+    Dtable.column(13).search("", true, true, false).draw();
 
     //TODO:
     // Clear filters in command search modal???
 }
 
 function applyCmdModalFilter(){
-    // Enforce char filter
-    if($("#charMultiSelector").val().length == 0){
-        toastr.warning('Character filter is required please set one', 'Error',
-            {
-                target: 'body',
-                tapToDismiss: true,
-                positionClass: 'toast-top-left',
-                timeOut: 4000,
-                progressBar:true,
-                hideMethod: "slideUp",
-            }
-        );
-
-        //Open character dropdown
-        $('#charMultiSelector').focus();
-        $('#charMultiSelector').select2("open");
-
-        return false;
-    }
-
     //Sets command filter
     Filters.setCommandFilter($("#commandInput").val());
     
@@ -1207,7 +1104,7 @@ $(document).ready(function() {
     //console.log(`Starting: ${performance.now() - StartTime} milliseconds.`);
 
     //Version checker very primitive but works
-    version = "0.12"
+    version = "0.13"
     if(!localStorage.hasOwnProperty("version")){
         localStorage.setItem("version", version);
     } else {
@@ -1241,6 +1138,12 @@ $(document).ready(function() {
 
     $("#hitlevelMultiSelector").select2({
         allowClear: true,//Adds clear all button
+        templateResult: heightState
+    });
+
+    $("#noteFilterMultiSelector").select2({
+        allowClear: true,//Adds clear all button
+        templateResult: heightState
     });
 
     $("#stanceMultiselector").select2({
@@ -1253,7 +1156,7 @@ $(document).ready(function() {
     //#region Buttons
     $("#btnRefreshFramedata").on("click", refreshFrameData);
 
-    //Quick filter section
+    //Quick filter section toggle
     $("#navbarFilter").on("click", function(){
         if($("#filtercontainer").hasClass("show")){
             $("#navbarFilterIcon").removeClass("fa-angles-down");
@@ -1263,7 +1166,7 @@ $(document).ready(function() {
             $("#navbarFilterIcon").removeClass("fa-angles-left");
             $("#navbarFilterIcon").addClass("fa-angles-down");
         }
-    })
+    });
 
     //Quick filters below header
     $("#charSelectNavbar button").on("click", function(){
@@ -1306,6 +1209,10 @@ $(document).ready(function() {
     
     $("#hitlevelMultiSelector").on("change", function(){
         Filters.setHitlevelFilter($("#hitlevelMultiSelector").val())
+    });
+
+    $("#noteFilterMultiSelector").on("change", function(){
+        Filters.setNoteFilter($("#noteFilterMultiSelector").val())
     });
 
     $("#stanceMultiselector").on("change", function(){

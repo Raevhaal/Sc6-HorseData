@@ -26,7 +26,7 @@
             <a class="ml-1 navbar-brand user-select-none" id="navbarFilter" data-toggle="collapse" data-target="#filtercontainer">
                 <img src="Icons/Horseface.png" width="35" height="35" class="d-inline-block align-top rounded" alt="">
                 <h3 class="d-inline">Filters</h4>
-                <i id="navbarFilterIcon" class="ml-1 fa-solid fa-angles-down fa-2xs"></i>
+                <i id="navbarFilterIcon" class="ml-1 fa-solid fa-angles-left fa-2xs"></i>
             </a>
             
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,7 +44,7 @@
 
         <div class="bg-themed">
             <div class="mx-3 pb-2">
-                <div id="filtercontainer" class="collapse show border" style="border-color: #6c757d !important">
+                <div id="filtercontainer" class="collapse border" style="border-color: #6c757d !important">
                     <div id="charSelectNavbar" class="bg-themed inline p-2">
                         <button class="btn btn-outline-secondary text-light mb-1" value="2b">2b</button>
                         <button class="btn btn-outline-secondary text-light mb-1" value="amy">Amy</button>
@@ -158,57 +158,38 @@
                                     >
                                 
                                     <option value=":H:">H</option>
-                                    <!-- <option value=":SH:">SH</option> -->
                                     <option value=":M:">M</option>
-                                    <option value=":SM:">SM</option>
                                     <option value=":L:">L</option>
+                                    <option value=":SM:">SM</option>
                                     <option value=":SL:">SL</option>
+                                    <!-- <option value=":SH:">SH</option> -->
 
                                 </select>
                             </div>
 
-                            <div class="col-1">
-                                <div>
-                                    <input class="checkbox" tabindex="-1" type="checkbox" id="unblockableCHK">
-                                    <label class="form-check-label" for="unblockableCHK">
-                                        <img class="my-auto" src="Icons/UA.png" height="15" alt="">
-                                    </label>
-                                </div>  
+                            <div class="col-3">
+                                <p class="mb-0">Note filter:</p>
+                                <select 
+                                    class="select2" 
+                                    id="noteFilterMultiSelector" 
+                                    data-placeholder="Set Note filter..." 
+                                    multiple="multiple" 
+                                    tabindex="1"
+                                    >
+                                
+                                    <option value=":UA:">UA</option>
+                                    <option value=":LH:">LH</option>
+                                    <option value=":SS:">SS</option>
+                                    <option value=":TH:">TH</option>
+                                    <option value=":BA:">BA</option>
+                                    <option value=":GI:">GI</option>
 
-                                <div>
-                                    <input class="checkbox" tabindex="-1" type="checkbox" id="LethalhitCHK">
-                                    <label class="form-check-label" for="LethalhitCHK">
-                                        <img class="my-auto" src="Icons/LH.png" height="15" alt="">
-                                    </label>
-                                </div>  
+                                </select>
 
-                                <div>
-                                    <input class="checkbox" tabindex="-1" type="checkbox" id="StanceShiftCHK">
-                                    <label class="form-check-label" for="StanceShiftCHK">
-                                        <img class="my-auto" src="Icons/SS.png" height="15" alt="">
-                                    </label>
-                                </div>  
                             </div>
                             
-                            <div class="col-3">
-                                <div>
-                                    <input class="checkbox" tabindex="-1" type="checkbox" id="throwCHK">
-                                    <label class="form-check-label" for="throwCHK">
-                                        <img class="my-auto" src="Icons/TH.png" height="15" alt="">
-                                    </label>
-                                </div> 
-                                <div>
-                                    <input class="checkbox" tabindex="-1" type="checkbox" id="breakAttackCHK">
-                                    <label class="form-check-label" for="breakAttackCHK">
-                                        <img class="my-auto" src="Icons/BA.png" for="breakAttackCHK" height="15" alt="">
-                                    </label>
-                                </div>  
-                                <div>
-                                    <input class="checkbox" tabindex="-1" type="checkbox" id="guardImpactCHK">
-                                    <label class="form-check-label" for="guardImpactCHK">
-                                        <img class="my-auto" src="Icons/GI.png" height="15" alt="">
-                                    </label>
-                                </div>                                
+                            <div class="col-1">
+
                             </div>
                         </div>
                     
