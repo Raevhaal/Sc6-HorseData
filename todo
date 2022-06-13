@@ -1,19 +1,9 @@
 
-or mode on stance filter?
-stance filter not working with multiple stances
-//js doesnt support lookaheads maybe source stackoverflow
-
-add snap scroll to remove banner and stuff??
-
-copying icons still isnt perfect
-
-directions doesnt seem to work
-    not fixed
+height and width are taken into account when searching solve by adding {} around stuff maybe
 
 Add character filter to main screen
 
-bugs around tab open command search
-
+open quick filter on load instead of close nicer user exp 
 
 ---IDEAS probably never
     gamepad input??
