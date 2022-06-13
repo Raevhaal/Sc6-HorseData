@@ -1077,7 +1077,7 @@ function createTable(data){
 
         bProcessing: true,
         orderCellsTop: true,
-        responsive: true,
+        responsive: false,
         fixedHeader: true,
         deferRender: true,//Performance fix since wokring with lots of data
 
