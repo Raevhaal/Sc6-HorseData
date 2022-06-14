@@ -1048,8 +1048,15 @@ function createTable(data){
             getMinWidthOf: function ($thNode) {
             },
             stateSaveCallback: function (settings, data) {
+                //localStorage.setItem("colResizeData", JSON.stringify(data));
             },
             stateLoadCallback: function (settings) {
+                // console.log("test");
+                // let data = localStorage.getItem("colResizeData");
+                // data = JSON.parse(data);
+                // console.log(data)
+                // console.log(data != null ? JSON.parse(data) : null)
+                // return data;
             }
         }
     });
