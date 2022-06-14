@@ -292,6 +292,7 @@ class searchFilters{
 
         //Overwrite userinput with stances removed
         $("#commandInput").val(vFilter);
+        $("#commandInputQuick").val(vFilter);
         //#endregion
 
 
@@ -345,7 +346,7 @@ class searchFilters{
 
         //console.log(vFilter);
         if(vFilter == " "){
-            vFilter = "";
+            this.commandFilter = ""; 
         } else {
             this.commandFilter = vFilter; 
         }
@@ -875,15 +876,15 @@ function createTable(data){
 
     var vDom = `
                 <"row bg-themed mx-0"
-                    <"col-6"l>
-                    <"col-6 px-0 float-right"B>
+                    <"col-xs-12 col-sm-12 col-md-6"l>
+                    <"col-xs-12 col-sm-12 col-md-6 float-right"B>
                     
                 >
                 rt
                 <"my-3">
                 <"row fixed-bottom mx-0 bg-themed"
-                    <"col-6"i>
-                    <"col-6 px-0 float-right"p>
+                    <"col-xs-12 col-sm-12 col-md-6"i>
+                    <"col-xs-12 col-sm-12 col-md-6 px-0 float-right"p>
                 >
     `;
     
@@ -987,9 +988,8 @@ function createTable(data){
         scrollX: true,
         scrollY: true,
           
-        colReorder: {
-            realtime: false
-        },
+        colReorder: false,
+        //colReorder: { realtime: false },
 
         columnDefs: [ 
             {targets: 0, visible: true, type:"string", className: "text-capitalize"}//Character
@@ -1028,6 +1028,30 @@ function createTable(data){
         on_resize: function(){ //lol dont remember 
             $('div.dataTables_scrollBody').css('height', newHt, 'maxHeight', newHt);
         },
+
+        colResize: {
+            isEnabled: true,
+            saveState: true,
+            hoverClass: 'dt-colresizable-hover',
+            hasBoundCheck: true,
+            minBoundClass: 'dt-colresizable-bound-min',
+            maxBoundClass: 'dt-colresizable-bound-max',
+            isResizable: function (column) {
+                return true;
+            },
+            onResizeStart: function (column, columns) {
+            },
+            onResize: function (column) {
+            },
+            onResizeEnd: function (column, columns) {
+            },
+            getMinWidthOf: function ($thNode) {
+            },
+            stateSaveCallback: function (settings, data) {
+            },
+            stateLoadCallback: function (settings) {
+            }
+        }
     });
 
     //Can refresh
@@ -1181,6 +1205,22 @@ $(document).ready(function() {
         
         Filters.applyFilter()
     });
+
+    $("#commandInputQuickBT").on("click", applyCmdModalFilter);
+    $("#commandInputQuick").on('keypress',function(e) {
+        if(e.which == 13) {
+            applyCmdModalFilter();
+        }
+    });
+
+    //Sync quick and normal input
+    $("#commandInputQuick").on("keyup paste", function() {
+        $("#commandInput").val($(this).val());
+    });
+    $("#commandInput").on("keyup paste", function() {
+        $("#commandInputQuick").val($(this).val());
+    });
+    
 
     //#region Cmd modal
     $(".btnCall input").on("click", filterModal);

@@ -75,7 +75,25 @@
                         <button class="btn btn-outline-secondary text-light mb-1" value="yoshimitsu">Yoshimitsu</button>
                         <button class="btn btn-outline-secondary text-light mb-1" value="zasalamel">Zasalamel</button>
                         <button class="btn btn-outline-secondary text-light mb-1" value="hwang">Hwang</button>
-                    </div>    
+                    </div> 
+                    <div class="pt-1 px-2 form-row">
+                        <div class="col-sm-3">
+                            <p class="mb-0 pl-1">Command filter:</p>
+                        </div>
+                        <div class="col-auto my-1">
+                            <p class="mb-0"> </p>
+                        </div>
+                    </div>
+
+                    <div class="pb-2 px-2 form-row">
+                        <div class="col-sm-3">
+                            <input type="text" id="commandInputQuick" tabindex="0" class="form-control" autocomplete="off"/>
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" id="commandInputQuickBT" class="btn btn-outline-primary mb-2">Submit</button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -98,13 +116,14 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body px-4">
                         <div class="row">
-                            <div class="col-1"></div>
-
                             
-                            <div class="col-4">
-                                <p class="mb-0">Character Filter*</p>
+                        </div>
+                        <div class="row">
+                            
+                            <div class="col-sm">
+                                <p class="mb-0">Character Filter</p>
                                 <select 
                                     class="select2" 
                                     id="charMultiSelector" 
@@ -146,7 +165,7 @@
                                 </select>
                             </div>
                         
-                            <div class="col-2">
+                            <div class="col-sm">
                                 <p class="mb-0">Hit Level:</p>
                                 <select 
                                     class="select2" 
@@ -167,7 +186,7 @@
                                 </select>
                             </div>
 
-                            <div class="col-3">
+                            <div class="col-sm">
                                 <p class="mb-0">Note filter:</p>
                                 <select 
                                     class="select2" 
@@ -188,23 +207,20 @@
 
                             </div>
                             
-                            <div class="col-1">
-
-                            </div>
                         </div>
                     
                     
                         <hr class="mt-2 mb-3"/>
                         
                         <div class="row mb-3">
-                            <div class="col-1"></div>
 
-                            <div class="col-3">
+                            <div class="col-xs-12 col-sm-12 col-md-3">
                                 <!-- Stance selector -->
-                                <p class="mb-0">Stance filter</p>
+                                <p class="mb-0">Stance filter:</p>
                                 <select 
                                     class="select2" 
                                     id="stanceMultiselector"
+                                    data-placeholder="Set stance..." 
                                     name="stanceFilter[]" 
                                     multiple="multiple"
                                     tabindex="0"
@@ -354,12 +370,11 @@
                                 </select> 
                             </div>
 
-                            <div class="col-7">
+                            <div class="col-lg">
                                 <p class="mb-0">Command filter</p>
                                 <input type="text" tabindex="0" class="form-control" autocomplete="off" id="commandInput"/>
                             </div>
                         
-                            <div class="col-1"></div>
                         </div>
                     </div>
                     
@@ -521,6 +536,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.js" integrity="sha384-c/ETlLU4nObosa79oJAINrzieppqTVOHOBTjQz4CbCpv8e5dfoNq0EyIDlFx6pcJ" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js" integrity="sha384-qNRjPXKOnea7MmtbXG6HLwVyoGNFsu7ntdDOFOt3FS4vmj4MWUKyyKMjRKu0Hr4h" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.11.5/af-2.3.7/b-2.2.2/b-colvis-2.2.2/b-html5-2.2.2/b-print-2.2.2/cr-1.5.5/fc-4.0.2/fh-3.2.2/kt-2.6.4/r-2.2.9/rg-1.1.4/rr-1.2.8/sc-2.0.5/sb-1.3.2/sp-2.0.0/sl-1.3.4/sr-1.1.0/datatables.js" integrity="sha384-/8edyGCOkGim6x9lizp1lpv+OaIWvfDXjtmQXxUTL/z2qjUAM2eZ8IkPla9DUNvM" crossorigin="anonymous"></script>
+        
+        <script src="JS/colResize.js"></script>
         <!-- Toastr -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <!-- select2 -->
