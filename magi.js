@@ -875,6 +875,12 @@ function createTable(data){
 
 
     var vDom = `
+                <"bg-themed px-4"
+                    <"#searchBuilder.collapse.border" 
+                        Q
+                    >
+                >
+                
                 <"row bg-themed mx-0"
                     <"col-xs-12 col-sm-12 col-md-6"l>
                     <"col-xs-12 col-sm-12 col-md-6 float-right"B>
@@ -940,21 +946,6 @@ function createTable(data){
                                 $("#settingsModal").modal("show");
                             },
                             className: 'btn btn-outline-secondary'
-                        },
-                        { 
-                            extend:'searchBuilder',
-                            action: function (e, dt, node, config) {
-                                    this.popover(config._searchBuilder.getNode(), {
-                                      collectionLayout: 'sbpopover'
-                                    });
-                                    // Need to redraw the contents to calculate the correct positions for the elements
-                                    if (config._searchBuilder.s.topGroup !== undefined) {
-                                        config._searchBuilder.s.topGroup.dom.container.trigger('dtsb-redrawContents');
-                                    }
-                                    if (config._searchBuilder.s.topGroup.s.criteria.length === 0) {
-                                        $('.' + $.fn.dataTable.Group.classes.add).click();
-                                    }
-                                }
                         },
                         { 
                             extend: 'copy',
@@ -1209,6 +1200,18 @@ $(document).ready(function() {
         } else {
             $("#navbarFilterIcon").removeClass("fa-angles-left");
             $("#navbarFilterIcon").addClass("fa-angles-down");
+        }
+    });
+
+    //Quick filter section toggle
+    $("#searchBuilderBT").on("click", function(){
+        if($("#searchBuilder").hasClass("show")){
+            $("#searchBuilderIcon").removeClass("fa-angles-down");
+            $("#searchBuilderIcon").addClass("fa-angles-left");
+
+        } else {
+            $("#searchBuilderIcon").removeClass("fa-angles-left");
+            $("#searchBuilderIcon").addClass("fa-angles-down");
         }
     });
 
