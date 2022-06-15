@@ -119,6 +119,24 @@ overflow: hidden;
     border-color: #2f2f2f;
 }
 
+.dtsb-searchBuilder .btn-light:hover{
+    color: #ffff;
+    background-color: #606469;
+    border-color: #ffff;
+}
+
+.dtsb-searchBuilder .btn-light:active{
+    color: #ffff !important;
+    background-color: #606469 !important;
+    border-color: #ffff !important;
+}
+
+.dtsb-searchBuilder .btn-light:focus{
+    color: #ffff !important;
+    background-color: #606469 !important;
+    border-color: #ffff !important;
+}
+
 .dtsb-searchBuilder .form-control{
     color: #d3d3d3;
     background-color: #606469;
