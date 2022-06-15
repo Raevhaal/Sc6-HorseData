@@ -125,6 +125,22 @@ overflow: hidden;
     border-color: #2f2f2f;
 }
 
+div.sbpopover {
+    width: 98vw !important;
+}
+
+@media screen and (min-width: 768px) {
+    div.sbpopover {
+        left: -49vw !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    div.sbpopover {
+        left: 1vw !important;
+    }
+}
+
 /* copy to clipboard -header */
 #datatables_buttons_info.dt-button-info h2{
     color: #d3d3d3;

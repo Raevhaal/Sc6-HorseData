@@ -941,7 +941,21 @@ function createTable(data){
                             },
                             className: 'btn btn-outline-secondary'
                         },
-                        { extend: 'searchBuilder', text: 'Advanced search' },
+                        { 
+                            extend:'searchBuilder',
+                            action: function (e, dt, node, config) {
+                                    this.popover(config._searchBuilder.getNode(), {
+                                      collectionLayout: 'sbpopover'
+                                    });
+                                    // Need to redraw the contents to calculate the correct positions for the elements
+                                    if (config._searchBuilder.s.topGroup !== undefined) {
+                                        config._searchBuilder.s.topGroup.dom.container.trigger('dtsb-redrawContents');
+                                    }
+                                    if (config._searchBuilder.s.topGroup.s.criteria.length === 0) {
+                                        $('.' + $.fn.dataTable.Group.classes.add).click();
+                                    }
+                                }
+                        },
                         { 
                             extend: 'copy',
                             text: 'Copy table to clipboard',
@@ -1101,8 +1115,6 @@ function filterModal(e){
 }
 
 function clearCmdFilter(){
-    Dtable.searchBuilder.rebuild({});
-
     Dtable.column(1).search("", true, true, false);
     Dtable.column(2).search("", true, true, false);
     Dtable.column(3).search("", true, true, false);
@@ -1227,7 +1239,6 @@ $(document).ready(function() {
     $("#commandInput").on("keyup paste", function() {
         $("#commandInputQuick").val($(this).val());
     });
-    
 
     //#region Cmd modal
     $(".btnCall input").on("click", filterModal);
