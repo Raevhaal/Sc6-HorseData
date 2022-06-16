@@ -986,8 +986,8 @@ function createTable(data){
 
         pageLength: 20,//Default record amount
         lengthMenu: [//Record amount
-            [10, 15, 20, 30, 40, 50, 100, 150, -1],//Actual value
-            [10, 15, 20, 30, 40, 50, 100, 150, "All"]],//Displayed value
+            [10, 15, 20, 30, 40, 50, 100, 150, 300, 500, -1],//Actual value
+            [10, 15, 20, 30, 40, 50, 100, 150, 300, 500, "All"]],//Displayed value
 
         scrollCollapse: true,
         scrollX: true,
@@ -997,19 +997,19 @@ function createTable(data){
         //colReorder: { realtime: false },
 
         columnDefs: [ 
-            {targets: 0, visible: true, type:"string", className: "text-capitalize"}//Character
-            ,{targets: 1, visible: false, type:"string"}//Move category
-            ,{targets: 2, visible: false, type:"string"}//Move Name
-            ,{targets: 3, visible: true, type:"string", className: "dt-body-right"}//Stance allign text right
-            ,{targets: 4, visible: true, type:"html", width: "10%", className: "user-select-all"}//Command
-            ,{targets: 5, visible: true, type:"html", className:"user-select-all"}//Hitlevel
-            ,{targets: 6, visible: true, type:"num"}//impact
-            ,{targets: 7, visible: false, type:"string"}//Damage 
-            ,{targets: 8, visible: true, type:"num"}//Sum damage
-            ,{targets: 9, visible: true, type:"num"}//"Block"
-            ,{targets: 10, visible: true, type:"num"}//"Hit"
-            ,{targets: 11, visible: true, type:"num"}//"Counter
-            ,{targets: 12, visible: true, type:"num"}//"Guard Burst
+            {targets: 0, visible: true, type:"string", className: "text-capitalize", "orderable": true}//Character
+            ,{targets: 1, visible: false, type:"string", "orderable": true}//Move category
+            ,{targets: 2, visible: false, type:"string", "orderable": true}//Move Name
+            ,{targets: 3, visible: true, type:"string", className: "dt-body-right", "orderable": true}//Stance allign text right
+            ,{targets: 4, visible: true, type:"html", width: "10%", className: "user-select-all", "orderable": true}//Command
+            ,{targets: 5, visible: true, type:"html", className:"user-select-all", "orderable": true}//Hitlevel
+            ,{targets: 6, visible: true, type:"num", "orderable": true}//impact
+            ,{targets: 7, visible: false, type:"string", "orderable": false}//Damage 
+            ,{targets: 8, visible: true, type:"num", "orderable": true}//Sum damage
+            ,{targets: 9, visible: true, type:"num", "orderable": false}//"Block"
+            ,{targets: 10, visible: true, type:"num", "orderable": false}//"Hit"
+            ,{targets: 11, visible: true, type:"num", "orderable": false}//"Counter
+            ,{targets: 12, visible: true, type:"num", "orderable": true}//"Guard Burst
             ,{targets: 13, visible: true, type:"html", className:"user-select-all"}//Notes
         ],
         
