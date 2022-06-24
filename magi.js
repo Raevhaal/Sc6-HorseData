@@ -448,105 +448,105 @@ var Icons = {
     // .Z{width: 28px;height: 20px;}
 
     //Notes
-    ":TH:": '<img class="X" src="Icons/TH.png"></img><p class="superHidden">:TH:</p>',
-    ":BA:": '<img class="X" src="Icons/BA.png"></img><p class="superHidden">:BA:</p>',
-    ":GI:": '<img class="X" src="Icons/GI.png"></img><p class="superHidden">:GI:</p>',
-    ":SS:": '<img class="X" src="Icons/SS.png"></img><p class="superHidden">:SS:</p>',
-    ":UA:": '<img class="X" src="Icons/UA.png"></img><p class="superHidden">:UA:</p>',
-    ":LH:": '<img class="X" src="Icons/LH.png"></img><p class="superHidden">:LH:</p>',
-    ":RE:": '<img class="X" src="Icons/RE.png"></img><p class="superHidden">:RE:</p>',
-    ":GC:": '<img class="X" src="Icons/GC.png"></img><p class="superHidden">:GC:</p>',
-    ":AT:": '<img class="X" src="Icons/AT.png"></img><p class="superHidden">:AT:</p>',
-    ":CE:": '<img class="X" src="Icons/CE.png"></img><p class="superHidden">:CE:</p>',
-    ":SC:": '<img class="X" src="Icons/SC.png"></img><p class="superHidden">:SC:</p>',
+    ":TH:": '<div class="user-select-all d-inline"><p class="superHidden">:TH:</p><img class="X" src="Icons/TH.png"></img></div>',
+    ":BA:": '<div class="user-select-all d-inline"><p class="superHidden">:BA:</p><img class="X" src="Icons/BA.png"></img></div>',
+    ":GI:": '<div class="user-select-all d-inline"><p class="superHidden">:GI:</p><img class="X" src="Icons/GI.png"></img></div>',
+    ":SS:": '<div class="user-select-all d-inline"><p class="superHidden">:SS:</p><img class="X" src="Icons/SS.png"></img></div>',
+    ":UA:": '<div class="user-select-all d-inline"><p class="superHidden">:UA:</p><img class="X" src="Icons/UA.png"></img></div>',
+    ":LH:": '<div class="user-select-all d-inline"><p class="superHidden">:LH:</p><img class="X" src="Icons/LH.png"></img></div>',
+    ":RE:": '<div class="user-select-all d-inline"><p class="superHidden">:RE:</p><img class="X" src="Icons/RE.png"></img></div>',
+    ":GC:": '<div class="user-select-all d-inline"><p class="superHidden">:GC:</p><img class="X" src="Icons/GC.png"></img></div>',
+    ":AT:": '<div class="user-select-all d-inline"><p class="superHidden">:AT:</p><img class="X" src="Icons/AT.png"></img></div>',
+    ":CE:": '<div class="user-select-all d-inline"><p class="superHidden">:CE:</p><img class="X" src="Icons/CE.png"></img></div>',
+    ":SC:": '<div class="user-select-all d-inline"><p class="superHidden">:SC:</p><img class="X" src="Icons/SC.png"></img></div>',
     //":TS:": '<img width="40" height="20" src="Icons/TS.png" value = "TS"></img>',
 
     //Slide combo buttons
-    ":a::A:": '<img class="X" src="Icons/A-A.png"></img><p class="superHidden">aA</p>',
-    ":a::B:": '<img class="X" src="Icons/A-B.png"></img><p class="superHidden">aB</p>',
-    ":a::K:": '<img class="X" src="Icons/A-K.png"></img><p class="superHidden">aK</p>',
-    ":a::G:": '<img class="X" src="Icons/A-G.png"></img><p class="superHidden">aG</p>',
-    ":b::A:": '<img class="X" src="Icons/B-A.png"></img><p class="superHidden">bA</p>',
-    ":b::B:": '<img class="X" src="Icons/B-B.png"></img><p class="superHidden">bB</p>',
-    ":b::K:": '<img class="X" src="Icons/B-K.png"></img><p class="superHidden">bK</p>',
-    ":b::G:": '<img class="X" src="Icons/B-G.png"></img><p class="superHidden">bG</p>',
-    ":k::A:": '<img class="X" src="Icons/K-A.png"></img><p class="superHidden">kA</p>',
-    ":k::B:": '<img class="X" src="Icons/K-B.png"></img><p class="superHidden">kB</p>',
-    ":k::K:": '<img class="X" src="Icons/K-K.png"></img><p class="superHidden">kK</p>',
-    ":k::G:": '<img class="X" src="Icons/K-G.png"></img><p class="superHidden">kG</p>',
-    ":g::A:": '<img class="X" src="Icons/G-A.png"></img><p class="superHidden">gA</p>',
-    ":g::B:": '<img class="X" src="Icons/G-B.png"></img><p class="superHidden">gB</p>',
-    ":g::K:": '<img class="X" src="Icons/G-K.png"></img><p class="superHidden">gK</p>',
-    ":g::G:": '<img class="X" src="Icons/G-G.png"></img><p class="superHidden">gG</p>',
+    ":a::A:": '<div class="user-select-all d-inline"><p class="superHidden">aA</p><img class="X" src="Icons/A-A.png"></img></div>',
+    ":a::B:": '<div class="user-select-all d-inline"><p class="superHidden">aB</p><img class="X" src="Icons/A-B.png"></img></div>',
+    ":a::K:": '<div class="user-select-all d-inline"><p class="superHidden">aK</p><img class="X" src="Icons/A-K.png"></img></div>',
+    ":a::G:": '<div class="user-select-all d-inline"><p class="superHidden">aG</p><img class="X" src="Icons/A-G.png"></img></div>',
+    ":b::A:": '<div class="user-select-all d-inline"><p class="superHidden">bA</p><img class="X" src="Icons/B-A.png"></img></div>',
+    ":b::B:": '<div class="user-select-all d-inline"><p class="superHidden">bB</p><img class="X" src="Icons/B-B.png"></img></div>',
+    ":b::K:": '<div class="user-select-all d-inline"><p class="superHidden">bK</p><img class="X" src="Icons/B-K.png"></img></div>',
+    ":b::G:": '<div class="user-select-all d-inline"><p class="superHidden">bG</p><img class="X" src="Icons/B-G.png"></img></div>',
+    ":k::A:": '<div class="user-select-all d-inline"><p class="superHidden">kA</p><img class="X" src="Icons/K-A.png"></img></div>',
+    ":k::B:": '<div class="user-select-all d-inline"><p class="superHidden">kB</p><img class="X" src="Icons/K-B.png"></img></div>',
+    ":k::K:": '<div class="user-select-all d-inline"><p class="superHidden">kK</p><img class="X" src="Icons/K-K.png"></img></div>',
+    ":k::G:": '<div class="user-select-all d-inline"><p class="superHidden">kG</p><img class="X" src="Icons/K-G.png"></img></div>',
+    ":g::A:": '<div class="user-select-all d-inline"><p class="superHidden">gA</p><img class="X" src="Icons/G-A.png"></img></div>',
+    ":g::B:": '<div class="user-select-all d-inline"><p class="superHidden">gB</p><img class="X" src="Icons/G-B.png"></img></div>',
+    ":g::K:": '<div class="user-select-all d-inline"><p class="superHidden">gK</p><img class="X" src="Icons/G-K.png"></img></div>',
+    ":g::G:": '<div class="user-select-all d-inline"><p class="superHidden">gG</p><img class="X" src="Icons/G-G.png"></img></div>',
     
     //Directions
-    ":9:": '<img class="X" src="Icons/9.png" ></img><p class="superHidden">9</p>',
-    ":8:": '<img class="X" src="Icons/8.png" ></img><p class="superHidden">8</p>',
-    ":7:": '<img class="X" src="Icons/7.png" ></img><p class="superHidden">7</p>',
-    ":6:": '<img class="X" src="Icons/6.png" ></img><p class="superHidden">6</p>',
-    ":5:": '<img class="X" src="Icons/5.png" ></img><p class="superHidden">5</p>',
-    ":4:": '<img class="X" src="Icons/4.png" ></img><p class="superHidden">4</p>',
-    ":3:": '<img class="X" src="Icons/3.png" ></img><p class="superHidden">3</p>',
-    ":2:": '<img class="X" src="Icons/2.png" ></img><p class="superHidden">2</p>',
-    ":1:": '<img class="X" src="Icons/1.png" ></img><p class="superHidden">1</p>',
+    ":9:": '<div class="user-select-all d-inline"><p class="superHidden">9</p><img class="X" src="Icons/9.png" ></img></div>',
+    ":8:": '<div class="user-select-all d-inline"><p class="superHidden">8</p><img class="X" src="Icons/8.png" ></img></div>',
+    ":7:": '<div class="user-select-all d-inline"><p class="superHidden">7</p><img class="X" src="Icons/7.png" ></img></div>',
+    ":6:": '<div class="user-select-all d-inline"><p class="superHidden">6</p><img class="X" src="Icons/6.png" ></img></div>',
+    ":5:": '<div class="user-select-all d-inline"><p class="superHidden">5</p><img class="X" src="Icons/5.png" ></img></div>',
+    ":4:": '<div class="user-select-all d-inline"><p class="superHidden">4</p><img class="X" src="Icons/4.png" ></img></div>',
+    ":3:": '<div class="user-select-all d-inline"><p class="superHidden">3</p><img class="X" src="Icons/3.png" ></img></div>',
+    ":2:": '<div class="user-select-all d-inline"><p class="superHidden">2</p><img class="X" src="Icons/2.png" ></img></div>',
+    ":1:": '<div class="user-select-all d-inline"><p class="superHidden">1</p><img class="X" src="Icons/1.png" ></img></div>',
 
     //Directions held
-    ":(9):": '<img class="X" src="Icons/9-.png" ></img><p class="superHidden">(9)</p>',
-    ":(8):": '<img class="X" src="Icons/8-.png" ></img><p class="superHidden">(8)</p>',
-    ":(7):": '<img class="X" src="Icons/7-.png" ></img><p class="superHidden">(7)</p>',
-    ":(6):": '<img class="X" src="Icons/6-.png" ></img><p class="superHidden">(6)</p>',
-    ":(4):": '<img class="X" src="Icons/4-.png" ></img><p class="superHidden">(4)</p>',
-    ":(3):": '<img class="X" src="Icons/3-.png" ></img><p class="superHidden">(3)</p>',
-    ":(2):": '<img class="X" src="Icons/2-.png" ></img><p class="superHidden">(2)</p>',
-    ":(1):": '<img class="X" src="Icons/1-.png" ></img><p class="superHidden">(1)</p>',
+    ":(9):": '<div class="user-select-all d-inline"><p class="superHidden">(9)</p><img class="X" src="Icons/9-.png" ></img></div>',
+    ":(8):": '<div class="user-select-all d-inline"><p class="superHidden">(8)</p><img class="X" src="Icons/8-.png" ></img></div>',
+    ":(7):": '<div class="user-select-all d-inline"><p class="superHidden">(7)</p><img class="X" src="Icons/7-.png" ></img></div>',
+    ":(6):": '<div class="user-select-all d-inline"><p class="superHidden">(6)</p><img class="X" src="Icons/6-.png" ></img></div>',
+    ":(4):": '<div class="user-select-all d-inline"><p class="superHidden">(4)</p><img class="X" src="Icons/4-.png" ></img></div>',
+    ":(3):": '<div class="user-select-all d-inline"><p class="superHidden">(3)</p><img class="X" src="Icons/3-.png" ></img></div>',
+    ":(2):": '<div class="user-select-all d-inline"><p class="superHidden">(2)</p><img class="X" src="Icons/2-.png" ></img></div>',
+    ":(1):": '<div class="user-select-all d-inline"><p class="superHidden">(1)</p><img class="X" src="Icons/1-.png" ></img></div>',
 
     //Held buttons
-    ":(G):": '<img class="X" src="Icons/G-.png"></img><p class="superHidden">(G)</p>',
-    ":(A):": '<img class="X" src="Icons/A-.png"></img><p class="superHidden">(A)</p>',
-    ":(B):": '<img class="X" src="Icons/B-.png"></img><p class="superHidden">(B)</p>',
-    ":(K):": '<img class="X" src="Icons/K-.png"></img><p class="superHidden">(K)</p>',
+    ":(G):": '<div class="user-select-all d-inline"><p class="superHidden">(G)</p><img class="X" src="Icons/G-.png"></img></div>',
+    ":(A):": '<div class="user-select-all d-inline"><p class="superHidden">(A)</p><img class="X" src="Icons/A-.png"></img></div>',
+    ":(B):": '<div class="user-select-all d-inline"><p class="superHidden">(B)</p><img class="X" src="Icons/B-.png"></img></div>',
+    ":(K):": '<div class="user-select-all d-inline"><p class="superHidden">(K)</p><img class="X" src="Icons/K-.png"></img></div>',
 
     //Buttons
-    ":G:": '<img class="X" src="Icons/G.png"></img><p class="superHidden">G</p>',
-    ":A:": '<img class="X" src="Icons/A.png"></img><p class="superHidden">A</p>',
-    ":B:": '<img class="X" src="Icons/B.png"></img><p class="superHidden">B</p>',
-    ":K:": '<img class="X" src="Icons/K.png"></img><p class="superHidden">K</p>',
+    ":G:": '<div class="user-select-all d-inline"><p class="superHidden">G</p><img class="X" src="Icons/G.png"></img></div>',
+    ":A:": '<div class="user-select-all d-inline"><p class="superHidden">A</p><img class="X" src="Icons/A.png"></img></div>',
+    ":B:": '<div class="user-select-all d-inline"><p class="superHidden">B</p><img class="X" src="Icons/B.png"></img></div>',
+    ":K:": '<div class="user-select-all d-inline"><p class="superHidden">K</p><img class="X" src="Icons/K.png"></img></div>',
 
     //Slide buttons
-    ":g:": '<img class="X" src="Icons/Gs.png"></img><p class="superHidden">g</p>',
-    ":a:": '<img class="X" src="Icons/As.png"></img><p class="superHidden">a</p>',
-    ":b:": '<img class="X" src="Icons/Bs.png"></img><p class="superHidden">b</p>',
-    ":k:": '<img class="X" src="Icons/Ks.png"></img><p class="superHidden">k</p>',
+    ":g:": '<div class="user-select-all d-inline"><p class="superHidden">g</p><img class="X" src="Icons/Gs.png"></img></div>',
+    ":a:": '<div class="user-select-all d-inline"><p class="superHidden">a</p><img class="X" src="Icons/As.png"></img></div>',
+    ":b:": '<div class="user-select-all d-inline"><p class="superHidden">b</p><img class="X" src="Icons/Bs.png"></img></div>',
+    ":k:": '<div class="user-select-all d-inline"><p class="superHidden">k</p><img class="X" src="Icons/Ks.png"></img></div>',
 
     //Held combo buttons
-    ":(A)+(K):": '<img class="X" src="Icons/AK-.png"></img><p class="superHidden">(A)+(K)</p>',
-    ":(A)+(B):": '<img class="X" src="Icons/AB-.png"></img><p class="superHidden">(A)+(B)</p>',
-    ":(K)+(G):": '<img class="X" src="Icons/KG-.png"></img><p class="superHidden">(K)+(H)</p>',
-    ":(A)+(G):": '<img class="X" src="Icons/AG-.png"></img><p class="superHidden">(A)+(G)</p>',
-    ":(B)+(K):": '<img class="X" src="Icons/BK-.png"></img><p class="superHidden">(B+K)</p>',
-    ":(B)+(G):": '<img class="X" src="Icons/BG-.png"></img><p class="superHidden">(B+G)</p>',
+    ":(A)+(K):": '<div class="user-select-all d-inline"><p class="superHidden">(A)+(K)</p><img class="X" src="Icons/AK-.png"></img></div>',
+    ":(A)+(B):": '<div class="user-select-all d-inline"><p class="superHidden">(A)+(B)</p><img class="X" src="Icons/AB-.png"></img></div>',
+    ":(K)+(G):": '<div class="user-select-all d-inline"><p class="superHidden">(K)+(H)</p><img class="X" src="Icons/KG-.png"></img></div>',
+    ":(A)+(G):": '<div class="user-select-all d-inline"><p class="superHidden">(A)+(G)</p><img class="X" src="Icons/AG-.png"></img></div>',
+    ":(B)+(K):": '<div class="user-select-all d-inline"><p class="superHidden">(B+K)</p><img class="X" src="Icons/BK-.png"></img></div>',
+    ":(B)+(G):": '<div class="user-select-all d-inline"><p class="superHidden">(B+G)</p><img class="X" src="Icons/BG-.png"></img></div>',
 
     //Combo buttons
-    ":A+K:": '<img class="X" src="Icons/AK.png"></img><p class="superHidden">A+K</p>',
-    ":A+B:": '<img class="X" src="Icons/AB.png"></img><p class="superHidden">A+B</p>',
-    ":K+G:": '<img class="X" src="Icons/KG.png"></img><p class="superHidden">K+G</p>',
-    ":A+G:": '<img class="X" src="Icons/AG.png"></img><p class="superHidden">A+G</p>',
-    ":B+K:": '<img class="X" src="Icons/BK.png"></img><p class="superHidden">B+K</p>',
-    ":B+G:": '<img class="X" src="Icons/BG.png"></img><p class="superHidden">B+G</p>',
+    ":A+K:": '<div class="user-select-all d-inline"><img class="X" src="Icons/AK.png"></img><p class="superHidden">A+K</p></div>',
+    ":A+B:": '<div class="user-select-all d-inline"><img class="X" src="Icons/AB.png"></img><p class="superHidden">A+B</p></div>',
+    ":K+G:": '<div class="user-select-all d-inline"><img class="X" src="Icons/KG.png"></img><p class="superHidden">K+G</p></div>',
+    ":A+G:": '<div class="user-select-all d-inline"><img class="X" src="Icons/AG.png"></img><p class="superHidden">A+G</p></div>',
+    ":B+K:": '<div class="user-select-all d-inline"><img class="X" src="Icons/BK.png"></img><p class="superHidden">B+K</p></div>',
+    ":B+G:": '<div class="user-select-all d-inline"><img class="X" src="Icons/BG.png"></img><p class="superHidden">B+G</p></div>',
 
-    ":A+B+K:":       '<img class="X" src= "Icons/ABK.png" ></img><p class="superHidden">A+B+K</p>',
-    ":(A)+(B)+(K):": '<img class="X" src="Icons/ABK-.png" ></img><p class="superHidden">(A+B+K)</p>',
+    ":A+B+K:":       '<div class="user-select-all d-inline"><p class="superHidden">A+B+K</p><img class="X" src= "Icons/ABK.png"></img></div>',
+    ":(A)+(B)+(K):": '<div class="user-select-all d-inline"><p class="superHidden">(A+B+K)</p><img class="X" src="Icons/ABK-.png"></img></div>',
 
     //Height
-    ":H:":  '<img class="X" src="Icons/H.png" ></img><p class="superHidden">:H:</p>',
-    ":M:":  '<img class="X" src="Icons/M.png" ></img><p class="superHidden">:M:</p>',
-    ":L:":  '<img class="X" src="Icons/L.png" ></img><p class="superHidden">:L:</p>',
-    ":SH:": '<img class="X" src="Icons/SH.png" ></img><p class="superHidden">:SH:</p>',
-    ":SM:": '<img class="X" src="Icons/SM.png" ></img><p class="superHidden">:SM:</p>', 
-    ":SL:": '<img class="X" src="Icons/SL.png" ></img><p class="superHidden">:SL:</p>',
+    ":H:":  '<div class="user-select-all d-inline"><p class="superHidden">:H:</p><img class="X" src="Icons/H.png" ></img></div>',
+    ":M:":  '<div class="user-select-all d-inline"><p class="superHidden">:M:</p><img class="X" src="Icons/M.png" ></img></div>',
+    ":L:":  '<div class="user-select-all d-inline"><p class="superHidden">:L:</p><img class="X" src="Icons/L.png" ></img></div>',
+    ":SH:": '<div class="user-select-all d-inline"><p class="superHidden">:SH:</p><img class="X" src="Icons/SH.png" ></img></div>',
+    ":SM:": '<div class="user-select-all d-inline"><p class="superHidden">:SM:</p><img class="X" src="Icons/SM.png" ></img></div>', 
+    ":SL:": '<div class="user-select-all d-inline"><p class="superHidden">:SL:</p><img class="X" src="Icons/SL.png" ></img></div>',
 
     //Misc
-    ":a+b:": '<img class="X" src="Icons/AB.png" ></img><p class="superHidden">a+b</p>',
+    ":a+b:": '<div class="user-select-all d-inline"><p class="superHidden">a+b</p><img class="X" src="Icons/AB.png" ></img></div>',
 };
 
 var CommandIcons = [
@@ -1001,8 +1001,8 @@ function createTable(data){
             ,{targets: 1, visible: false, type:"string", "orderable": true}//Move category
             ,{targets: 2, visible: false, type:"string", "orderable": true}//Move Name
             ,{targets: 3, visible: true, type:"string", className: "dt-body-right", "orderable": true}//Stance allign text right
-            ,{targets: 4, visible: true, type:"html", width: "10%", className: "user-select-all", "orderable": true}//Command
-            ,{targets: 5, visible: true, type:"html", className:"user-select-all", "orderable": true}//Hitlevel
+            ,{targets: 4, visible: true, type:"html", width: "10%", "orderable": true}//Command
+            ,{targets: 5, visible: true, type:"html", "orderable": true}//Hitlevel
             ,{targets: 6, visible: true, type:"num", "orderable": true}//impact
             ,{targets: 7, visible: false, type:"string", "orderable": false}//Damage 
             ,{targets: 8, visible: true, type:"num", "orderable": true}//Sum damage
@@ -1010,7 +1010,7 @@ function createTable(data){
             ,{targets: 10, visible: true, type:"num", "orderable": false}//"Hit"
             ,{targets: 11, visible: true, type:"num", "orderable": false}//"Counter
             ,{targets: 12, visible: true, type:"num", "orderable": true}//"Guard Burst
-            ,{targets: 13, visible: true, type:"html", className:"user-select-all"}//Notes
+            ,{targets: 13, visible: true, type:"html"}//Notes
         ],
         
         searchCols: [
@@ -1139,7 +1139,7 @@ $(document).ready(function() {
     //console.log(`Starting: ${performance.now() - StartTime} milliseconds.`);
 
     //Version checker very primitive but works
-    version = "0.13"
+    version = "0.15"
     if(!localStorage.hasOwnProperty("version")){
         localStorage.setItem("version", version);
     } else {
