@@ -328,10 +328,12 @@ class searchFilters{
         vFilter = vFilter.replaceAll("a ", "a.*");
         vFilter = vFilter.replaceAll("b ", "b.*");
         vFilter = vFilter.replaceAll("k ", "k.*");
+        vFilter = vFilter.replaceAll("g ", "g.*");
 
         vFilter = vFilter.replaceAll("A ", "A.*");
         vFilter = vFilter.replaceAll("B ", "B.*");
         vFilter = vFilter.replaceAll("K ", "K.*");
+        vFilter = vFilter.replaceAll("G ", "G.*");
  
         vFilter = vFilter.replaceAll("1 ", "1.*");
         vFilter = vFilter.replaceAll("2 ", "2.*");

@@ -7,6 +7,15 @@ open quick filter on load instead of close nicer user exp
 
 fix resize saving
 
+Add stance dropdown inside main screen filters
+    move all filters outside??
+
+Restrict dropdown to only show character 
+    Setting to turn this off?
+
+Auto stance only at start of input
+A+G not working on asta??
+
 ---IDEAS probably never
     gamepad input??
 
