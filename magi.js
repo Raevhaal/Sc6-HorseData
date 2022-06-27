@@ -812,7 +812,7 @@ function clearCache(){
 }
 
 function createTable(data){
-    const Fheaders = ["Character", "Move category", "Move Name", "Stance", "Command", "Hit level", "Impact", "Damage", "Sum(Damage)", "Block", "Hit", "Counter Hit", "Guard Burst", "Notes"];
+    const Fheaders = ["Character", "Move category", "Move Name", "Stance", "Command", "Hit level", "Impact", "Damage", "DMG", "Block", "Hit", "Counter Hit", "Guard Burst", "Notes"];
 
     //console.log(`Creating tablestart ${performance.now() - StartTime} milliseconds.`);
     var vData;
@@ -986,7 +986,7 @@ function createTable(data){
         fixedHeader: true,
         deferRender: true,//Performance fix since wokring with lots of data
 
-        pageLength: 20,//Default record amount
+        pageLength: 300,//Default record amount
         lengthMenu: [//Record amount
             [10, 15, 20, 30, 40, 50, 100, 150, 300, 500, -1],//Actual value
             [10, 15, 20, 30, 40, 50, 100, 150, 300, 500, "All"]],//Displayed value
