@@ -90,9 +90,9 @@ class searchFilters{
                 $("#charMultiSelector").val($("#charMultiSelector").val().concat([urlParam.get("character").toLocaleLowerCase()])).trigger("change");
                 
             }
-        } else {
-            $("#navbarFilter").click(); //Shows quick filter menu
         }
+
+        $("#navbarFilter").click(); //Shows quick filter menu
 
         // Apply filter
         this.applyFilter();
@@ -292,7 +292,6 @@ class searchFilters{
 
         //Overwrite userinput with stances removed
         $("#commandInput").val(vFilter);
-        $("#commandInputQuick").val(vFilter);
         //#endregion
 
 
@@ -461,7 +460,7 @@ var Icons = {
     ":AT:": '<div class="user-select-all d-inline"><p class="superHidden">:AT:</p><img class="X" src="Icons/AT.png"></img></div>',
     ":CE:": '<div class="user-select-all d-inline"><p class="superHidden">:CE:</p><img class="X" src="Icons/CE.png"></img></div>',
     ":SC:": '<div class="user-select-all d-inline"><p class="superHidden">:SC:</p><img class="X" src="Icons/SC.png"></img></div>',
-    //":TS:": '<img width="40" height="20" src="Icons/TS.png" value = "TS"></img>',
+    //":TS:": '<img width="40" height="20" src="Icons/TS.png"></img>',
 
     //Slide combo buttons
     ":a::A:": '<div class="user-select-all d-inline"><p class="superHidden">aA</p><img class="X" src="Icons/A-A.png"></img></div>',
@@ -627,9 +626,9 @@ var CommandIcons = [
     [":k:", Icons[":k:"]],
 
     //Misc
-    [":(B+K):", '<img width="46" height="20" src="Icons/BK-.png" value = "(B+K)"></img>'],
-    [":a+b:", '<img width="46" height="20" src="Icons/AB.png" value = "a+b"></img>'],
-    [":b+k:", '<img width="46" height="20" src="Icons/BK.png" value = "B+K"></img>'],
+    [":(B+K):", '<img width="46" height="20" src="Icons/BK-.png"></img>'],
+    [":a+b:", '<img width="46" height="20" src="Icons/AB.png"></img>'],
+    [":b+k:", '<img width="46" height="20" src="Icons/BK.png"></img>'],
 ];
 
 var HeightIcons = [
@@ -689,13 +688,8 @@ class Settings {
     defaultSettings = {
         "StanceSelector": true,
         "StanceAND": true,
+        "Entries": 300,
     };
-
-    // Setting checkbox translator
-    settingCheckbox = {
-        "StanceSelector": "#StanceSelectorCHK",
-        "StanceAND": "#StanceANDCHK",
-    }
 
     //Settings variable where everything is stored
     settings = {};
@@ -746,8 +740,12 @@ class Settings {
 
     // Update to use new generalization thing ma ef sduighswiu iqeur hgåoi 
     udpateSettingsDisplay(){
+        //Checkboxes
         for (const [key, value] of Object.entries(this.settings)) {
-            $(this.settingCheckbox[key]).prop("checked", value );
+            //Checkbox
+            $('#settingsModal .modal-body input[settingName="' + key +'"]').prop("checked", value );
+            //Select
+            $('#settingsModal .modal-body select[settingName="' + key +'"]').val(value);
         }
     }
 
@@ -762,8 +760,6 @@ class Settings {
         } else {
             $("#stanceMultiselector").prop('disabled', true);
         }
-
-
     }
 };
 
@@ -773,13 +769,20 @@ var UserSettings = new Settings();
 UserSettings.loadSettings();
 UserSettings.applySettings();
 
-//Handles dom settings page
+//#region Handles dom settings page
 $("#settingsModal .modal-body input").change(function(event){
     UserSettings.set(
         this.getAttribute("settingName"),
         this.checked
     );
 });
+$("#settingsModal .modal-body select").change(function(event){
+    UserSettings.set(
+        this.getAttribute("settingName"),
+        this.value
+    );
+});
+//#endregion
 
 //#endregion
 
@@ -884,8 +887,14 @@ function createTable(data){
                 >
                 
                 <"row bg-themed mx-0"
-                    <"col-xs-12 col-sm-12 col-md-6"l>
-                    <"col-xs-12 col-sm-12 col-md-6 float-right"B>
+                    <"col-xs-12 col-sm-12 col-md-6"
+                        <"float-left"
+                            l
+                        >
+                    >
+                    <"col-xs-12 col-sm-12 col-md-6 float-right"
+                        B
+                    >
                     
                 >
                 rt
@@ -923,13 +932,13 @@ function createTable(data){
 
         buttons: {
             buttons: [
-                {
-                    text: "Command search",
-                    action: function () {
-                        $("#commandSearchModal").modal("show");
-                    },
-                    className: 'btn btn-outline-secondary'
-                },
+                // {
+                //     text: "Command search",
+                //     action: function () {
+                //         $("#commandSearchModal").modal("show");
+                //     },
+                //     className: 'btn btn-outline-secondary'
+                // },
                 
                 {
                     extend: 'colvis',
@@ -986,7 +995,7 @@ function createTable(data){
         fixedHeader: true,
         deferRender: true,//Performance fix since wokring with lots of data
 
-        pageLength: 300,//Default record amount
+        pageLength: UserSettings.settings.Entries,//Default record amount
         lengthMenu: [//Record amount
             [10, 15, 20, 30, 40, 50, 100, 150, 300, 500, -1],//Actual value
             [10, 15, 20, 30, 40, 50, 100, 150, 300, 500, "All"]],//Displayed value
@@ -1184,7 +1193,7 @@ $(document).ready(function() {
     });
 
     $("#stanceMultiselector").select2({
-        //allowClear: true,//Adds clear all button
+        allowClear: true,//Adds clear all button
     });
     
     //#endregion
@@ -1219,30 +1228,17 @@ $(document).ready(function() {
 
     //Quick filters below header
     $("#charSelectNavbar button").on("click", function(){
-        //Filters.setCharacterFilter = this.value;
-
         if($(this).hasClass("active")){
             Filters.removeCharacter(this.value)
         } else {
             Filters.addCharacters(this.value);
         }
-        
-        Filters.applyFilter()
     });
 
-    $("#commandInputQuickBT").on("click", applyCmdModalFilter);
-    $("#commandInputQuick").on('keypress',function(e) {
+    $("#commandInput").on('keypress',function(e) {
         if(e.which == 13) {
             applyCmdModalFilter();
         }
-    });
-
-    //Sync quick and normal input
-    $("#commandInputQuick").on("keyup paste", function() {
-        $("#commandInput").val($(this).val());
-    });
-    $("#commandInput").on("keyup paste", function() {
-        $("#commandInputQuick").val($(this).val());
     });
 
     //#region Cmd modal
@@ -1258,6 +1254,11 @@ $(document).ready(function() {
             const url = new URL(window.location);
             url.searchParams.set('character', $("#charMultiSelector").val()[0]);
             window.history.replaceState({}, '', url);
+
+            //Set title to one character
+            document.title = $("#charMultiSelector").val()[0].charAt(0).toUpperCase() + $("#charMultiSelector").val()[0].slice(1);
+        } else {
+            document.title = "SC6 Framedata";
         }
 
         $("#charSelectNavbar button.active").removeClass("active");
@@ -1269,18 +1270,22 @@ $(document).ready(function() {
         });
 
         Filters.setCharacterFilter($("#charMultiSelector").val());
+        Filters.applyFilter()
     });
     
     $("#hitlevelMultiSelector").on("change", function(){
         Filters.setHitlevelFilter($("#hitlevelMultiSelector").val())
+        Filters.applyFilter()
     });
 
     $("#noteFilterMultiSelector").on("change", function(){
         Filters.setNoteFilter($("#noteFilterMultiSelector").val())
+        Filters.applyFilter()
     });
 
     $("#stanceMultiselector").on("change", function(){
         Filters.setStanceFilter($("#stanceMultiselector").val())
+        Filters.applyFilter()
     });
 
     // Open character select if empty
@@ -1301,17 +1306,17 @@ $(document).ready(function() {
     });
 
     //tab open 
-    document.onkeydown = function(evt) {
-        evt = evt || window.event;
-        if (
-            evt.key == "Tab"
-            && !$("#commandSearchModal").data('bs.modal')?._isShown
-            && !$("#settingsModal").data('bs.modal')?._isShown
-        ) {
-            console.log("iran");
-            $("#commandSearchModal").modal("show");
-        }
-    };
+    // document.onkeydown = function(evt) {
+    //     evt = evt || window.event;
+    //     if (
+    //         evt.key == "Tab"
+    //         && !$("#commandSearchModal").data('bs.modal')?._isShown
+    //         && !$("#settingsModal").data('bs.modal')?._isShown
+    //     ) {
+    //         console.log("iran");
+    //         $("#commandSearchModal").modal("show");
+    //     }
+    // };
     //#endregion
 
     //#endregion

@@ -1,20 +1,16 @@
-
-height and width are taken into account when searching solve by adding {} around stuff maybe
-
-Add character filter to main screen
-
-open quick filter on load instead of close nicer user exp 
-
 fix resize saving
-
-Add stance dropdown inside main screen filters
-    move all filters outside??
 
 Restrict dropdown to only show character 
     Setting to turn this off?
 
+If only one character filtered
+    favicon?
+    remove character column???
+        Setting???
+
 Auto stance only at start of input
-A+G not working on asta??
+
+Clear filter button???
 
 ---IDEAS probably never
     gamepad input??
@@ -25,7 +21,6 @@ A+G not working on asta??
         icon scaling on zoom?
         haha sure will do past me lol
     fix icons in command search on smaller screens SVG?
-
 
 
 Notes:

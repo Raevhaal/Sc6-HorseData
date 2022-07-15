@@ -183,14 +183,22 @@ div.sbpopover {
 ﻿table.dataTable thead th[data-is-resizable=true] {
     border-left: 1px solid transparent;
     border-right: 1px dashed #000000;
-  }
-  table.dataTable thead th.dt-colresizable-hover {
+}
+table.dataTable thead th.dt-colresizable-hover {
     cursor: col-resize;
     background-color: #23282e;
     border-left: 1px solid #000000;
-   }
-  table.dataTable thead th.dt-colresizable-bound-min, 
-  table.dataTable thead th.dt-colresizable-bound-max {
+}
+table.dataTable thead th.dt-colresizable-bound-min, 
+table.dataTable thead th.dt-colresizable-bound-max {
     opacity: 0.2;
     cursor: not-allowed !important;
-  }
+}
+
+
+
+span.select2.select2-container, 
+span.select2.select2-container > span.selection,
+span.select2.select2-container > span.selection > span.select2-selection{
+    height: 100% !important;
+}
