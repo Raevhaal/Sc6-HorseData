@@ -852,7 +852,11 @@ function createTable(data){
             for (let index = 0; index < NotesIcons.length; index++) {
                 Notes = Notes.replaceAll(NotesIcons[index][0], NotesIcons[index][1]);
             }
-    
+
+            //Guardburst
+            var GuardBurst = row[Fheaders[12]];
+            GuardBurst = GuardBurst.replaceAll(",", ".");
+            GuardBurst.replaceAll(" ","");
     
             vData.push([
                 row[Fheaders[0]],  //Character
@@ -867,7 +871,7 @@ function createTable(data){
                 row[Fheaders[9]],  //Block
                 row[Fheaders[10]], //Hit
                 row[Fheaders[11]], //Counter Hit
-                row[Fheaders[12]], //Guard Burst
+                GuardBurst, //Guard Burst
                 Notes,             //"Notes"
             ]);
         });
@@ -1150,7 +1154,7 @@ $(document).ready(function() {
     //console.log(`Starting: ${performance.now() - StartTime} milliseconds.`);
 
     //Version checker very primitive but works
-    version = "0.15"
+    version = "0.16"
     if(!localStorage.hasOwnProperty("version")){
         localStorage.setItem("version", version);
     } else {
