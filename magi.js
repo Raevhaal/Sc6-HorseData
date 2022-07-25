@@ -810,6 +810,7 @@ function downloadFrameData(){
 
 }
 
+//Clears 
 function clearCache(){
     localStorage.clear("vData");
 }
@@ -1154,7 +1155,7 @@ $(document).ready(function() {
     //console.log(`Starting: ${performance.now() - StartTime} milliseconds.`);
 
     //Version checker very primitive but works
-    version = "0.16"
+    version = "0.17"
     if(!localStorage.hasOwnProperty("version")){
         localStorage.setItem("version", version);
     } else {
