@@ -725,15 +725,12 @@ class searchFilters{
         //Use all stances if no character is set
         if(this.characterFilter.length == 0){
             stances = Object.keys(stancesCaseTranslator);
-            console.log(stances)
         } else {
             for (let index = 0; index < this.characterFilter.length; index++) {
                 stances = stances.concat(charStances[this.characterFilter[index]])
             }
             stances = Array.from(new Set(stances));
-
         }
-        console.log(stances);
 
        
 
