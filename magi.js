@@ -1161,7 +1161,6 @@ var NotesIcons = [
 // #endregion
 
 
-
 //#region Settings
 class Settings {
 
@@ -1170,6 +1169,9 @@ class Settings {
         "StanceSelector": true,
         "StanceAND": true,
         "Entries": 300,
+        "ColumnVisablity": [
+            true, false, false, true, true, true, true, false, true, true, true, true, true, true
+        ]
     };
 
     //Settings variable where everything is stored
@@ -1188,7 +1190,8 @@ class Settings {
     resetSettings(){
         this.settings = this.defaultSettings;
         this.saveSettings();
-        this.udpateSettingsDisplay();
+        this.updateSettingsDisplay();
+        this.applySettings();
     }
 
     loadSettings(){
@@ -1215,12 +1218,12 @@ class Settings {
             this.saveSettings();
         }
 
-        this.udpateSettingsDisplay();
+        this.updateSettingsDisplay();
         //this.applySettings();
     }
 
     // Update to use new generalization thing ma ef sduighswiu iqeur hgåoi 
-    udpateSettingsDisplay(){
+    updateSettingsDisplay(){
         //Checkboxes
         for (const [key, value] of Object.entries(this.settings)) {
             //Checkbox
@@ -1250,6 +1253,32 @@ var UserSettings = new Settings();
 UserSettings.loadSettings();
 UserSettings.applySettings();
 
+$("#resetSettingsBT").on("click", function(){
+    UserSettings.resetSettings();
+
+
+    toastr.success("Success","Settings reset", {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-left",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "3000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+      });
+
+      //To reload columns
+      location.reload();
+});
+
 //#region Handles dom settings page
 $("#settingsModal .modal-body input").change(function(event){
     UserSettings.set(
@@ -1263,6 +1292,8 @@ $("#settingsModal .modal-body select").change(function(event){
         this.value
     );
 });
+
+
 //#endregion
 
 //#endregion
@@ -1494,20 +1525,20 @@ function createTable(data){
         //colReorder: { realtime: false },
 
         columnDefs: [ 
-            {targets: 0, visible: true, type:"string", className: "text-capitalize", "orderable": true}//Character
-            ,{targets: 1, visible: false, type:"string", "orderable": true}//Move category
-            ,{targets: 2, visible: false, type:"string", "orderable": true}//Move Name
-            ,{targets: 3, visible: true, type:"string", className: "dt-body-right", "orderable": true}//Stance allign text right
-            ,{targets: 4, visible: true, type:"html", width: "10%", "orderable": true}//Command
-            ,{targets: 5, visible: true, type:"html", "orderable": true}//Hitlevel
-            ,{targets: 6, visible: true, type:"num", "orderable": true}//impact
-            ,{targets: 7, visible: false, type:"string", "orderable": false}//Damage 
-            ,{targets: 8, visible: true, type:"num", "orderable": true}//Sum damage
-            ,{targets: 9, visible: true, type:"num", "orderable": false}//"Block"
-            ,{targets: 10, visible: true, type:"num", "orderable": false}//"Hit"
-            ,{targets: 11, visible: true, type:"num", "orderable": false}//"Counter
-            ,{targets: 12, visible: true, type:"num", "orderable": true}//"Guard Burst
-            ,{targets: 13, visible: true, type:"html"}//Notes
+             { targets: 0, visible: UserSettings.settings["ColumnVisablity"][0], type:"string", className: "text-capitalize", "orderable": true}//Character
+            ,{ targets: 1, visible: UserSettings.settings["ColumnVisablity"][1], type:"string", "orderable": true}//Move category
+            ,{ targets: 2, visible: UserSettings.settings["ColumnVisablity"][2], type:"string", "orderable": true}//Move Name
+            ,{ targets: 3, visible: UserSettings.settings["ColumnVisablity"][3], type:"string", className: "dt-body-right", "orderable": true}//Stance allign text right
+            ,{ targets: 4, visible: UserSettings.settings["ColumnVisablity"][4], type:"html", width: "10%", "orderable": true}//Command
+            ,{ targets: 5, visible: UserSettings.settings["ColumnVisablity"][5], type:"html", width: "7%", "orderable": true}//Hitlevel
+            ,{ targets: 6, visible: UserSettings.settings["ColumnVisablity"][6], type:"num", "orderable": true}//impact
+            ,{ targets: 7, visible: UserSettings.settings["ColumnVisablity"][7], type:"string", "orderable": false}//Damage 
+            ,{ targets: 8, visible: UserSettings.settings["ColumnVisablity"][8], type:"num", "orderable": true}//Sum damage
+            ,{ targets: 9, visible: UserSettings.settings["ColumnVisablity"][9], type:"num", "orderable": false}//"Block"
+            ,{targets: 10, visible: UserSettings.settings["ColumnVisablity"][10], type:"num", "orderable": false}//"Hit"
+            ,{targets: 11, visible: UserSettings.settings["ColumnVisablity"][11], type:"num", "orderable": false}//"Counter
+            ,{targets: 12, visible: UserSettings.settings["ColumnVisablity"][12], type:"num", "orderable": true}//"Guard Burst
+            ,{targets: 13, visible: UserSettings.settings["ColumnVisablity"][13], type:"html"}//Notes
         ],
         
         searchCols: [
@@ -1785,23 +1816,7 @@ $(document).ready(function() {
         }
     });
 
-    //tab open 
-    // document.onkeydown = function(evt) {
-    //     evt = evt || window.event;
-    //     if (
-    //         evt.key == "Tab"
-    //         && !$("#commandSearchModal").data('bs.modal')?._isShown
-    //         && !$("#settingsModal").data('bs.modal')?._isShown
-    //     ) {
-    //         console.log("iran");
-    //         $("#commandSearchModal").modal("show");
-    //     }
-    // };
     //#endregion
-
-    //#endregion
-
-
 
     //Determine if data is already downloaded
     if (localStorage.hasOwnProperty("vData")) {
@@ -1811,4 +1826,9 @@ $(document).ready(function() {
     }
       
     
+});
+
+
+$('#fdata').on( 'column-visibility.dt', function ( e, settings, column, state ) {
+    UserSettings.set("ColumnVisablity", Dtable.columns().visible().toArray());
 });
