@@ -1020,12 +1020,12 @@ var Icons = {
     ":(A)+(B)+(K):": '<div class="user-select-all d-inline"><p class="superHidden">(A+B+K)</p><img class="X" src="Icons/ABK-.png"></img></div>',
 
     //Height
-    ":H:":  '<div class="user-select-all d-inline"><p class="superHidden">:H:</p><img class="X" src="Icons/H.png" ></img></div>',
-    ":M:":  '<div class="user-select-all d-inline"><p class="superHidden">:M:</p><img class="X" src="Icons/M.png" ></img></div>',
-    ":L:":  '<div class="user-select-all d-inline"><p class="superHidden">:L:</p><img class="X" src="Icons/L.png" ></img></div>',
-    ":SH:": '<div class="user-select-all d-inline"><p class="superHidden">:SH:</p><img class="X" src="Icons/SH.png" ></img></div>',
-    ":SM:": '<div class="user-select-all d-inline"><p class="superHidden">:SM:</p><img class="X" src="Icons/SM.png" ></img></div>', 
-    ":SL:": '<div class="user-select-all d-inline"><p class="superHidden">:SL:</p><img class="X" src="Icons/SL.png" ></img></div>',
+    ":H:":  '<div class="user-select-all d-inline"><p class="superHidden">H</p><img class="X" src="Icons/H.png" ></img></div>',
+    ":M:":  '<div class="user-select-all d-inline"><p class="superHidden">M</p><img class="X" src="Icons/M.png" ></img></div>',
+    ":L:":  '<div class="user-select-all d-inline"><p class="superHidden">L</p><img class="X" src="Icons/L.png" ></img></div>',
+    ":SH:": '<div class="user-select-all d-inline"><p class="superHidden">SH</p><img class="X" src="Icons/SH.png" ></img></div>',
+    ":SM:": '<div class="user-select-all d-inline"><p class="superHidden">SM</p><img class="X" src="Icons/SM.png" ></img></div>', 
+    ":SL:": '<div class="user-select-all d-inline"><p class="superHidden">SL</p><img class="X" src="Icons/SL.png" ></img></div>',
 
     //Misc
     ":a+b:": '<div class="user-select-all d-inline"><p class="superHidden">a+b</p><img class="X" src="Icons/AB.png" ></img></div>',
@@ -1253,6 +1253,7 @@ var UserSettings = new Settings();
 UserSettings.loadSettings();
 UserSettings.applySettings();
 
+//Reset settings
 $("#resetSettingsBT").on("click", function(){
     UserSettings.resetSettings();
 
@@ -1667,7 +1668,7 @@ $(document).ready(function() {
     //console.log(`Starting: ${performance.now() - StartTime} milliseconds.`);
 
     //Version checker very primitive but works
-    version = "0.17"
+    version = "0.18"
     if(!localStorage.hasOwnProperty("version")){
         localStorage.setItem("version", version);
     } else {
