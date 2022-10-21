@@ -1351,7 +1351,20 @@ function createTable(data){
                 Command = Command.replaceAll(CommandIcons[index][0], CommandIcons[index][1]);
             }
             Command = Command.replaceAll("_", '<img class="X" src="Icons/underscore.png"</img>');
-    
+
+            
+            // START WORK HERE NEXT TIME --------------------
+            //Block
+            var Block = row[Fheaders[9]];
+            if(isNaN(Block)){
+                console.log(row[Fheaders[2]]);
+                Block = {
+                    "display": Block
+                    ,"@data-order": null
+                    //,"@data-search": null
+                }
+            }
+            
     
             //Hit level
             var hitLevel = row[Fheaders[5]];
@@ -1382,13 +1395,14 @@ function createTable(data){
                 row[Fheaders[6]],  //Impact
                 row[Fheaders[7]],  //Damage
                 sumDamage,         //Sum(Damage)
-                row[Fheaders[9]],  //Block
+                Block,             //Block
                 row[Fheaders[10]], //Hit
                 row[Fheaders[11]], //Counter Hit
                 GuardBurst, //Guard Burst
                 Notes,             //"Notes"
             ]);
         });
+        console.log(vData);
         
         //Save to cache
         localStorage.setItem("vData", JSON.stringify(vData));
@@ -1535,7 +1549,7 @@ function createTable(data){
             ,{ targets: 6, visible: UserSettings.settings["ColumnVisablity"][6], type:"num", "orderable": true}//impact
             ,{ targets: 7, visible: UserSettings.settings["ColumnVisablity"][7], type:"string", "orderable": false}//Damage 
             ,{ targets: 8, visible: UserSettings.settings["ColumnVisablity"][8], type:"num", "orderable": true}//Sum damage
-            ,{ targets: 9, visible: UserSettings.settings["ColumnVisablity"][9], type:"num", "orderable": false}//"Block"
+            ,{ targets: 9, visible: UserSettings.settings["ColumnVisablity"][9], type:"num", "orderable": true}//"Block"
             ,{targets: 10, visible: UserSettings.settings["ColumnVisablity"][10], type:"num", "orderable": false}//"Hit"
             ,{targets: 11, visible: UserSettings.settings["ColumnVisablity"][11], type:"num", "orderable": false}//"Counter
             ,{targets: 12, visible: UserSettings.settings["ColumnVisablity"][12], type:"num", "orderable": true}//"Guard Burst
@@ -1669,6 +1683,7 @@ $(document).ready(function() {
 
     //Version checker very primitive but works
     version = "0.18"
+    clearCache();//REMOVE THIS BEFORE PUBLISH PLEASE----------------------------------------------------------------????????????????????????
     if(!localStorage.hasOwnProperty("version")){
         localStorage.setItem("version", version);
     } else {

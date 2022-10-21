@@ -5,8 +5,6 @@ Restrict dropdown to only show character
 
 If only one character filtered
     favicon?
-    remove character column???
-        Setting???
 
 Auto stance only at start of input
 
@@ -16,8 +14,6 @@ Clear filter button???
 
 ---IDEAS probably never
     gamepad input??
-
-    clear filter should clear fields in modal???
 
     Remake icons in svg format for better scaling 
         icon scaling on zoom?
