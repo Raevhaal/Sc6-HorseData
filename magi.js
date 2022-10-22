@@ -1704,7 +1704,7 @@ $(document).ready(function() {
     //console.log(`Starting: ${performance.now() - StartTime} milliseconds.`);
 
     //Version checker very primitive but works
-    version = "0.18"
+    version = "0.19"
     if(!localStorage.hasOwnProperty("version")){
         localStorage.setItem("version", version);
     } else {
