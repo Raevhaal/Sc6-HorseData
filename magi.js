@@ -1567,7 +1567,7 @@ function createTable(data){
             ,{ targets: 2, visible: UserSettings.settings["ColumnVisablity"][2], type:"string", "orderable": true}//Move Name
             ,{ targets: 3, visible: UserSettings.settings["ColumnVisablity"][3], type:"string", className: "dt-body-right", "orderable": true}//Stance allign text right
             ,{ targets: 4, visible: UserSettings.settings["ColumnVisablity"][4], type:"html", width: "10%", "orderable": true}//Command
-            ,{ targets: 5, visible: UserSettings.settings["ColumnVisablity"][5], type:"html", width: "7%", "orderable": true}//Hitlevel
+            ,{ targets: 5, visible: UserSettings.settings["ColumnVisablity"][5], type:"html", width: "10%", "orderable": true}//Hitlevel
             ,{ targets: 6, visible: UserSettings.settings["ColumnVisablity"][6], type:"num", "orderable": true}//impact
             ,{ targets: 7, visible: UserSettings.settings["ColumnVisablity"][7], type:"string", "orderable": false}//Damage 
             ,{ targets: 8, visible: UserSettings.settings["ColumnVisablity"][8], type:"num", "orderable": true}//Sum damage
