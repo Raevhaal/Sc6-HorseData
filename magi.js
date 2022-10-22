@@ -772,7 +772,7 @@ class searchFilters{
         //#endregion
 
         //Overwrite userinput with stances removed
-        $("#commandInput").val(vFilter);
+        $("#commandInput").val(vFilter.trim());
         //#endregion
 
 
@@ -930,105 +930,123 @@ var Icons = {
     // .Z{width: 28px;height: 20px;}
 
     //Notes
-    ":TH:": '<div class="user-select-all d-inline"><p class="superHidden">:TH:</p><img class="X" src="Icons/TH.png"></img></div>',
-    ":BA:": '<div class="user-select-all d-inline"><p class="superHidden">:BA:</p><img class="X" src="Icons/BA.png"></img></div>',
-    ":GI:": '<div class="user-select-all d-inline"><p class="superHidden">:GI:</p><img class="X" src="Icons/GI.png"></img></div>',
-    ":SS:": '<div class="user-select-all d-inline"><p class="superHidden">:SS:</p><img class="X" src="Icons/SS.png"></img></div>',
-    ":UA:": '<div class="user-select-all d-inline"><p class="superHidden">:UA:</p><img class="X" src="Icons/UA.png"></img></div>',
-    ":LH:": '<div class="user-select-all d-inline"><p class="superHidden">:LH:</p><img class="X" src="Icons/LH.png"></img></div>',
-    ":RE:": '<div class="user-select-all d-inline"><p class="superHidden">:RE:</p><img class="X" src="Icons/RE.png"></img></div>',
-    ":GC:": '<div class="user-select-all d-inline"><p class="superHidden">:GC:</p><img class="X" src="Icons/GC.png"></img></div>',
-    ":AT:": '<div class="user-select-all d-inline"><p class="superHidden">:AT:</p><img class="X" src="Icons/AT.png"></img></div>',
-    ":CE:": '<div class="user-select-all d-inline"><p class="superHidden">:CE:</p><img class="X" src="Icons/CE.png"></img></div>',
-    ":SC:": '<div class="user-select-all d-inline"><p class="superHidden">:SC:</p><img class="X" src="Icons/SC.png"></img></div>',
-    //":TS:": '<img width="40" height="20" src="Icons/TS.png"></img>',
+    ":TH:": '<div class="user-select-all d-inline"><p class="superHidden">:TH:</p><img class="X" src="SvgIco/TH.svg" /></div>',
+    ":BA:": '<div class="user-select-all d-inline"><p class="superHidden">:BA:</p><img class="X" src="SvgIco/BA.svg" /></div>',
+    ":GI:": '<div class="user-select-all d-inline"><p class="superHidden">:GI:</p><img class="X" src="SvgIco/GI.svg" /></div>',
+    ":SS:": '<div class="user-select-all d-inline"><p class="superHidden">:SS:</p><img class="X" src="SvgIco/SS.svg" /></div>',
+    ":UA:": '<div class="user-select-all d-inline"><p class="superHidden">:UA:</p><img class="X" src="SvgIco/UA.svg" /></div>',
+    ":LH:": '<div class="user-select-all d-inline"><p class="superHidden">:LH:</p><img class="X" src="SvgIco/LH.svg" /></div>',
+    ":RE:": '<div class="user-select-all d-inline"><p class="superHidden">:RE:</p><img class="X" src="SvgIco/RE.svg" /></div>',
+    ":GC:": '<div class="user-select-all d-inline"><p class="superHidden">:GC:</p><img class="X" src="SvgIco/GC.svg" /></div>',
+    ":AT:": '<div class="user-select-all d-inline"><p class="superHidden">:AT:</p><img class="X" src="SvgIco/AT.svg" /></div>',
+    ":CE:": '<div class="user-select-all d-inline"><p class="superHidden">:CE:</p><img class="X" src="SvgIco/CE.svg" /></div>',
+    ":SC:": '<div class="user-select-all d-inline"><p class="superHidden">:SC:</p><img class="X" src="SvgIco/SC.svg" /></div>',
+    //":TS:": '<img width="40" height="20" src="SvgIco/TS.svg">',
+    
+    //Slide combo buttons 
+    ":a::A:": '<div class="user-select-all d-inline"><p class="superHidden">aA</p><img class="X" src="SvgIco/SLD/AA.svg" /></div>',
+    ":a::B:": '<div class="user-select-all d-inline"><p class="superHidden">aB</p><img class="X" src="SvgIco/SLD/AB.svg" ></div>',
+    ":a::K:": '<div class="user-select-all d-inline"><p class="superHidden">aK</p><img class="X" src="SvgIco/SLD/AK.svg" /></div>',
+    ":a::G:": '<div class="user-select-all d-inline"><p class="superHidden">aG</p><img class="X" src="SvgIco/SLD/AG.svg" /></div>',
+    ":b::A:": '<div class="user-select-all d-inline"><p class="superHidden">bA</p><img class="X" src="SvgIco/SLD/BA.svg" /></div>',
+    ":b::B:": '<div class="user-select-all d-inline"><p class="superHidden">bB</p><img class="X" src="SvgIco/SLD/BB.svg" /></div>',
+    ":b::K:": '<div class="user-select-all d-inline"><p class="superHidden">bK</p><img class="X" src="SvgIco/SLD/BK.svg" /></div>',
+    ":b::G:": '<div class="user-select-all d-inline"><p class="superHidden">bG</p><img class="X" src="SvgIco/SLD/BG.svg" /></div>',
+    ":k::A:": '<div class="user-select-all d-inline"><p class="superHidden">kA</p><img class="X" src="SvgIco/SLD/KA.svg" /></div>',
+    ":k::B:": '<div class="user-select-all d-inline"><p class="superHidden">kB</p><img class="X" src="SvgIco/SLD/KB.svg" /></div>',
+    ":k::K:": '<div class="user-select-all d-inline"><p class="superHidden">kK</p><img class="X" src="SvgIco/SLD/KK.svg" /></div>',
+    ":k::G:": '<div class="user-select-all d-inline"><p class="superHidden">kG</p><img class="X" src="SvgIco/SLD/KG.svg" /></div>',
+    ":g::A:": '<div class="user-select-all d-inline"><p class="superHidden">gA</p><img class="X" src="SvgIco/SLD/GA.svg" /></div>',
+    ":g::B:": '<div class="user-select-all d-inline"><p class="superHidden">gB</p><img class="X" src="SvgIco/SLD/GB.svg" /></div>',
+    ":g::K:": '<div class="user-select-all d-inline"><p class="superHidden">gK</p><img class="X" src="SvgIco/SLD/GK.svg" /></div>',
+    ":g::G:": '<div class="user-select-all d-inline"><p class="superHidden">gG</p><img class="X" src="SvgIco/SLD/GG.svg" /></div>',
 
-    //Slide combo buttons
-    ":a::A:": '<div class="user-select-all d-inline"><p class="superHidden">aA</p><img class="X" src="Icons/A-A.png"></img></div>',
-    ":a::B:": '<div class="user-select-all d-inline"><p class="superHidden">aB</p><img class="X" src="Icons/A-B.png"></img></div>',
-    ":a::K:": '<div class="user-select-all d-inline"><p class="superHidden">aK</p><img class="X" src="Icons/A-K.png"></img></div>',
-    ":a::G:": '<div class="user-select-all d-inline"><p class="superHidden">aG</p><img class="X" src="Icons/A-G.png"></img></div>',
-    ":b::A:": '<div class="user-select-all d-inline"><p class="superHidden">bA</p><img class="X" src="Icons/B-A.png"></img></div>',
-    ":b::B:": '<div class="user-select-all d-inline"><p class="superHidden">bB</p><img class="X" src="Icons/B-B.png"></img></div>',
-    ":b::K:": '<div class="user-select-all d-inline"><p class="superHidden">bK</p><img class="X" src="Icons/B-K.png"></img></div>',
-    ":b::G:": '<div class="user-select-all d-inline"><p class="superHidden">bG</p><img class="X" src="Icons/B-G.png"></img></div>',
-    ":k::A:": '<div class="user-select-all d-inline"><p class="superHidden">kA</p><img class="X" src="Icons/K-A.png"></img></div>',
-    ":k::B:": '<div class="user-select-all d-inline"><p class="superHidden">kB</p><img class="X" src="Icons/K-B.png"></img></div>',
-    ":k::K:": '<div class="user-select-all d-inline"><p class="superHidden">kK</p><img class="X" src="Icons/K-K.png"></img></div>',
-    ":k::G:": '<div class="user-select-all d-inline"><p class="superHidden">kG</p><img class="X" src="Icons/K-G.png"></img></div>',
-    ":g::A:": '<div class="user-select-all d-inline"><p class="superHidden">gA</p><img class="X" src="Icons/G-A.png"></img></div>',
-    ":g::B:": '<div class="user-select-all d-inline"><p class="superHidden">gB</p><img class="X" src="Icons/G-B.png"></img></div>',
-    ":g::K:": '<div class="user-select-all d-inline"><p class="superHidden">gK</p><img class="X" src="Icons/G-K.png"></img></div>',
-    ":g::G:": '<div class="user-select-all d-inline"><p class="superHidden">gG</p><img class="X" src="Icons/G-G.png"></img></div>',
+    //Slide into hold
+    ":a::(A):": '<div class="user-select-all d-inline"><p class="superHidden">a(A)</p><img class="X" src="SvgIco/SLD/AA-.svg" /></div>',
+    ":a::(B):": '<div class="user-select-all d-inline"><p class="superHidden">a(B)</p><img class="X" src="SvgIco/SLD/AB-.svg" /></div>',
+    ":a::(K):": '<div class="user-select-all d-inline"><p class="superHidden">a(K)</p><img class="X" src="SvgIco/SLD/AK-.svg" /></div>',
+    ":a::(G):": '<div class="user-select-all d-inline"><p class="superHidden">a(G)</p><img class="X" src="SvgIco/SLD/AG-.svg" /></div>',
+    ":b::(A):": '<div class="user-select-all d-inline"><p class="superHidden">b(A)</p><img class="X" src="SvgIco/SLD/BA-.svg" /></div>',
+    ":b::(B):": '<div class="user-select-all d-inline"><p class="superHidden">b(B)</p><img class="X" src="SvgIco/SLD/BB-.svg" /></div>',
+    ":b::(K):": '<div class="user-select-all d-inline"><p class="superHidden">b(K)</p><img class="X" src="SvgIco/SLD/BK-.svg" /></div>',
+    ":b::(G):": '<div class="user-select-all d-inline"><p class="superHidden">b(G)</p><img class="X" src="SvgIco/SLD/BG-.svg" /></div>',
+    ":k::(A):": '<div class="user-select-all d-inline"><p class="superHidden">k(A)</p><img class="X" src="SvgIco/SLD/KA-.svg" /></div>',
+    ":k::(B):": '<div class="user-select-all d-inline"><p class="superHidden">k(B)</p><img class="X" src="SvgIco/SLD/KB-.svg" /></div>',
+    ":k::(K):": '<div class="user-select-all d-inline"><p class="superHidden">k(K)</p><img class="X" src="SvgIco/SLD/KK-.svg" /></div>',
+    ":k::(G):": '<div class="user-select-all d-inline"><p class="superHidden">k(G)</p><img class="X" src="SvgIco/SLD/KG-.svg" /></div>',
+    ":g::(A):": '<div class="user-select-all d-inline"><p class="superHidden">g(A)</p><img class="X" src="SvgIco/SLD/GA-.svg" /></div>',
+    ":g::(B):": '<div class="user-select-all d-inline"><p class="superHidden">g(B)</p><img class="X" src="SvgIco/SLD/GB-.svg" /></div>',
+    ":g::(K):": '<div class="user-select-all d-inline"><p class="superHidden">g(K)</p><img class="X" src="SvgIco/SLD/GK-.svg" /></div>',
+    ":g::(G):": '<div class="user-select-all d-inline"><p class="superHidden">g(G)</p><img class="X" src="SvgIco/SLD/GG-.svg" /></div>',
     
     //Directions
-    ":9:": '<div class="user-select-all d-inline"><p class="superHidden">9</p><img class="X" src="Icons/9.png" ></img></div>',
-    ":8:": '<div class="user-select-all d-inline"><p class="superHidden">8</p><img class="X" src="Icons/8.png" ></img></div>',
-    ":7:": '<div class="user-select-all d-inline"><p class="superHidden">7</p><img class="X" src="Icons/7.png" ></img></div>',
-    ":6:": '<div class="user-select-all d-inline"><p class="superHidden">6</p><img class="X" src="Icons/6.png" ></img></div>',
-    ":5:": '<div class="user-select-all d-inline"><p class="superHidden">5</p><img class="X" src="Icons/5.png" ></img></div>',
-    ":4:": '<div class="user-select-all d-inline"><p class="superHidden">4</p><img class="X" src="Icons/4.png" ></img></div>',
-    ":3:": '<div class="user-select-all d-inline"><p class="superHidden">3</p><img class="X" src="Icons/3.png" ></img></div>',
-    ":2:": '<div class="user-select-all d-inline"><p class="superHidden">2</p><img class="X" src="Icons/2.png" ></img></div>',
-    ":1:": '<div class="user-select-all d-inline"><p class="superHidden">1</p><img class="X" src="Icons/1.png" ></img></div>',
-
+    ":9:": '<div class="user-select-all d-inline"><p class="superHidden">9</p><img class="X" src="SvgIco/9.svg" /></div>',
+    ":8:": '<div class="user-select-all d-inline"><p class="superHidden">8</p><img class="X" src="SvgIco/8.svg" /></div>',
+    ":7:": '<div class="user-select-all d-inline"><p class="superHidden">7</p><img class="X" src="SvgIco/7.svg" /></div>',
+    ":6:": '<div class="user-select-all d-inline"><p class="superHidden">6</p><img class="X" src="SvgIco/6.svg" /></div>',
+    ":5:": '<div class="user-select-all d-inline"><p class="superHidden">5</p><img class="X" src="SvgIco/5.svg" /></div>',
+    ":4:": '<div class="user-select-all d-inline"><p class="superHidden">4</p><img class="X" src="SvgIco/4.svg" /></div>',
+    ":3:": '<div class="user-select-all d-inline"><p class="superHidden">3</p><img class="X" src="SvgIco/3.svg" /></div>',
+    ":2:": '<div class="user-select-all d-inline"><p class="superHidden">2</p><img class="X" src="SvgIco/2.svg" /></div>',
+    ":1:": '<div class="user-select-all d-inline"><p class="superHidden">1</p><img class="X" src="SvgIco/1.svg" /></div>',
+    
     //Directions held
-    ":(9):": '<div class="user-select-all d-inline"><p class="superHidden">(9)</p><img class="X" src="Icons/9-.png" ></img></div>',
-    ":(8):": '<div class="user-select-all d-inline"><p class="superHidden">(8)</p><img class="X" src="Icons/8-.png" ></img></div>',
-    ":(7):": '<div class="user-select-all d-inline"><p class="superHidden">(7)</p><img class="X" src="Icons/7-.png" ></img></div>',
-    ":(6):": '<div class="user-select-all d-inline"><p class="superHidden">(6)</p><img class="X" src="Icons/6-.png" ></img></div>',
-    ":(4):": '<div class="user-select-all d-inline"><p class="superHidden">(4)</p><img class="X" src="Icons/4-.png" ></img></div>',
-    ":(3):": '<div class="user-select-all d-inline"><p class="superHidden">(3)</p><img class="X" src="Icons/3-.png" ></img></div>',
-    ":(2):": '<div class="user-select-all d-inline"><p class="superHidden">(2)</p><img class="X" src="Icons/2-.png" ></img></div>',
-    ":(1):": '<div class="user-select-all d-inline"><p class="superHidden">(1)</p><img class="X" src="Icons/1-.png" ></img></div>',
-
+    ":(9):": '<div class="user-select-all d-inline"><p class="superHidden">(9)</p><img class="X" src="SvgIco/9-.svg" /></div>',
+    ":(8):": '<div class="user-select-all d-inline"><p class="superHidden">(8)</p><img class="X" src="SvgIco/8-.svg" /></div>',
+    ":(7):": '<div class="user-select-all d-inline"><p class="superHidden">(7)</p><img class="X" src="SvgIco/7-.svg" /></div>',
+    ":(6):": '<div class="user-select-all d-inline"><p class="superHidden">(6)</p><img class="X" src="SvgIco/6-.svg" /></div>',
+    ":(4):": '<div class="user-select-all d-inline"><p class="superHidden">(4)</p><img class="X" src="SvgIco/4-.svg" /></div>',
+    ":(3):": '<div class="user-select-all d-inline"><p class="superHidden">(3)</p><img class="X" src="SvgIco/3-.svg" /></div>',
+    ":(2):": '<div class="user-select-all d-inline"><p class="superHidden">(2)</p><img class="X" src="SvgIco/2-.svg" /></div>',
+    ":(1):": '<div class="user-select-all d-inline"><p class="superHidden">(1)</p><img class="X" src="SvgIco/1-.svg" /></div>',
+    
     //Held buttons
-    ":(G):": '<div class="user-select-all d-inline"><p class="superHidden">(G)</p><img class="X" src="Icons/G-.png"></img></div>',
-    ":(A):": '<div class="user-select-all d-inline"><p class="superHidden">(A)</p><img class="X" src="Icons/A-.png"></img></div>',
-    ":(B):": '<div class="user-select-all d-inline"><p class="superHidden">(B)</p><img class="X" src="Icons/B-.png"></img></div>',
-    ":(K):": '<div class="user-select-all d-inline"><p class="superHidden">(K)</p><img class="X" src="Icons/K-.png"></img></div>',
-
+    ":(G):": '<div class="user-select-all d-inline"><p class="superHidden">(G)</p><img class="X" src="SvgIco/G-.svg" /></div>',
+    ":(A):": '<div class="user-select-all d-inline"><p class="superHidden">(A)</p><img class="X" src="SvgIco/A-.svg" /></div>',
+    ":(B):": '<div class="user-select-all d-inline"><p class="superHidden">(B)</p><img class="X" src="SvgIco/B-.svg" /></div>',
+    ":(K):": '<div class="user-select-all d-inline"><p class="superHidden">(K)</p><img class="X" src="SvgIco/K-.svg" /></div>',
+    
     //Buttons
-    ":G:": '<div class="user-select-all d-inline"><p class="superHidden">G</p><img class="X" src="Icons/G.png"></img></div>',
-    ":A:": '<div class="user-select-all d-inline"><p class="superHidden">A</p><img class="X" src="Icons/A.png"></img></div>',
-    ":B:": '<div class="user-select-all d-inline"><p class="superHidden">B</p><img class="X" src="Icons/B.png"></img></div>',
-    ":K:": '<div class="user-select-all d-inline"><p class="superHidden">K</p><img class="X" src="Icons/K.png"></img></div>',
-
+    ":G:": '<div class="user-select-all d-inline"><p class="superHidden">G</p><img class="X" src="SvgIco/G.svg" /></div>',
+    ":A:": '<div class="user-select-all d-inline"><p class="superHidden">A</p><img class="X" src="SvgIco/A.svg" /></div>',
+    ":B:": '<div class="user-select-all d-inline"><p class="superHidden">B</p><img class="X" src="SvgIco/B.svg" /></div>',
+    ":K:": '<div class="user-select-all d-inline"><p class="superHidden">K</p><img class="X" src="SvgIco/K.svg" /></div>',
+    
     //Slide buttons
-    ":g:": '<div class="user-select-all d-inline"><p class="superHidden">g</p><img class="X" src="Icons/Gs.png"></img></div>',
-    ":a:": '<div class="user-select-all d-inline"><p class="superHidden">a</p><img class="X" src="Icons/As.png"></img></div>',
-    ":b:": '<div class="user-select-all d-inline"><p class="superHidden">b</p><img class="X" src="Icons/Bs.png"></img></div>',
-    ":k:": '<div class="user-select-all d-inline"><p class="superHidden">k</p><img class="X" src="Icons/Ks.png"></img></div>',
-
+    ":g:": '<div class="user-select-all d-inline"><p class="superHidden">g</p><img class="X" src="SvgIco/SLD/G.svg" /></div>',
+    ":a:": '<div class="user-select-all d-inline"><p class="superHidden">a</p><img class="X" src="SvgIco/SLD/A.svg" /></div>',
+    ":b:": '<div class="user-select-all d-inline"><p class="superHidden">b</p><img class="X" src="SvgIco/SLD/B.svg" /></div>',
+    ":k:": '<div class="user-select-all d-inline"><p class="superHidden">k</p><img class="X" src="SvgIco/SLD/K.svg" /></div>',
+    
     //Held combo buttons
-    ":(A)+(K):": '<div class="user-select-all d-inline"><p class="superHidden">(A)+(K)</p><img class="X" src="Icons/AK-.png"></img></div>',
-    ":(A)+(B):": '<div class="user-select-all d-inline"><p class="superHidden">(A)+(B)</p><img class="X" src="Icons/AB-.png"></img></div>',
-    ":(K)+(G):": '<div class="user-select-all d-inline"><p class="superHidden">(K)+(H)</p><img class="X" src="Icons/KG-.png"></img></div>',
-    ":(A)+(G):": '<div class="user-select-all d-inline"><p class="superHidden">(A)+(G)</p><img class="X" src="Icons/AG-.png"></img></div>',
-    ":(B)+(K):": '<div class="user-select-all d-inline"><p class="superHidden">(B+K)</p><img class="X" src="Icons/BK-.png"></img></div>',
-    ":(B)+(G):": '<div class="user-select-all d-inline"><p class="superHidden">(B+G)</p><img class="X" src="Icons/BG-.png"></img></div>',
-
+    ":(A)+(K):": '<div class="user-select-all d-inline"><p class="superHidden">(A)+(K)</p><img class="X" src="SvgIco/AK-.svg"/></div>',
+    ":(A)+(B):": '<div class="user-select-all d-inline"><p class="superHidden">(A)+(B)</p><img class="X" src="SvgIco/AB-.svg"/></div>',
+    ":(K)+(G):": '<div class="user-select-all d-inline"><p class="superHidden">(K)+(H)</p><img class="X" src="SvgIco/KG-.svg"/></div>',
+    ":(A)+(G):": '<div class="user-select-all d-inline"><p class="superHidden">(A)+(G)</p><img class="X" src="SvgIco/AG-.svg"/></div>',
+    ":(B)+(K):": '<div class="user-select-all d-inline"><p class="superHidden">(B+K)</p><img class="X" src="SvgIco/BK-.svg"/></div>',
+    ":(B)+(G):": '<div class="user-select-all d-inline"><p class="superHidden">(B+G)</p><img class="X" src="SvgIco/BG-.svg"/></div>',
+    
     //Combo buttons
-    ":A+K:": '<div class="user-select-all d-inline"><img class="X" src="Icons/AK.png"></img><p class="superHidden">A+K</p></div>',
-    ":A+B:": '<div class="user-select-all d-inline"><img class="X" src="Icons/AB.png"></img><p class="superHidden">A+B</p></div>',
-    ":K+G:": '<div class="user-select-all d-inline"><img class="X" src="Icons/KG.png"></img><p class="superHidden">K+G</p></div>',
-    ":A+G:": '<div class="user-select-all d-inline"><img class="X" src="Icons/AG.png"></img><p class="superHidden">A+G</p></div>',
-    ":B+K:": '<div class="user-select-all d-inline"><img class="X" src="Icons/BK.png"></img><p class="superHidden">B+K</p></div>',
-    ":B+G:": '<div class="user-select-all d-inline"><img class="X" src="Icons/BG.png"></img><p class="superHidden">B+G</p></div>',
-
-    ":A+B+K:":       '<div class="user-select-all d-inline"><p class="superHidden">A+B+K</p><img class="X" src= "Icons/ABK.png"></img></div>',
-    ":(A)+(B)+(K):": '<div class="user-select-all d-inline"><p class="superHidden">(A+B+K)</p><img class="X" src="Icons/ABK-.png"></img></div>',
-
+    ":A+K:": '<div class="user-select-all d-inline"><img class="X" src="SvgIco/AK.svg"><p class="superHidden">A+K</p></div>',
+    ":A+B:": '<div class="user-select-all d-inline"><img class="X" src="SvgIco/AB.svg"><p class="superHidden">A+B</p></div>',
+    ":K+G:": '<div class="user-select-all d-inline"><img class="X" src="SvgIco/KG.svg"><p class="superHidden">K+G</p></div>',
+    ":A+G:": '<div class="user-select-all d-inline"><img class="X" src="SvgIco/AG.svg"><p class="superHidden">A+G</p></div>',
+    ":B+K:": '<div class="user-select-all d-inline"><img class="X" src="SvgIco/BK.svg"><p class="superHidden">B+K</p></div>',
+    ":B+G:": '<div class="user-select-all d-inline"><img class="X" src="SvgIco/BG.svg"><p class="superHidden">B+G</p></div>',
+    
+    ":A+B+K:":       '<div class="user-select-all d-inline"><p class="superHidden">A+B+K</p><img class="X" src= "SvgIco/ABK.svg"/></div>',
+    ":(A)+(B)+(K):": '<div class="user-select-all d-inline"><p class="superHidden">(A+B+K)</p><img class="X" src="SvgIco/ABK-.svg"/></div>',
+    
     //Height
-    ":H:":  '<div class="user-select-all d-inline"><p class="superHidden">H</p><img class="X" src="Icons/H.png" ></img></div>',
-    ":M:":  '<div class="user-select-all d-inline"><p class="superHidden">M</p><img class="X" src="Icons/M.png" ></img></div>',
-    ":L:":  '<div class="user-select-all d-inline"><p class="superHidden">L</p><img class="X" src="Icons/L.png" ></img></div>',
-    ":SH:": '<div class="user-select-all d-inline"><p class="superHidden">SH</p><img class="X" src="Icons/SH.png" ></img></div>',
-    ":SM:": '<div class="user-select-all d-inline"><p class="superHidden">SM</p><img class="X" src="Icons/SM.png" ></img></div>', 
-    ":SL:": '<div class="user-select-all d-inline"><p class="superHidden">SL</p><img class="X" src="Icons/SL.png" ></img></div>',
-
+    ":H:":  '<div class="user-select-all d-inline"><p class="superHidden">H</p><img class="X" src="SvgIco/H.svg" /></div>',
+    ":M:":  '<div class="user-select-all d-inline"><p class="superHidden">M</p><img class="X" src="SvgIco/M.svg" /></div>',
+    ":L:":  '<div class="user-select-all d-inline"><p class="superHidden">L</p><img class="X" src="SvgIco/L.svg" /></div>',
+    ":SH:": '<div class="user-select-all d-inline"><p class="superHidden">SH</p><img class="X" src="SvgIco/SH.svg" /></div>',
+    ":SM:": '<div class="user-select-all d-inline"><p class="superHidden">SM</p><img class="X" src="SvgIco/SM.svg" /></div>', 
+    ":SL:": '<div class="user-select-all d-inline"><p class="superHidden">SL</p><img class="X" src="SvgIco/SL.svg" /></div>',
+    
     //Misc
-    ":a+b:": '<div class="user-select-all d-inline"><p class="superHidden">a+b</p><img class="X" src="Icons/AB.png" ></img></div>',
+    ":a+b:": '<div class="user-select-all d-inline"><p class="superHidden">a+b</p><img class="X" src="SvgIco/AB.svg" /></div>',
 };
 
 var CommandIcons = [
@@ -1049,6 +1067,24 @@ var CommandIcons = [
     [":g::B:", Icons[":g::B:"]],
     [":g::K:", Icons[":g::K:"]],
     [":g::G:", Icons[":g::G:"]],
+
+    //Slide into hold input
+    [":a::(A):", Icons[":a::(A):"]],
+    [":a::(B):", Icons[":a::(B):"]],
+    [":a::(K):", Icons[":a::(K):"]],
+    [":a::(G):", Icons[":a::(G):"]],
+    [":b::(A):", Icons[":b::(A):"]],
+    [":b::(B):", Icons[":b::(B):"]],
+    [":b::(K):", Icons[":b::(K):"]],
+    [":b::(G):", Icons[":b::(G):"]],
+    [":k::(A):", Icons[":k::(A):"]],
+    [":k::(B):", Icons[":k::(B):"]],
+    [":k::(K):", Icons[":k::(K):"]],
+    [":k::(G):", Icons[":k::(G):"]],
+    [":g::(A):", Icons[":g::(A):"]],
+    [":g::(B):", Icons[":g::(B):"]],
+    [":g::(K):", Icons[":g::(K):"]],
+    [":g::(G):", Icons[":g::(G):"]],
 
     //B6B missing
 
@@ -1100,16 +1136,16 @@ var CommandIcons = [
 
     [":A+B+K:", Icons[":A+B+K:"]],
     [":(A)+(B)+(K):", Icons[":(A)+(B)+(K):"]],
-    
+
     [":g:", Icons[":g:"]],
     [":a:", Icons[":a:"]],
     [":b:", Icons[":b:"]],
     [":k:", Icons[":k:"]],
 
     //Misc
-    [":(B+K):", '<img width="46" height="20" src="Icons/BK-.png"></img>'],
-    [":a+b:", '<img width="46" height="20" src="Icons/AB.png"></img>'],
-    [":b+k:", '<img width="46" height="20" src="Icons/BK.png"></img>'],
+    [":(B+K):", '<img width="46" height="20" src="Icons/BK-.png">'],
+    [":a+b:", '<img width="46" height="20" src="Icons/AB.png">'],
+    [":b+k:", '<img width="46" height="20" src="Icons/BK.png">'],
 ];
 
 var HeightIcons = [
@@ -1168,7 +1204,7 @@ class Settings {
     defaultSettings = {
         "StanceSelector": true,
         "StanceAND": true,
-        "Entries": 300,
+        "Entries": 30,
         "ColumnVisablity": [
             true, false, false, true, true, true, true, false, true, true, true, true, true, true
         ]
@@ -1315,7 +1351,6 @@ function downloadFrameData(){
         complete: (results) => {
             //Remove data header
             results.data.splice(0,3);
-
             createTable(results.data);
             toastr.clear();
         }
@@ -1350,7 +1385,7 @@ function createTable(data){
             for (let index = 0; index < CommandIcons.length; index++) {
                 Command = Command.replaceAll(CommandIcons[index][0], CommandIcons[index][1]);
             }
-            Command = Command.replaceAll("_", '<img class="X" src="Icons/underscore.png"</img>');
+            Command = Command.replaceAll("_", '<img class="X" src="Icons/underscore.png">');
     
     
             //Hit level
@@ -1513,10 +1548,11 @@ function createTable(data){
         fixedHeader: true,
         deferRender: true,//Performance fix since wokring with lots of data
 
-        pageLength: UserSettings.settings.Entries,//Default record amount
+        pageLength: parseInt(UserSettings.settings.Entries),//Default record amount
         lengthMenu: [//Record amount
-            [10, 15, 20, 30, 40, 50, 100, 150, 300, 500, -1],//Actual value
-            [10, 15, 20, 30, 40, 50, 100, 150, 300, 500, "All"]],//Displayed value
+            [10, 15, 20, 30, 40, 50, 100, 150, 300, 500],//Actual value
+            [10, 15, 20, 30, 40, 50, 100, 150, 300, 500]
+        ],//Displayed value
 
         scrollCollapse: true,
         scrollX: true,
@@ -1831,5 +1867,7 @@ $(document).ready(function() {
 
 
 $('#fdata').on( 'column-visibility.dt', function ( e, settings, column, state ) {
-    UserSettings.set("ColumnVisablity", Dtable.columns().visible().toArray());
+    if(CanRefresh == 1){
+        UserSettings.set("ColumnVisablity", Dtable.columns().visible().toArray());
+    }
 });
