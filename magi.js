@@ -1556,7 +1556,7 @@ function createTable(data){
 
         scrollCollapse: true,
         scrollX: true,
-        scrollY: true,
+        //scrollY: true,
           
         colReorder: false,
         //colReorder: { realtime: false },
