@@ -1901,9 +1901,9 @@ $('#fdata').on( 'column-visibility.dt', function ( e, settings, column, state ) 
 // TODO: Move to another file
 $(document).ready(function() {
     class Graph{
-        vHeaderIndex = 1;
-        vHeaderText = "";
-        vGraphData = [];
+        HeaderIndex = 1;
+        HeaderText = "";
+        GraphData = [];
 
         constructor(pGraphDiv, pGraphSelector, pGraphDataSelector) {
             this.GraphDiv = pGraphDiv;
@@ -1976,7 +1976,7 @@ $(document).ready(function() {
                     }
                 ],
                 title: {
-                    text: `${this.vHeaderText} Graph`
+                    text: `${this.HeaderText} Graph`
                 }
             });
         }   
