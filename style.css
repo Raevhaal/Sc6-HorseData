@@ -196,9 +196,10 @@ table.dataTable thead th.dt-colresizable-bound-max {
 }
 
 
-
 span.select2.select2-container, 
 span.select2.select2-container > span.selection,
 span.select2.select2-container > span.selection > span.select2-selection{
     height: 100% !important;
 }
+
+

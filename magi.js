@@ -15,7 +15,7 @@ const FrameDataCSV = "https://docs.google.com/spreadsheets/d/1R3I_LXfqhvFjlHTuj-
 var Fdata;
 
 //Framedata Datatable refrenece
-var Dtable;
+let Dtable;
 
 //Can refresh
 var CanRefresh = 0;
@@ -1293,7 +1293,6 @@ UserSettings.applySettings();
 $("#resetSettingsBT").on("click", function(){
     UserSettings.resetSettings();
 
-
     toastr.success("Success","Settings reset", {
         "closeButton": true,
         "debug": false,
@@ -1695,6 +1694,11 @@ function applyCmdModalFilter(){
     
     Filters.applyFilter()
 }
+
+function updateCharts(){
+    console.log("TEST ----")
+}
+
 //#endregion
 
 var StartTime;
@@ -1749,6 +1753,14 @@ $(document).ready(function() {
     $("#stanceMultiselector").select2({
         allowClear: true,//Adds clear all button
     });
+
+    $("#graphDataSelector").select2({
+        allowClear: true,//Adds clear all button
+    });
+
+    $("#graphSelector").select2({
+        allowClear: true,//Adds clear all button
+    });
     
     //#endregion
 
@@ -1768,7 +1780,7 @@ $(document).ready(function() {
         }
     });
 
-    //Quick filter section toggle
+    //Search builder section toggle
     $("#searchBuilderBT").on("click", function(){
         if($("#searchBuilder").hasClass("show")){
             $("#searchBuilderIcon").removeClass("fa-angles-down");
@@ -1777,6 +1789,18 @@ $(document).ready(function() {
         } else {
             $("#searchBuilderIcon").removeClass("fa-angles-left");
             $("#searchBuilderIcon").addClass("fa-angles-down");
+        }
+    });
+
+    //Graph section toggle
+    $("#GraphsBT").on("click", function(){
+        if($("#Graphs").hasClass("show")){
+            $("#graphsIcon").removeClass("fa-angles-down");
+            $("#graphsIcon").addClass("fa-angles-left");
+
+        } else {
+            $("#graphsIcon").removeClass("fa-angles-left");
+            $("#graphsIcon").addClass("fa-angles-down");
         }
     });
 
@@ -1816,7 +1840,7 @@ $(document).ready(function() {
                 $(this).addClass("active");
             }
         });
-
+        
         Filters.setCharacterFilter($("#charMultiSelector").val());
         Filters.applyFilter()
     });
@@ -1865,9 +1889,125 @@ $(document).ready(function() {
     
 });
 
-
 $('#fdata').on( 'column-visibility.dt', function ( e, settings, column, state ) {
     if(CanRefresh == 1){
         UserSettings.set("ColumnVisablity", Dtable.columns().visible().toArray());
     }
 });
+
+
+
+// #region Graphs
+// TODO: Move to another file
+$(document).ready(function() {
+    class Graph{
+        vHeaderIndex = 1;
+        vHeaderText = "";
+        vGraphData = [];
+
+        constructor(pGraphDiv, pGraphSelector, pGraphDataSelector) {
+            this.GraphDiv = pGraphDiv;
+            this.GraphSelector = pGraphSelector;
+            this.GraphDataSelector = pGraphDataSelector;
+        }
+
+        getGraphdata(){
+            this.HeaderIndex = $("#graphDataSelector").val();
+            this.HeaderText = $(`#graphDataSelector option[value=${this.vHeaderIndex}]`).html();
+            this.GraphData = Array.from(Dtable.rows( { search: 'applied' } ).data());
+        }
+
+        TreeMap(){
+            let vGraphData = [];
+            let vGraphCounts = {};
+        
+            this.GraphData.forEach((vRow) => {
+                let value = vRow[this.HeaderIndex];
+                if(value != ""){
+                    if(!vGraphCounts[value]){
+                        vGraphCounts[value] = 1;
+                    } else {
+                        vGraphCounts[value] += 1;
+                    }
+                }
+            });
+        
+            const vSorted = Object.entries(vGraphCounts).sort((a, b) => a[1] - b[1]);
+        
+            $.each(vSorted, (pIndex, pRow) => {
+                vGraphData.push(
+                    {
+                        name: pRow[0],
+                        value: pRow[1],
+                        colorValue: pIndex
+                    }
+                );
+            });
+        
+            Highcharts.chart("graphDiv", {
+                type: 'treemap',
+                layoutAlgorithm: 'stripes',
+                alternateStartingDirection: true,
+                levels: [{
+                    level: 1,
+                    layoutAlgorithm: 'sliceAndDice',
+                    dataLabels: {
+                        enabled: true,
+                        align: 'left',
+                        verticalAlign: 'top',
+                        style: {
+                            fontSize: '15px',
+                            fontWeight: 'bold'
+                        }
+                    }
+                }],
+                series: [
+                    {
+                        type: 'treemap',
+                        layoutAlgorithm: 'squarified',
+                        data: vGraphData
+                        // [
+                        //     {
+                        //         name: 'A',
+                        //         value: 6,
+                        //         colorValue: 1
+                        //     },
+                        // ]
+                    }
+                ],
+                title: {
+                    text: `${this.vHeaderText} Graph`
+                }
+            });
+        }   
+        
+        createNewGraph(){
+            this.getGraphdata();
+            switch ($("#graphSelector").val()) {
+                case "Treemap":
+                    this.TreeMap();
+                    break;
+                case "else":
+                
+                    break;
+                default:
+                    console.warn("Ran default route of Graph function");
+                    $("#graphDiv").html("");
+                    break;   
+            }
+        }
+    };
+
+    var gGraph = new Graph(
+        "#graphDiv",
+        "#graphSelector",
+        "#graphDataSelector",
+    );
+
+    $("#updateGraphsBT").on("click", () => {
+        gGraph.createNewGraph();
+    });
+});
+
+
+// #endregion Graphs
