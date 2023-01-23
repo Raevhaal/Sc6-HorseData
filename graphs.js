@@ -117,20 +117,24 @@ $(document).ready(function() {
                         alpha: 45
                     }
                 },
-                title: {
-                    text: `${this.HeaderText} Graph`,
-                    align: 'left'
-                },
+
                 plotOptions: {
                     pie: {
                         innerSize: 100,
                         depth: 45
                     }
                 },
-                series: [{
-                    name: 'Medals',
+
+                series: [
+                    {
+                    name: `${this.HeaderText}`,
                     data: vGraphData
-                }]
+                    }
+                ],
+
+                title: {
+                    text: `${this.HeaderText} Graph`
+                },
             });
         }
         
