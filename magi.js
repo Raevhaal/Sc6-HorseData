@@ -1369,7 +1369,9 @@ function createTable(data){
     var vData;
     if(data === undefined || data === null){
         //Load cached version
-        vData = JSON.parse(localStorage.vData);
+        vData = JSON.parse(
+            LZString.decompress(localStorage.vData)
+        );
     } else {
         vData = [];
 
@@ -1425,7 +1427,8 @@ function createTable(data){
         });
         
         //Save to cache
-        localStorage.setItem("vData", JSON.stringify(vData));
+        localStorage.setItem("vData", LZString.compress(JSON.stringify(vData)));
+        
     }
     //console.log(`Created vData ${performance.now() - StartTime} milliseconds.`);
 
@@ -1708,7 +1711,7 @@ $(document).ready(function() {
     //console.log(`Starting: ${performance.now() - StartTime} milliseconds.`);
 
     //Version checker very primitive but works
-    version = "0.19"
+    version = "0.20"
     if(!localStorage.hasOwnProperty("version")){
         localStorage.setItem("version", version);
     } else {
